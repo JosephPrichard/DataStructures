@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures 
+namespace DataStructures.linear 
 {
     public interface IList<E> : ICollection<E>
     {

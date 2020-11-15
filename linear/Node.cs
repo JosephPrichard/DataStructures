@@ -1,13 +1,13 @@
 ﻿namespace DataStructures.linear
 {
-    public class Node<E>
+    public class Node<T>
     {
-        public Node(E val) {
+        public Node(T val) {
             Val = val;
         }
 
-        public Node<E> Next { set; get; }
+        public Node<T> Next { set; get; }
 
-        public E Val { set; get; }
+        public T Val { set; get; }
     }
 }

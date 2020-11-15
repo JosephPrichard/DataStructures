@@ -37,11 +37,11 @@ namespace DataStructures.linear
         }
 
         public E Peek() {
-            return Head.Val;
+            return this[0];
         }
 
         public E Pop() {
-            var value = Head.Val;
+            var value = this[0];
             Remove(0);
             return value;
         }
