@@ -6,5 +6,6 @@ As of right now it contains:
 ### LinkedList
 ### Vector
 ### Stack
+### Heap
 
 More to come.
