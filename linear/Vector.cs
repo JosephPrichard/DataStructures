@@ -37,9 +37,8 @@ namespace DataStructures.linear
         }
         
         public void Push(E e) {
-            if(Size >= Capacity)
-                Grow(1);
-            ShiftUp(0, Size, 1);
+            EnsureCapacity(Size+1);
+            ShiftRight(0, Size, 1);
             Elements[0] = e;
             Size++;
         }
@@ -55,8 +54,7 @@ namespace DataStructures.linear
         }
         
         public void PushBack(E e) {
-            if(Size >= Capacity)
-                Grow(1);
+            EnsureCapacity(Size+1);
             Elements[Size] = e;
             Size++;
         }
@@ -75,18 +73,16 @@ namespace DataStructures.linear
         public void Remove(int index) {
             if(index >= Size)
                 throw new IndexOutOfRangeException();
-            if(Size >= Capacity)
-                Grow(1);
-            ShiftDown(index, Size, 1);
+            EnsureCapacity(Size-1);
+            ShiftLeft(index, Size, 1);
             Size--;
         }
 
         public void Insert(int index, E e) {
             if(index >= Size)
                 throw new IndexOutOfRangeException();
-            if(Size >= Capacity)
-                Grow(1);
-            ShiftUp(index, Size, 1);
+            EnsureCapacity(Size+1);
+            ShiftRight(index, Size, 1);
             Elements[index] = e;
             Size++;
         }
@@ -97,7 +93,7 @@ namespace DataStructures.linear
         }
         
         public void AddAll(ICollection<E> list) {
-            Grow(list.Size);
+            EnsureCapacity(Size+list.Size);
             var i = 0;
             foreach(var e in list.GetEnumerable()) {
                 Elements[i+Size] = e;
@@ -126,21 +122,23 @@ namespace DataStructures.linear
         public void Sort(Func<E, E, bool> compare) {
             QuickSort(Elements, 0, Size-1, compare);
         }
-
-        private void Grow(int o) {
-            Capacity = Capacity*2+o;
+        
+        private void EnsureCapacity(int size) {
+            if(size < Capacity)
+                return;
+            Capacity = (size-Capacity)+(Capacity*2);
             var resizedElements = new E[Capacity];
             for(var i = 0; i < Elements.Length; i++) 
                 resizedElements[i] = Elements[i];
             Elements = resizedElements;
         }
 
-        private void ShiftUp(int b, int e, int o) {
+        private void ShiftRight(int b, int e, int o) {
             for(var i = e; i > b; i--) 
                 Elements[i] = Elements[i-o];
         }
 
-        private void ShiftDown(int b, int e, int o) {
+        private void ShiftLeft(int b, int e, int o) {
             for(var i = b; i < e; i++) 
                 Elements[i] = Elements[i+o];
         }

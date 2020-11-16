@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using DataStructures.linear;
 using DataStructures.tree;
 
@@ -8,7 +7,7 @@ namespace DataStructures
     public class Program 
     {
         private static void Main(string[] args) {
-            TestHeap();
+            TestVec();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -110,7 +109,7 @@ namespace DataStructures
         }
 
         private static void TestVec() {
-            var vector = new linear.Vector<int>();
+            var vector = new Vector<int>();
             vector.Push(1);
             vector.PushBack(2);
             Output(vector);
@@ -130,7 +129,7 @@ namespace DataStructures
             vector.Remove(3);
             Output(vector);
 
-            var vector1 = new linear.Vector<int>();
+            var vector1 = new Vector<int>();
             vector1.Push(5);
             vector1.PushBack(6);
             vector1.Push(4);
