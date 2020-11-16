@@ -4,18 +4,18 @@ namespace DataStructures.linear
 {
     public interface IList<E> : ICollection<E>
     {
-        public E this[int index] { set; get; }
+        E this[int index] { set; get; }
         
-        public void PushBack(E e);
+        void PushBack(E e);
 
-        public E PopBack();
+        E PopBack();
 
-        public E PeekBack();
+        E PeekBack();
 
-        public void Remove(int index);
+        void Remove(int index);
 
-        public void Insert(int index, E e);
+        void Insert(int index, E e);
 
-        public void Sort(Func<E, E, bool> compare);
+        void Sort(Func<E, E, bool> compare);
     }
 }

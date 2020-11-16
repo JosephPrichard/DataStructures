@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Numerics;
+using System.Data;
 using DataStructures.linear;
 using DataStructures.tree;
 
@@ -19,27 +19,7 @@ namespace DataStructures
 
         private static void TestHeap() {
             var heap = new BHeap<int>((child,parent) => child < parent);
-            heap.Push(5);
-            heap.Push(6);
-            heap.Push(4);
-            heap.Push(7);
-            heap.Push(8);
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            heap.Push(12);
-            heap.Push(13);
-            heap.Push(11);
-            heap.Push(9);
-            heap.Push(10);
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            heap.Push(-1);
-            heap.Push(10);
-            Console.WriteLine("Pop: " + heap.Pop());
+            heap.Push(-10);
             heap.Push(-2);
             Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(15);
@@ -48,23 +28,74 @@ namespace DataStructures
             Console.WriteLine("Pop: " + heap.Pop());
             Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(900);
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(15);
             heap.Push(-2);
             heap.Push(12);
-            Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(13);
-            Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(-1);
-            Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(9);
+            heap.Push(10);
+            Console.WriteLine("Contains: " + heap.Contains(-3,(left,right) => left == right));
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            Console.WriteLine("Pop: " + heap.Pop());
+            heap.Push(2);
+            heap.Push(10);
+            Console.WriteLine("PopPush: " + heap.PopPush(4));
+            Console.WriteLine("PopPush: " + heap.PopPush(901));
+            Console.WriteLine("PopPush: " + heap.PopPush(-3));
+            Console.WriteLine("PopPush: " + heap.PopPush(5));
+            Console.WriteLine("PopPush: " + heap.PopPush(-5));
+            Console.WriteLine("PopPush: " + heap.PopPush(1));
+            Console.WriteLine("PopPush: " + heap.PopPush(2));
+            Console.WriteLine("Pop: " + heap.Pop());
             Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(10);
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
+            heap.Push(-3);
+            
+            var heap1 = new BHeap<int>((child,parent) => child < parent);
+            heap1.Push(900);
+            heap1.Push(15);
+            heap1.Push(-2);
+            heap1.Push(12);
+            heap1.Push(13);
+            heap1.Push(-1);
+
+            var heap2 = IHeap<int>.Meld(heap,heap1, (child,parent) => child < parent);
+            while(!heap2.IsEmpty()) {
+                Console.WriteLine("Pop2: " + heap2.Pop());
+            }
+            Console.WriteLine("PopEmpty: " + heap.Pop());
+            
+            
+            var heap3 = new BHeap<int>((child,parent) => child < parent);
+            heap3.Push(52);
+            heap3.Push(116);
+            heap3.Push(-2);
+            heap3.Push(-5);
+            heap3.Push(3);
+            heap3.Push(-1);
+            heap3.Print();
+            
+            var heap5 = new BHeap<int>((child,parent) => child < parent);
+            heap5.Push(22);
+            heap5.Push(3);
+            heap5.Push(62);
+            heap5.Push(-701);
+            heap5.Push(5);
+            heap5.Push(-21);
+            heap5.Print();
+
+            var heap4 = BHeap<int>.Union(heap3,heap5,(child,parent) => child > parent);
+            while(!heap4.IsEmpty()) {
+                Console.WriteLine("Pop4: " + heap4.Pop());
+            }
+            Console.WriteLine("Pop3Has: " + heap3.Pop());
         }
 
         private static void TestStack() {
@@ -143,7 +174,7 @@ namespace DataStructures
 
             list.AddAll(list2);
 
-            //list.Sort((left, right) => left > right);
+            list.Sort((left, right) => left > right);
 
             Output(list);
         }

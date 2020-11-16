@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
 using DataStructures.linear;
 
 namespace DataStructures.tree
 {
-    public class BHeap<E>
+    public class BHeap<E> : IHeap<E>
     {
         private BNode<E> Root;
 
@@ -20,12 +16,38 @@ namespace DataStructures.tree
             Compare = compare;
         }
         
+        public static IHeap<E> Union(BHeap<E> heap1, BHeap<E> heap2, Func<E, E, bool> compare) {
+            var heap = new BHeap<E>(compare);
+            if(!heap1.IsEmpty()) {
+                Merge(heap,heap1.Root);
+            }
+            if(!heap2.IsEmpty()) {
+                Merge(heap,heap2.Root);
+            }
+            return heap;
+        }
+
+        private static void Merge(BHeap<E> heap, BNode<E> node) {
+            heap.Push(node.Val);
+            if(node.Left != null) {
+                Merge(heap, node.Left);
+            }
+            if(node.Right != null) {
+                Merge(heap, node.Right);
+            }
+        }
+
         public int GetDepth() {
             return (int)Math.Floor(Math.Log2(Size)) + 1;
         }
 
         public bool IsEmpty() {
             return Size == 0;  
+        }
+
+        public void Print() {
+            PrintConsole(Root);
+            Console.WriteLine();
         }
         
         public void Push(E e) {
@@ -61,7 +83,7 @@ namespace DataStructures.tree
             }
         }
 
-        public E PushPop(E e) {
+        public E PopPush(E e) {
             switch(Size) {
                 case 0:
                     Push(e);
@@ -76,6 +98,21 @@ namespace DataStructures.tree
                     Sink(Root);
                     return val2;
             }
+        }
+        
+        public bool Contains(E e, Func<E,E,bool> compare) {
+            return Contains(Root,e,compare);
+        }
+
+        private static bool Contains(BNode<E> node, E e, Func<E,E,bool> compare) {
+            var isEqual = compare(e,node.Val);
+            if(node.Left != null) {
+                return Contains(node.Left,e,compare) || isEqual;
+            }
+            if(node.Right != null) {
+                return Contains(node.Left,e,compare) || isEqual;
+            }
+            return isEqual;
         }
 
         private static Stack<int> Navigate(int pos) {
@@ -168,11 +205,13 @@ namespace DataStructures.tree
         }
 
         private int Direction(BNode<E> left, BNode<E> right, BNode<E> parent) {
-            if(left == null) {
-                return right == null ? 0 : 1;
-            }
-            else if (right == null) {
-                return -1;
+            if(right == null) {
+                if (left  == null) {
+                    return 0;
+                }
+                else {
+                    return Compare(left.Val, parent.Val) ? -1 : 0;
+                }
             }
             if(Compare(left.Val, right.Val)) {
                 return Compare(left.Val, parent.Val) ? -1 : 0;
@@ -196,6 +235,23 @@ namespace DataStructures.tree
             var val = n1.Val;
             n1.Val = n2.Val;
             n2.Val = val;
+        }
+
+        private static void PrintConsole(BNode<E> node) {
+            Console.Write(" | ");
+            Console.Write("P: " + node.Val);
+            if(node.Left != null) {
+                Console.Write(", L: " + node.Left.Val);
+            }
+            if(node.Right != null) {
+                Console.Write(", R: " + node.Right.Val);
+            }
+            if(node.Left != null) {
+                PrintConsole(node.Left);
+            }
+            if(node.Right != null) {
+                PrintConsole(node.Right);
+            }
         }
 
     }
