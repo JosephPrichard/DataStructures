@@ -36,14 +36,9 @@ namespace DataStructures
             heap.Push(9);
             heap.Push(10);
             Console.WriteLine("Contains: " + heap.Contains(-3,(left,right) => left == right));
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
-            Console.WriteLine("Pop: " + heap.Pop());
+            while(!heap.IsEmpty()) {
+                Console.WriteLine("Pop: " + heap.Pop());
+            }
             heap.Push(2);
             heap.Push(10);
             Console.WriteLine("PopPush: " + heap.PopPush(4));
@@ -66,13 +61,11 @@ namespace DataStructures
             heap1.Push(13);
             heap1.Push(-1);
 
-            var heap2 = IHeap<int>.Meld(heap,heap1, (child,parent) => child < parent);
+            var heap2 = BHeap<int>.Union(heap,heap1, (child,parent) => child < parent);
             while(!heap2.IsEmpty()) {
                 Console.WriteLine("Pop2: " + heap2.Pop());
             }
-            Console.WriteLine("PopEmpty: " + heap.Pop());
-            
-            
+
             var heap3 = new BHeap<int>((child,parent) => child < parent);
             heap3.Push(52);
             heap3.Push(116);
@@ -95,7 +88,6 @@ namespace DataStructures
             while(!heap4.IsEmpty()) {
                 Console.WriteLine("Pop4: " + heap4.Pop());
             }
-            Console.WriteLine("Pop3Has: " + heap3.Pop());
         }
 
         private static void TestStack() {
