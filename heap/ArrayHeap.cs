@@ -7,34 +7,32 @@ namespace DataStructures.heap
     {
         private E[] Elements;
         public int Size { private set; get; }
-        private readonly Func<E, E, bool> IsBetter;
+        private Func<E, E, bool> IsBetter;
         
         public ArrayHeap(HeapType type) {
-            if(type == HeapType.Min) 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
-            else 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
+            SetHeapType(type);
             Elements = new E[20];
         }
 
         public ArrayHeap(HeapType type, int capacity) {
-            if(type == HeapType.Min) 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
-            else 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
+            SetHeapType(type);
             Elements = new E[capacity];
         }
         
         //heapify - O(n)
         public ArrayHeap(HeapType type, E[] array) {
-            if(type == HeapType.Min) 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
-            else 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
+            SetHeapType(type);
             Elements = array;
             Size = array.Length;
             for(var i = Elements.Length-1; i >= 0; i--)
                 SiftDown(i);
+        }
+
+        private void SetHeapType(HeapType type) {
+            if(type == HeapType.Min) 
+                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
+            else 
+                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
         }
 
         public int Depth() {

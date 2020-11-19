@@ -9,24 +9,25 @@ namespace DataStructures.heap
     {
         private Node<E> Root;
         public int Size { private set; get; }
-        private readonly Func<E, E, bool> IsBetter;
+        private Func<E, E, bool> IsBetter;
 
         public BinaryHeap(HeapType type) {
-            if(type == HeapType.Min) 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
-            else 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
+            SetHeapType(type);
             Root = null;
         }
 
         //heapify - O(nlog(n))
         public BinaryHeap(HeapType type, E[] arr) {
+            SetHeapType(type);
+            foreach(var i in arr)
+                Push(i);
+        }
+        
+        private void SetHeapType(HeapType type) {
             if(type == HeapType.Min) 
                 IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
             else 
                 IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
-            foreach(var i in arr)
-                Push(i);
         }
 
         public int Depth() {
