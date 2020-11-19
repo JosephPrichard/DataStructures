@@ -1,13 +1,15 @@
 ﻿using System;
+using DataStructures.linear.stack;
+using DataStructures.linear.list; 
 using DataStructures.linear;
-using DataStructures.tree;
+using DataStructures.heap;
 
 namespace DataStructures
 {
     public class Program 
     {
         private static void Main(string[] args) {
-            TestVec();
+            TestArrayHeap();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -16,9 +18,10 @@ namespace DataStructures
             Console.WriteLine();
         }
 
-        private static void TestHeap() {
-            var heap = new BHeap<int>((child,parent) => child < parent);
+        private static void TestBinaryHeap() {
+            var heap = new BinaryHeap<int>((child,parent) => child < parent);
             heap.Push(-10);
+            Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(-2);
             Console.WriteLine("Pop: " + heap.Pop());
             heap.Push(15);
@@ -34,7 +37,6 @@ namespace DataStructures
             heap.Push(-1);
             heap.Push(9);
             heap.Push(10);
-            Console.WriteLine("Contains: " + heap.Contains(-3,(left,right) => left == right));
             while(!heap.IsEmpty()) {
                 Console.WriteLine("Pop: " + heap.Pop());
             }
@@ -49,44 +51,72 @@ namespace DataStructures
             Console.WriteLine("PopPush: " + heap.PopPush(2));
             Console.WriteLine("Pop: " + heap.Pop());
             Console.WriteLine("Pop: " + heap.Pop());
-            heap.Push(10);
-            heap.Push(-3);
-            
-            var heap1 = new BHeap<int>((child,parent) => child < parent);
-            heap1.Push(900);
-            heap1.Push(15);
-            heap1.Push(-2);
-            heap1.Push(12);
-            heap1.Push(13);
-            heap1.Push(-1);
 
-            var heap2 = BHeap<int>.Union(heap,heap1, (child,parent) => child < parent);
+            var heap2 = new BinaryHeap<int>((child,parent) => child < parent);
+            heap2.Push(900);
+            heap2.Push(15);
+            heap2.Push(-2);
+            heap2.Push(12);
+            heap2.Push(13);
+            heap2.Push(-1);
             while(!heap2.IsEmpty()) {
                 Console.WriteLine("Pop2: " + heap2.Pop());
             }
 
-            var heap3 = new BHeap<int>((child,parent) => child < parent);
-            heap3.Push(52);
-            heap3.Push(116);
-            heap3.Push(-2);
-            heap3.Push(-5);
-            heap3.Push(3);
-            heap3.Push(-1);
-            heap3.Print();
-            
-            var heap5 = new BHeap<int>((child,parent) => child < parent);
-            heap5.Push(22);
-            heap5.Push(3);
-            heap5.Push(62);
-            heap5.Push(-701);
-            heap5.Push(5);
-            heap5.Push(-21);
-            heap5.Print();
-
-            var heap4 = BHeap<int>.Union(heap3,heap5,(child,parent) => child > parent);
+            int[] arr = {52,116,-2,-5,3,-1};
+            var heap4 = new BinaryHeap<int>(arr,(child,parent) => child > parent);
+            heap4.Push(22);
+            heap4.Push(3);
+            heap4.Push(62);
+            heap4.Push(-701);
+            heap4.Push(5);
+            heap4.Push(-21);
+            heap4.PrintConsole();
             while(!heap4.IsEmpty()) {
                 Console.WriteLine("Pop4: " + heap4.Pop());
             }
+            for(var i = 0; i < 100000; i++) {
+                heap4.Push(i);
+            }
+            
+        }
+
+        private static void TestArrayHeap() {
+            var heap = new ArrayHeap<int>((child,parent) => child < parent);
+            heap.Push(5);
+            Console.WriteLine("Peek: " + heap.Peek());
+            heap.Push(4);
+            Console.WriteLine("Peek: " + heap.Peek());
+            heap.Push(3);
+            Console.WriteLine("Peek: " + heap.Peek());
+            heap.Push(2);
+            Console.WriteLine("Peek: " + heap.Peek());
+            heap.Push(6);
+            Console.WriteLine("Peek: " + heap.Peek());
+            heap.PrintConsole();
+            while(!heap.IsEmpty()) {
+                Console.WriteLine("Pop: " + heap.Pop());
+            }
+            heap.Push(5);
+            heap.Push(4);
+            heap.Push(3);
+            heap.Push(2);
+            heap.Push(6);
+            heap.PrintConsole();
+            for (var i = 1; i < 10; i++) {
+                Console.WriteLine("PopPush: " + heap.PopPush(i));
+                heap.PrintConsole();
+            }
+        }
+
+        private static void TestSortStack() {
+            var stack = new Stack<int>();
+            stack.Push(6);
+            stack.Push(5);
+            stack.Push(4);
+            stack.Push(5);
+            stack.Push(10);
+            Output(StackUtils.SortStack(stack));
         }
 
         private static void TestStack() {
@@ -109,25 +139,34 @@ namespace DataStructures
         }
 
         private static void TestVec() {
-            var vector = new Vector<int>();
+            var vector = new Vector<int>(5);
             vector.Push(1);
             vector.PushBack(2);
             Output(vector);
-
             vector.Push(5);
             Output(vector);
-
             vector.Push(6);
             Output(vector);
-
             vector.Push(7);
             Output(vector);
-
             vector.Insert(2, 10);
             Output(vector);
-
             vector.Remove(3);
             Output(vector);
+            
+            vector.PushBack(2);
+            vector.PushBack(4);
+            vector.PushBack(5);
+            vector.PushBack(3);
+            vector.PushBack(11);
+            vector.PushBack(6);
+            vector.PushBack(4);
+            vector.PushBack(51);
+            vector.PushBack(5);
+            vector.PushBack(-4);
+            vector.PushBack(1);
+            vector.PushBack(21);
+            vector.PushBack(2);
 
             var vector1 = new Vector<int>();
             vector1.Push(5);
@@ -141,6 +180,11 @@ namespace DataStructures
             
             vector.Sort((left, right) => left > right);
             Output(vector);
+            
+            for(var i = 0; i < 100000; i++) {
+                vector.Push(i);
+            }
+
         }
 
         public static void TestLl() {

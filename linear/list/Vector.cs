@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataStructures.linear
+namespace DataStructures.linear.list 
 {
     public class Vector<E> : IList<E> 
     {
@@ -9,17 +9,13 @@ namespace DataStructures.linear
 
         public Vector() {
             Size = 0;
-            Capacity = 10;
-            Elements = new E[Capacity];
+            Elements = new E[20];
         }
 
         public Vector(int capacity) {
             Size = 0;
-            Capacity = capacity;
-            Elements = new E[Capacity];
+            Elements = new E[capacity];
         }
-
-        public int Capacity { get; private set; }
 
         public int Size { get; private set; }
 
@@ -36,6 +32,7 @@ namespace DataStructures.linear
             }
         }
         
+        //O(n)
         public void Push(E e) {
             EnsureCapacity(Size+1);
             ShiftRight(0, Size, 1);
@@ -43,26 +40,31 @@ namespace DataStructures.linear
             Size++;
         }
 
+        //O(1)
         public E Peek() {
             return this[0];
         }
 
+        //O(n)
         public E Pop() {
             var value = this[0];
             Remove(0);
             return value;
         }
         
+        //O(1) amortized
         public void PushBack(E e) {
             EnsureCapacity(Size+1);
             Elements[Size] = e;
             Size++;
         }
         
+        //O(1)
         public E PeekBack() {
             return this[Size-1];
         }
 
+        //O(1)
         public E PopBack() {
             var i = Size-1;
             var value = this[i];
@@ -70,6 +72,7 @@ namespace DataStructures.linear
             return value;
         }
         
+        //O(n)
         public void Remove(int index) {
             if(index >= Size)
                 throw new IndexOutOfRangeException();
@@ -78,6 +81,7 @@ namespace DataStructures.linear
             Size--;
         }
 
+        //O(n)
         public void Insert(int index, E e) {
             if(index >= Size)
                 throw new IndexOutOfRangeException();
@@ -87,11 +91,13 @@ namespace DataStructures.linear
             Size++;
         }
         
+        //O(n)
         public IEnumerable<E> GetEnumerable() {
             for(var i = 0; i < Size; i++) 
                 yield return Elements[i];
         }
         
+        //O(n)
         public void AddAll(ICollection<E> list) {
             EnsureCapacity(Size+list.Size);
             var i = 0;
@@ -108,10 +114,10 @@ namespace DataStructures.linear
 
         public void Clear() {
             Size = 0;
-            Capacity = 0;
-            Elements = new E[Capacity];
+            Elements = Array.Empty<E>();
         }
         
+        //O(n)
         public bool Contains(E e, Func<E, E, bool> equals) {
             for(var i = 0; i < Size; i++)
                 if(equals(e, this[i]))
@@ -119,17 +125,18 @@ namespace DataStructures.linear
             return false;
         }
 
+        //quicksort - O(nlog(n))
         public void Sort(Func<E, E, bool> compare) {
             QuickSort(Elements, 0, Size-1, compare);
         }
         
         private void EnsureCapacity(int size) {
-            if(size < Capacity)
+            if(size < Elements.Length)
                 return;
-            Capacity = (size-Capacity)+(Capacity*2);
-            var resizedElements = new E[Capacity];
-            for(var i = 0; i < Elements.Length; i++) 
-                resizedElements[i] = Elements[i];
+            var capacity = Elements.Length;
+            var resizedElements = new E[(size-capacity)+(capacity*2)];
+            Array.Copy(Elements,0,
+                resizedElements,0,Size);
             Elements = resizedElements;
         }
 

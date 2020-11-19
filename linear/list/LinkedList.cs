@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataStructures.linear
+namespace DataStructures.linear.list 
 {
     public class LinkedList<E> : IList<E> 
     {
         private Node<E> Head;
-
         public int Size { get; private set; }
 
         public E this[int index] {
@@ -28,6 +27,7 @@ namespace DataStructures.linear
             }
         }
         
+        //o(1)
         public void Push(E e) {
             var newNode = new Node<E>(e) {
                 Next = Head
@@ -36,16 +36,19 @@ namespace DataStructures.linear
             Size++;
         }
 
+        //o(1)
         public E Peek() {
             return this[0];
         }
 
+        //o(1)
         public E Pop() {
             var value = this[0];
             Remove(0);
             return value;
         }
 
+        //o(n)
         public void PushBack(E e) {
             var newNode = new Node<E>(e);
             var curr = Head;
@@ -59,10 +62,12 @@ namespace DataStructures.linear
             curr.Next = newNode;
         }
 
+        //o(n)
         public E PeekBack() {
             return this[Size-1];
         }
 
+        //o(n)
         public E PopBack() {
             var i = Size-1;
             var value = this[i];
@@ -70,6 +75,7 @@ namespace DataStructures.linear
             return value;
         }
 
+        //o(n)
         public void Remove(int index) {
             if(index >= Size)
                 throw new IndexOutOfRangeException();
@@ -80,6 +86,7 @@ namespace DataStructures.linear
             Size--;
         }
 
+        //o(n)
         public void Insert(int index, E e) {
             if(index > Size)
                 throw new IndexOutOfRangeException();
@@ -93,6 +100,7 @@ namespace DataStructures.linear
             Size++;
         }
         
+        //o(n)
         public IEnumerable<E> GetEnumerable() {
             var curr = Head;
             while(curr != null) {
@@ -101,6 +109,7 @@ namespace DataStructures.linear
             }
         }
         
+        //o(n)
         public void AddAll(ICollection<E> list) {
             var tail = Head;
             while(tail.Next != null) 
@@ -118,14 +127,9 @@ namespace DataStructures.linear
         }
         
         public void Clear() {
-            var curr = Head;
-            while(curr.Next != null) {
-                var next = curr.Next;
-                curr.Next = null;
-                curr = next;
-            }
             Head = null;
             Size = 0;
+            GC.Collect();
         }
 
         public bool Contains(E e, Func<E, E, bool> equals) {

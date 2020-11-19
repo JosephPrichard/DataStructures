@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataStructures.linear
+namespace DataStructures.linear.stack
 {
     public class Stack<E> : ICollection<E> 
     {
         private Node<E> Top;
-
-        public int Size {
-            get;
-            private set;
-        }
+        public int Size { private set; get; }
         
+        //o(1)
         public void Push(E e) {
             var newNode = new Node<E>(e) {
                 Next = Top
@@ -21,10 +18,12 @@ namespace DataStructures.linear
             Size++;
         }
 
+        //o(1)
         public E Peek() {
             return Top.Val;
         }
 
+        //o(1)
         public E Pop() {
             var value = Top.Val;
             Top = Top.Next;
@@ -40,6 +39,7 @@ namespace DataStructures.linear
             }
         }
         
+        //o(n)
         public void AddAll(ICollection<E> list) {
             var tail = Top;
             while(tail.Next != null)
@@ -54,16 +54,12 @@ namespace DataStructures.linear
         }
 
         public void Clear() {
-            var curr = Top;
-            while(Top != null) {
-                var next = curr.Next;
-                curr.Next = null;
-                curr = next;
-            }
             Top = null;
             Size = 0;
+            GC.Collect();
         }
         
+        //o(n)
         public bool Contains(E e, Func<E, E, bool> equals) {
             var curr = Top;
             while(curr != null) {

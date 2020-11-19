@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace DataStructures.tree
+namespace DataStructures.heap
 {
     public interface IHeap<E>
     {
-        int GetDepth();
+        int Depth();
 
         bool IsEmpty();
 
@@ -15,8 +15,6 @@ namespace DataStructures.tree
         E Pop();
 
         E PopPush(E e);
-
-        bool Contains(E e, Func<E, E, bool> compare);
 
     }
 }
