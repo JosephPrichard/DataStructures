@@ -54,9 +54,8 @@ namespace DataStructures.linear.stack
         }
 
         public void Clear() {
-            Top = null;
             Size = 0;
-            GC.Collect();
+            Top = null;
         }
         
         //o(n)

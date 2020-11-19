@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace DataStructures.linear.list 
 {
-    public class Vector<E> : IList<E> 
+    public class ArrayList<E> : IList<E> 
     {
         private E[] Elements;
 
-        public Vector() {
+        public ArrayList() {
             Size = 0;
             Elements = new E[20];
         }
 
-        public Vector(int capacity) {
+        public ArrayList(int capacity) {
             Size = 0;
             Elements = new E[capacity];
         }
@@ -131,12 +131,11 @@ namespace DataStructures.linear.list
         }
         
         private void EnsureCapacity(int size) {
-            if(size < Elements.Length)
-                return;
             var capacity = Elements.Length;
+            if(size < capacity)
+                return;
             var resizedElements = new E[(size-capacity)+(capacity*2)];
-            Array.Copy(Elements,0,
-                resizedElements,0,Size);
+            Array.Copy(Elements,0, resizedElements,0,Size);
             Elements = resizedElements;
         }
 
@@ -166,7 +165,6 @@ namespace DataStructures.linear.list
                 }
                 left++;
             }
-
             Swap(arr, i+1, pivot);
             return i+1;
         }

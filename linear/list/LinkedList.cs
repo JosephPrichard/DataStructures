@@ -127,9 +127,8 @@ namespace DataStructures.linear.list
         }
         
         public void Clear() {
-            Head = null;
             Size = 0;
-            GC.Collect();
+            Head = null;
         }
 
         public bool Contains(E e, Func<E, E, bool> equals) {

@@ -1,23 +1,30 @@
 ﻿using System;
+using System.Xml.Xsl;
 using DataStructures.linear;
 using DataStructures.linear.stack;
 
 namespace DataStructures.heap
 {
-    public class BinaryHeap<E> : IHeap<E>
+    public class BinaryHeap<E> : IHeap<E> where E : IComparable
     {
         private Node<E> Root;
         public int Size { private set; get; }
-        private readonly Func<E, E, bool> Compare;
+        private readonly Func<E, E, bool> IsBetter;
 
-        public BinaryHeap(Func<E, E, bool> compare) {
+        public BinaryHeap(HeapType type) {
+            if(type == HeapType.Min) 
+                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
+            else 
+                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
             Root = null;
-            Compare = compare;
         }
 
         //heapify - O(nlog(n))
-        public BinaryHeap(E[] arr, Func<E, E, bool> compare) {
-            Compare = compare;
+        public BinaryHeap(HeapType type, E[] arr) {
+            if(type == HeapType.Min) 
+                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
+            else 
+                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
             foreach(var i in arr)
                 Push(i);
         }
@@ -65,7 +72,7 @@ namespace DataStructures.heap
             default:
                 var val2 = Root.Val;
                 Extract(Root,Navigate(Size));
-                Sink(Root);
+                SiftDown(Root);
                 Size--;
                 return val2;
             }
@@ -84,20 +91,9 @@ namespace DataStructures.heap
             default:
                 var val2 = Root.Val;
                 Replace(Root,Navigate(Size),e);
-                Sink(Root);
+                SiftDown(Root);
                 return val2;
             }
-        }
-
-        private static bool Contains(Node<E> node, E e, Func<E,E,bool> compare) {
-            var isEqual = compare(e,node.Val);
-            if(node.Left != null) {
-                return Contains(node.Left,e,compare) || isEqual;
-            }
-            if(node.Right != null) {
-                return Contains(node.Left,e,compare) || isEqual;
-            }
-            return isEqual;
         }
 
         private static ICollection<int> Navigate(int pos) {
@@ -175,33 +171,13 @@ namespace DataStructures.heap
             }
         }
 
-        private void Sink(Node<E> curr) {
-            switch(Direction(curr.Left,curr.Right,curr)) {
-            case -1:
-                Swap(curr.Left,curr);
-                Sink(curr.Left);
-                break;
-            case 1:
-                Swap(curr.Right,curr);
-                Sink(curr.Right);
-                break;
-            }
-        }
-
-        private int Direction(Node<E> left, Node<E> right, Node<E> parent) {
-            if(right == null) {
-                if (left  == null) {
-                    return 0;
-                }
-                else {
-                    return Compare(left.Val, parent.Val) ? -1 : 0;
-                }
-            }
-            if(Compare(left.Val, right.Val)) {
-                return Compare(left.Val, parent.Val) ? -1 : 0;
-            }
-            else {
-                return Compare(right.Val, parent.Val) ? 1 : 0;
+        private void SiftDown(Node<E> curr) {
+            if(curr.Left == null)
+                return;
+            var child = curr.Right == null || IsBetter(curr.Left.Val, curr.Right.Val) ? curr.Left : curr.Right;
+            if(IsBetter(child.Val,curr.Val)) {
+                Swap(child,curr);
+                SiftDown(child);
             }
         }
 
@@ -210,7 +186,7 @@ namespace DataStructures.heap
         }
 
         private void SwapIf(Node<E> child, Node<E> parent) {
-            if(Compare(child.Val, parent.Val)) {
+            if(IsBetter(child.Val, parent.Val)) {
                 Swap(child, parent);
             }
         }
