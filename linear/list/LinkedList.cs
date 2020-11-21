@@ -11,7 +11,7 @@ namespace DataStructures.linear.list
         public E this[int index] {
             set {
                 if(index >= Size)
-                    throw new IndexOutOfRangeException();
+                    throw new ElementNotFoundException();
                 var curr = Head;
                 for(var i = 0; i < index; i++) 
                     curr = curr.Next;
@@ -19,7 +19,7 @@ namespace DataStructures.linear.list
             }
             get {
                 if(index >= Size)
-                    throw new IndexOutOfRangeException();
+                    throw new ElementNotFoundException();
                 var curr = Head;
                 for(var i = 0; i < index; i++) 
                     curr = curr.Next;
@@ -78,7 +78,7 @@ namespace DataStructures.linear.list
         //o(n)
         public void Remove(int index) {
             if(index >= Size)
-                throw new IndexOutOfRangeException();
+                throw new ElementNotFoundException();
             var prev = Head;
             for(var i = 0; i < index-1; i++) 
                 prev = prev.Next;
@@ -89,7 +89,7 @@ namespace DataStructures.linear.list
         //o(n)
         public void Insert(int index, E e) {
             if(index > Size)
-                throw new IndexOutOfRangeException();
+                throw new ElementNotFoundException();
             var curr = Head;
             for(var i = 0; i < index-1; i++) 
                 curr = curr.Next;

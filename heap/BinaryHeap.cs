@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Xsl;
 using DataStructures.linear;
 using DataStructures.linear.stack;
 
@@ -55,16 +54,18 @@ namespace DataStructures.heap
             Size++;
         }
         
-        //O(1)
+        //o(1)
         public E Peek() {
-            return Size != 0 ? Root.Val : default;
+            if(Size == 0)
+                throw new EmptyHeapException();
+            return Root.Val;
         }
 
         //O(log(n))
         public E Pop() {
             switch(Size) {
             case 0:
-                return default;
+                throw new EmptyHeapException();
             case 1:
                 var val1 = Root.Val;
                 Root = null;
@@ -83,8 +84,7 @@ namespace DataStructures.heap
         public E PopPush(E e) {
             switch(Size) {
             case 0:
-                Push(e);
-                return default;
+                throw new EmptyHeapException();
             case 1:
                 var val1 = Root.Val;
                 Root.Val = e;
@@ -116,7 +116,6 @@ namespace DataStructures.heap
                     curr.Left = node;
                     SwapIf(curr.Left, curr);
                 }
-                return curr;
             }
             else {
                 if(curr.Right != null) {
@@ -126,10 +125,10 @@ namespace DataStructures.heap
                     curr.Right = node;
                     SwapIf(curr.Right, curr);
                 }
-                return curr;
             }
+            return curr;
         }
-        
+
         private void Extract(Node<E> curr, ICollection<int> stack) {
             if(stack.Pop() == 0) {
                 if(stack.IsEmpty()) {

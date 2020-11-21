@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace DataStructures.heap
 {
@@ -63,13 +62,15 @@ namespace DataStructures.heap
         
         //O(1)
         public E Peek() {
-            return Size != 0 ? Elements[0] : default;
+            if(Size == 0)
+                throw new EmptyHeapException();
+            return Elements[0];
         }
 
         //O(log(n))
         public E Pop() {
             if(Size == 0)
-                return default;
+                throw new EmptyHeapException();
             var val = Elements[0];
             Move(Size-1,0);
             SiftDown(0);
@@ -79,17 +80,12 @@ namespace DataStructures.heap
 
         //O(log(n))
         public E PopPush(E e) {
-            if(Size != 0) {
-                var val = Elements[0];
-                Elements[0] = e;
-                SiftDown(0);
-                return val;
-            }
-            else {
-                Size++;
-                Elements[0] = e;
-                return default;
-            }
+            if(Size == 0) 
+                throw new EmptyHeapException();
+            var val = Elements[0];
+            Elements[0] = e;
+            SiftDown(0);
+            return val;
         }
 
         private void SiftUp(int pos) {

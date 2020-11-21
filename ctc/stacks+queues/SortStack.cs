@@ -1,8 +1,10 @@
-﻿namespace DataStructures.linear.stack
+﻿using DataStructures.linear.stack;
+
+namespace DataStructures.ctc
 {
-    public class StackUtils
+    public class SortStack
     {
-        public static Stack<int> SortStack(Stack<int> input) {
+        public static Stack<int> Sort(Stack<int> input) {
             Stack<int> output = new Stack<int>();
             while(!input.IsEmpty()) {
                 Insert(output,input.Pop());

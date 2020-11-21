@@ -22,12 +22,12 @@ namespace DataStructures.linear.list
         public E this[int index] {
             get {
                 if(index >= Size)
-                    throw new IndexOutOfRangeException();
+                    throw new ElementNotFoundException();
                 return Elements[index];
             }
             set {
                 if(index >= Size)
-                    throw new IndexOutOfRangeException();
+                    throw new ElementNotFoundException();
                 Elements[index] = value;
             }
         }
@@ -75,7 +75,7 @@ namespace DataStructures.linear.list
         //O(n)
         public void Remove(int index) {
             if(index >= Size)
-                throw new IndexOutOfRangeException();
+                throw new ElementNotFoundException();
             EnsureCapacity(Size-1);
             ShiftLeft(index, Size, 1);
             Size--;
@@ -84,7 +84,7 @@ namespace DataStructures.linear.list
         //O(n)
         public void Insert(int index, E e) {
             if(index >= Size)
-                throw new IndexOutOfRangeException();
+                throw new ElementNotFoundException();
             EnsureCapacity(Size+1);
             ShiftRight(index, Size, 1);
             Elements[index] = e;

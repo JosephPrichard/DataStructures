@@ -3,6 +3,7 @@ using DataStructures.linear.stack;
 using DataStructures.linear.list; 
 using DataStructures.linear;
 using DataStructures.heap;
+using DataStructures.ctc;
 
 namespace DataStructures
 {
@@ -26,7 +27,7 @@ namespace DataStructures
         private static void TestBinaryHeap() {
             int[] arr = {52,116,-2,-5,3,-1};
             var heap = new BinaryHeap<int>(HeapType.Min,arr);
-            heap.Push(22);
+            heap.Push(22);heap.Push(22);
             heap.Push(3);
             heap.Push(62);
             heap.Push(-701);
@@ -40,9 +41,10 @@ namespace DataStructures
                 heap.Push(RandomNumber(-1000,1000));
             }
             while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: " + heap.Pop());
+                Console.WriteLine("Pop: " + heap.Pop());Console.WriteLine("Pop: " + heap.Pop());
             }
             Console.WriteLine("PopPush ");
+            heap.Push(1);
             for(var i = 0; i < 5; i++) {
                 Console.WriteLine("PopPush: " + heap.PopPush(RandomNumber(-100,100)));
                 Console.WriteLine("Peek: " + heap.Peek());
@@ -70,6 +72,7 @@ namespace DataStructures
                 Console.WriteLine("Pop: " + heap.Pop());
             }
             Console.WriteLine("PopPush ");
+            heap.Push(1);
             for(var i = 0; i < 5; i++) {
                 Console.WriteLine("PopPush: " + heap.PopPush(RandomNumber(-100,100)));
                 Console.WriteLine("Peek: " + heap.Peek());
@@ -84,7 +87,7 @@ namespace DataStructures
             stack.Push(4);
             stack.Push(5);
             stack.Push(10);
-            Output(StackUtils.SortStack(stack));
+            Output(SortStack.Sort(stack));
             Console.WriteLine("Complete.");
         }
 

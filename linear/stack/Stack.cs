@@ -20,12 +20,14 @@ namespace DataStructures.linear.stack
 
         //o(1)
         public E Peek() {
+            if(Size == 0)
+                throw new ElementNotFoundException();
             return Top.Val;
         }
 
         //o(1)
         public E Pop() {
-            var value = Top.Val;
+            var value = Peek();
             Top = Top.Next;
             Size--;
             return value;
