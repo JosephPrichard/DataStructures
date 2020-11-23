@@ -1,7 +1,6 @@
-﻿using DataStructures.linear.list;
-using DataStructures.linear.stack;
+﻿using DataStructures.structures.stack;
 
-namespace DataStructures.ctc
+namespace DataStructures.interview.chapter3
 {
     public class SetOfStacks
     {
@@ -14,16 +13,12 @@ namespace DataStructures.ctc
         }
 
         public void Push(int val) {
-            if(Stack.Peek() == null)
-                return;
-            if(Stack.Peek().Size >= Threshold)
+            if(Stack.Peek() == null || Stack.Peek().Size >= Threshold)
                 Stack.Push(new Stack<int>());
             Stack.Peek().Push(val);
         }
         
-        public int? Pop() {
-            if(Stack.Peek() == null)
-                return null;
+        public int Pop() {
             if(Stack.Peek().Size == 0) {
                 Stack.Pop();
                 Pop();
@@ -31,8 +26,8 @@ namespace DataStructures.ctc
             return Stack.Peek().Pop();
         }
 
-        public int? Peek() {
-            return Stack.Peek()?.Peek();
+        public int Peek() {
+            return Stack.Peek().Peek();
         }
     }
 }

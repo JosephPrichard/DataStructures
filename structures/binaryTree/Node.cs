@@ -1,4 +1,4 @@
-﻿namespace DataStructures.heap
+﻿namespace DataStructures.structures.binaryTree
 {
     public class Node<T>
     {

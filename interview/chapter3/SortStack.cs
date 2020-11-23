@@ -1,6 +1,6 @@
-﻿using DataStructures.linear.stack;
+﻿using DataStructures.structures.stack;
 
-namespace DataStructures.ctc
+namespace DataStructures.interview.chapter3
 {
     public class SortStack
     {

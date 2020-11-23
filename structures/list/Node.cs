@@ -1,4 +1,4 @@
-﻿namespace DataStructures.linear
+﻿namespace DataStructures.structures.list
 {
     public class Node<T>
     {

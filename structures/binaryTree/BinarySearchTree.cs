@@ -1,32 +1,31 @@
 ﻿using System;
-using DataStructures.linear;
-using DataStructures.linear.stack;
+using DataStructures.structures.stack;
+using JetBrains.Annotations;
 
-namespace DataStructures.heap
+namespace DataStructures.structures.binaryTree
 {
-    public class BinaryHeap<E> : IHeap<E> where E : IComparable
+    public enum SearchType
+    {
+        Min,
+        Max
+    }
+    
+    public class BinarySearchTree<E> where E : IComparable
     {
         private Node<E> Root;
         public int Size { private set; get; }
-        private Func<E, E, bool> IsBetter;
+        private Func<E, E, bool> DoCompare;
 
-        public BinaryHeap(HeapType type) {
+        public BinarySearchTree(SearchType type) {
             SetHeapType(type);
             Root = null;
         }
 
-        //heapify - O(nlog(n))
-        public BinaryHeap(HeapType type, E[] arr) {
-            SetHeapType(type);
-            foreach(var i in arr)
-                Push(i);
-        }
-        
-        private void SetHeapType(HeapType type) {
-            if(type == HeapType.Min) 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
+        private void SetHeapType(SearchType type) {
+            if(type == SearchType.Min) 
+                DoCompare = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
             else 
-                IsBetter = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
+                DoCompare = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
         }
 
         public int Depth() {
@@ -37,11 +36,6 @@ namespace DataStructures.heap
             return Size == 0;  
         }
 
-        public void PrintConsole() {
-            PrintConsole(Root);
-            Console.WriteLine();
-        }
-        
         //O(log(n))
         public void Push(E e) {
             var newNode = new Node<E>(e);
@@ -56,45 +50,42 @@ namespace DataStructures.heap
         
         //o(1)
         public E Peek() {
-            if(Size == 0)
-                throw new EmptyHeapException();
+            CheckEmpty();
             return Root.Val;
         }
 
         //O(log(n))
         public E Pop() {
-            switch(Size) {
-            case 0:
-                throw new EmptyHeapException();
-            case 1:
-                var val1 = Root.Val;
-                Root = null;
-                Size--;
-                return val1;
-            default:
-                var val2 = Root.Val;
+            CheckEmpty();
+            var val = Root.Val;
+            if(Size > 1) {
                 Extract(Root,Navigate(Size));
                 SiftDown(Root);
-                Size--;
-                return val2;
             }
+            else {
+                Root = null;
+            }
+            Size--;
+            return val;
         }
 
         //O(log(n))
         public E PopPush(E e) {
-            switch(Size) {
-            case 0:
-                throw new EmptyHeapException();
-            case 1:
-                var val1 = Root.Val;
-                Root.Val = e;
-                return val1;
-            default:
-                var val2 = Root.Val;
+            CheckEmpty();
+            var val = Root.Val;
+            if(Size > 1) {
                 Replace(Root,Navigate(Size),e);
                 SiftDown(Root);
-                return val2;
             }
+            else {
+                Root.Val = e;
+            }
+            return val;
+        }
+        
+        [AssertionMethod]
+        private void CheckEmpty() {
+            
         }
 
         private static ICollection<int> Navigate(int pos) {
@@ -174,8 +165,8 @@ namespace DataStructures.heap
         private void SiftDown(Node<E> curr) {
             if(curr.Left == null)
                 return;
-            var child = curr.Right == null || IsBetter(curr.Left.Val, curr.Right.Val) ? curr.Left : curr.Right;
-            if(IsBetter(child.Val,curr.Val)) {
+            var child = curr.Right == null || DoCompare(curr.Left.Val, curr.Right.Val) ? curr.Left : curr.Right;
+            if(DoCompare(child.Val,curr.Val)) {
                 Swap(child,curr);
                 SiftDown(child);
             }
@@ -186,7 +177,7 @@ namespace DataStructures.heap
         }
 
         private void SwapIf(Node<E> child, Node<E> parent) {
-            if(IsBetter(child.Val, parent.Val)) {
+            if(DoCompare(child.Val, parent.Val)) {
                 Swap(child, parent);
             }
         }
@@ -195,23 +186,6 @@ namespace DataStructures.heap
             var val = n1.Val;
             n1.Val = n2.Val;
             n2.Val = val;
-        }
-
-        private static void PrintConsole(Node<E> node) {
-            Console.Write(" | ");
-            Console.Write("P: " + node.Val);
-            if(node.Left != null) {
-                Console.Write(", L: " + node.Left.Val);
-            }
-            if(node.Right != null) {
-                Console.Write(", R: " + node.Right.Val);
-            }
-            if(node.Left != null) {
-                PrintConsole(node.Left);
-            }
-            if(node.Right != null) {
-                PrintConsole(node.Right);
-            }
         }
 
     }

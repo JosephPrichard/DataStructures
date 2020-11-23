@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataStructures.linear.stack
+namespace DataStructures.structures.stack
 {
     public class Stack<E> : ICollection<E> 
     {
@@ -21,7 +21,7 @@ namespace DataStructures.linear.stack
         //o(1)
         public E Peek() {
             if(Size == 0)
-                throw new ElementNotFoundException();
+                throw new EmptyStackException();
             return Top.Val;
         }
 

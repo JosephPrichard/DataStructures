@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
-namespace DataStructures.linear.list 
+namespace DataStructures.structures.list 
 {
     public class ArrayList<E> : IList<E> 
     {
-        private E[] Elements;
+        internal E[] Elements;
+        public int Size { get; private set; }
 
         public ArrayList() {
             Size = 0;
@@ -16,18 +18,14 @@ namespace DataStructures.linear.list
             Size = 0;
             Elements = new E[capacity];
         }
-
-        public int Size { get; private set; }
-
+        
         public E this[int index] {
             get {
-                if(index >= Size)
-                    throw new ElementNotFoundException();
+                RangeCheck(index);
                 return Elements[index];
             }
             set {
-                if(index >= Size)
-                    throw new ElementNotFoundException();
+                RangeCheck(index);
                 Elements[index] = value;
             }
         }
@@ -35,7 +33,7 @@ namespace DataStructures.linear.list
         //O(n)
         public void Push(E e) {
             EnsureCapacity(Size+1);
-            ShiftRight(0, Size, 1);
+            Array.Copy(Elements,0,Elements,1,Size);
             Elements[0] = e;
             Size++;
         }
@@ -74,19 +72,17 @@ namespace DataStructures.linear.list
         
         //O(n)
         public void Remove(int index) {
-            if(index >= Size)
-                throw new ElementNotFoundException();
+            RangeCheck(index);
             EnsureCapacity(Size-1);
-            ShiftLeft(index, Size, 1);
+            Array.Copy(Elements,index+1,Elements,index,Size-index);
             Size--;
         }
 
         //O(n)
         public void Insert(int index, E e) {
-            if(index >= Size)
-                throw new ElementNotFoundException();
+            RangeCheck(index);
             EnsureCapacity(Size+1);
-            ShiftRight(index, Size, 1);
+            Array.Copy(Elements,index,Elements,index+1,Size-index);
             Elements[index] = e;
             Size++;
         }
@@ -125,11 +121,6 @@ namespace DataStructures.linear.list
             return false;
         }
 
-        //quicksort - O(nlog(n))
-        public void Sort(Func<E, E, bool> compare) {
-            QuickSort(Elements, 0, Size-1, compare);
-        }
-        
         private void EnsureCapacity(int size) {
             var capacity = Elements.Length;
             if(size < capacity)
@@ -139,42 +130,10 @@ namespace DataStructures.linear.list
             Elements = resizedElements;
         }
 
-        private void ShiftRight(int b, int e, int o) {
-            for(var i = e; i > b; i--) 
-                Elements[i] = Elements[i-o];
-        }
-
-        private void ShiftLeft(int b, int e, int o) {
-            for(var i = b; i < e; i++) 
-                Elements[i] = Elements[i+o];
-        }
-
-        private static void Swap(E[] arr, int ele1, int ele2) {
-            var temp = arr[ele1];
-            arr[ele1] = arr[ele2];
-            arr[ele2] = temp;
-        }
-
-        private static int Partition(E[] arr, int left, int right, Func<E, E, bool> compare) {
-            var pivot = right;
-            var i = left-1;
-            while(left <= right) {
-                if(compare(arr[left], arr[pivot])) {
-                    i++;
-                    Swap(arr, i, left);
-                }
-                left++;
-            }
-            Swap(arr, i+1, pivot);
-            return i+1;
-        }
-
-        private static void QuickSort(E[] arr, int left, int right, Func<E, E, bool> compare) {
-            if(left <= right) {
-                var pivot = Partition(arr, left, right, compare);
-                QuickSort(arr, left, pivot-1, compare);
-                QuickSort(arr, pivot+1, right, compare);
-            }
+        [AssertionMethod]
+        private void RangeCheck(int index) {
+            if(index >= Size || index < 0)
+                throw new ElementNotFoundException();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace DataStructures.linear
+﻿namespace DataStructures.structures
 {
     public class ElementNotFoundException : System.Exception
     {

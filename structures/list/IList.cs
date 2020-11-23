@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.linear.list 
+namespace DataStructures.structures.list 
 {
     public interface IList<E> : ICollection<E>
     {
@@ -15,7 +15,6 @@ namespace DataStructures.linear.list
         void Remove(int index);
 
         void Insert(int index, E e);
-
-        void Sort(Func<E, E, bool> compare);
+        
     }
 }

@@ -1,16 +1,16 @@
 ﻿using System;
-using DataStructures.linear.stack;
-using DataStructures.linear.list; 
-using DataStructures.linear;
-using DataStructures.heap;
-using DataStructures.ctc;
+using DataStructures.interview.chapter3;
+using DataStructures.structures;
+using DataStructures.structures.heap;
+using DataStructures.structures.list;
+using DataStructures.structures.stack;
 
 namespace DataStructures
 {
     public class Program 
     {
         private static void Main(string[] args) {
-            TestArrayHeap();
+            TestPq();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -24,37 +24,8 @@ namespace DataStructures
             return random.Next(min, max);
         }
 
-        private static void TestBinaryHeap() {
-            int[] arr = {52,116,-2,-5,3,-1};
-            var heap = new BinaryHeap<int>(HeapType.Min,arr);
-            heap.Push(22);heap.Push(22);
-            heap.Push(3);
-            heap.Push(62);
-            heap.Push(-701);
-            heap.Push(5);
-            heap.Push(-21);
-            while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: " + heap.Pop());
-            }
-            Console.WriteLine("Push More ");
-            for(var i = 0; i < 100; i++) {
-                heap.Push(RandomNumber(-1000,1000));
-            }
-            while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: " + heap.Pop());Console.WriteLine("Pop: " + heap.Pop());
-            }
-            Console.WriteLine("PopPush ");
-            heap.Push(1);
-            for(var i = 0; i < 5; i++) {
-                Console.WriteLine("PopPush: " + heap.PopPush(RandomNumber(-100,100)));
-                Console.WriteLine("Peek: " + heap.Peek());
-            }
-            Console.WriteLine("Complete.");
-        }
-
-        private static void TestArrayHeap() {
-            int[] arr = {52,116,-2,-5,3,-1};
-            var heap = new ArrayHeap<int>(HeapType.Min,arr);
+        private static void TestPq() {
+            var heap = new Heap<int>(HeapType.Min);
             heap.Push(22);
             heap.Push(3);
             heap.Push(62);
@@ -85,8 +56,9 @@ namespace DataStructures
             stack.Push(6);
             stack.Push(5);
             stack.Push(4);
-            stack.Push(5);
+            stack.Push(3);
             stack.Push(10);
+            stack.Push(-1);
             Output(SortStack.Sort(stack));
             Console.WriteLine("Complete.");
         }
@@ -111,52 +83,50 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
-        private static void TestVec() {
-            var vector = new ArrayList<int>(5);
-            vector.Push(1);
-            vector.PushBack(2);
-            Output(vector);
-            vector.Push(5);
-            Output(vector);
-            vector.Push(6);
-            Output(vector);
-            vector.Push(7);
-            Output(vector);
-            vector.Insert(2, 10);
-            Output(vector);
-            vector.Remove(3);
-            Output(vector);
+        private static void TestAl() {
+            var list = new ArrayList<int>(5);
+            list.Push(1);
+            list.PushBack(2);
+            list.Push(5);
+            list.Push(6);
+            list.Push(7);
+            Output(list);
+            list.Insert(2, 10);
+            list.Insert(4, 11);
+            Output(list);
+            list.Remove(3);
+            Output(list);
+            list.Remove(1);
+            list.Remove(0);
+            Output(list);
             
-            vector.PushBack(2);
-            vector.PushBack(4);
-            vector.PushBack(5);
-            vector.PushBack(3);
-            vector.PushBack(11);
-            vector.PushBack(6);
-            vector.PushBack(4);
-            vector.PushBack(51);
-            vector.PushBack(5);
-            vector.PushBack(-4);
-            vector.PushBack(1);
-            vector.PushBack(21);
-            vector.PushBack(2);
+            list.PushBack(2);
+            list.PushBack(4);
+            list.PushBack(5);
+            list.PushBack(3);
+            list.PushBack(11);
+            list.PushBack(6);
+            list.PushBack(4);
+            list.PushBack(51);
+            list.PushBack(5);
+            list.PushBack(-4);
+            list.PushBack(1);
+            list.PushBack(21);
+            list.PushBack(2);
 
-            var vector1 = new ArrayList<int>();
-            vector1.Push(5);
-            vector1.PushBack(6);
-            vector1.Push(4);
-            vector1.AddAll(vector1);
-            Output(vector1);
+            var list1 = new ArrayList<int>();
+            list1.Push(5);
+            list1.PushBack(6);
+            list1.Push(4);
+            list1.AddAll(list1);
+            Output(list1);
 
-            vector.AddAll(vector1);
-            Output(vector);
+            list.AddAll(list1);
+            Output(list);
             
-            vector.Sort((left, right) => left > right);
-            Output(vector);
+            new Sorter<int>(SortType.Asc).HeapSort(list);
+            Output(list);
             
-            for(var i = 0; i < 100000; i++) {
-                vector.PushBack(i);
-            }
             Console.WriteLine("Complete.");
         }
 
@@ -167,11 +137,8 @@ namespace DataStructures
             list.Push(11);
             list.PushBack(7);
             list.PushBack(1);
-            list.Insert(5, 6);
-
             Output(list);
-            Console.WriteLine(list.Size);
-            list.Sort((left, right) => left < right);
+            list.Insert(4, 6);
 
             Output(list);
 
@@ -181,12 +148,24 @@ namespace DataStructures
             list2.Push(19);
 
             list.AddAll(list2);
-
-            list.Sort((left, right) => left > right);
-
+            
             Output(list);
             
+            new Sorter<int>(SortType.Dsc).MergeSort(list);
+
+            Output(list);
+
             Console.WriteLine("Complete.");
         }
+
+        public static void TestHeapSort() {
+            int[] elements = {10, 5, -4, 4, 91, -1, 6, 1, 16, 15, 60};
+            new Sorter<int>(SortType.Asc).HeapSort(elements);
+            foreach(var e in elements) {
+                Console.Write(e + ", ");
+            }
+            Console.WriteLine();
+        }
+        
     }
 }

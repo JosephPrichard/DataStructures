@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
-namespace DataStructures.linear.list 
+namespace DataStructures.structures.list 
 {
     public class LinkedList<E> : IList<E> 
     {
-        private Node<E> Head;
+        internal Node<E> Head;
         public int Size { get; private set; }
 
         public E this[int index] {
             set {
-                if(index >= Size)
-                    throw new ElementNotFoundException();
+                RangeCheck(index);
                 var curr = Head;
                 for(var i = 0; i < index; i++) 
                     curr = curr.Next;
                 curr.Val = value;
             }
             get {
-                if(index >= Size)
-                    throw new ElementNotFoundException();
+                RangeCheck(index);
                 var curr = Head;
                 for(var i = 0; i < index; i++) 
                     curr = curr.Next;
@@ -77,8 +76,7 @@ namespace DataStructures.linear.list
 
         //o(n)
         public void Remove(int index) {
-            if(index >= Size)
-                throw new ElementNotFoundException();
+            RangeCheck(index);
             var prev = Head;
             for(var i = 0; i < index-1; i++) 
                 prev = prev.Next;
@@ -88,8 +86,7 @@ namespace DataStructures.linear.list
 
         //o(n)
         public void Insert(int index, E e) {
-            if(index > Size)
-                throw new ElementNotFoundException();
+            RangeCheck(index);
             var curr = Head;
             for(var i = 0; i < index-1; i++) 
                 curr = curr.Next;
@@ -140,46 +137,12 @@ namespace DataStructures.linear.list
             }
             return false;
         }
-
-        public void Sort(Func<E, E, bool> compare) {
-            if(Head == null)
-                return;
-            Head = MergeSort(Head, compare);
+        
+        [AssertionMethod]
+        private void RangeCheck(int index) {
+            if(index >= Size || index < 0)
+                throw new ElementNotFoundException();
         }
-
-        public static Node<E> FindMiddle(Node<E> h) {
-            var fast = h;
-            while(fast.Next?.Next != null) {
-                fast = fast.Next.Next;
-                h = h.Next;
-            }
-            return h;
-        }
-
-        public static Node<E> Merge(Node<E> left, Node<E> right, Func<E, E, bool> compare) {
-            if(left == null)
-                return right;
-            if(right == null)
-                return left;
-            if(compare(left.Val, right.Val)) {
-                left.Next = Merge(left.Next, right, compare);
-                return left;
-            } else {
-                right.Next = Merge(left, right.Next, compare);
-                return right;
-            }
-        }
-
-        public static Node<E> MergeSort(Node<E> h, Func<E, E, bool> compare) {
-            if(h.Next == null)
-                return h;
-            var middle = FindMiddle(h);
-            var middleNext = middle.Next;
-            middle.Next = null;
-            var left = MergeSort(h, compare);
-            var right = MergeSort(middleNext, compare);
-            var sorted = Merge(left, right, compare);
-            return sorted;
-        }
+        
     }
 }

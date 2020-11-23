@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataStructures.linear 
+namespace DataStructures.structures 
 {
     public interface ICollection<E> 
     {

@@ -6,20 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ArrayDeQueue.cs" />
-    <Compile Remove="IDeQueue.cs" />
-    <Compile Remove="IPriorityQueue.cs" />
-    <Compile Remove="BinaryTree.cs" />
-    <Compile Remove="lists\**" />
-    <Compile Remove="linear\stack\StackUtils.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="lists\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="lists\**" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.2.0-eap" />
   </ItemGroup>
 
 </Project>
