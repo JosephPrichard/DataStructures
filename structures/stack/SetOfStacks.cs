@@ -1,6 +1,4 @@
-﻿using DataStructures.structures.stack;
-
-namespace DataStructures.interview.chapter3
+﻿namespace DataStructures.structures.stack
 {
     public class SetOfStacks
     {

@@ -26,10 +26,10 @@ namespace DataStructures.structures.heap
             Elements = new E[capacity];
         }
         
-        //used to generate a heap for HeapSort
        public Heap(HeapType type, E[] array, int len) {
             SetHeapType(type);
-            Elements = array;
+            Elements = new E[array.Length];
+            Array.Copy(array,0,Elements,0,array.Length);
             Size = len;
             Heapify();
         }
@@ -51,8 +51,14 @@ namespace DataStructures.structures.heap
             return Size == 0;  
         }
 
+        public E[] Copy() {
+            var copy = new E[Size];
+            Array.Copy(Elements,0,copy,0,Size);
+            return copy;
+        }
+
         //O(n)
-        private void Heapify() {
+        public void Heapify() {
             for(var i = Size-1; i >= 0; i--)
                 SiftDown(i);
         }

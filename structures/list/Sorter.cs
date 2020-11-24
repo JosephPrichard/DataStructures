@@ -28,22 +28,25 @@ namespace DataStructures.structures.list
             arr[ele2] = temp;
         }
         
-        //---HeapSort--O(nlog(n))---//
+        //---HeapSort---O(nlog(n))---//
         
         public void HeapSort(ArrayList<E> list) {
-            var heap = Type == SortType.Asc ? new Heap<E>(HeapType.Max,list.Elements,list.Size) 
-                : new Heap<E>(HeapType.Min,list.Elements,list.Size);
+            var type = Type == SortType.Asc ? HeapType.Max : HeapType.Min;
+            var heap = new Heap<E>(type, list.ToArray());
             while(heap.Size > 0) {
                 heap.Remove(0);
             }
+            list.Copy(heap.Copy());
         }
         
         public void HeapSort(E[] arr) {
-            var heap = Type == SortType.Asc ? new Heap<E>(HeapType.Max,arr) 
-                : new Heap<E>(HeapType.Min,arr);
+            var type = Type == SortType.Asc ? HeapType.Max : HeapType.Min;
+            var heap = new Heap<E>(type, arr);
             while(heap.Size > 0) {
                 heap.Remove(0);
             }
+            var copy = heap.Copy();
+            Array.Copy(copy,0,arr,0,copy.Length);
         }
         
         //---QuickSort---O(nlog(n))---//

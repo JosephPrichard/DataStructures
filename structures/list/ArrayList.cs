@@ -29,6 +29,18 @@ namespace DataStructures.structures.list
                 Elements[index] = value;
             }
         }
+
+        public E[] ToArray() {
+            var copy = new E[Size];
+            Array.Copy(Elements,0,copy,0,Size);
+            return copy;
+        }
+
+        public void Copy(E[] arr) {
+            if(arr.Length > Size) 
+                throw new SizeExceedsException();
+            Array.Copy(arr, 0, Elements, 0, arr.Length);
+        }
         
         //O(n)
         public void Push(E e) {
@@ -133,7 +145,7 @@ namespace DataStructures.structures.list
         [AssertionMethod]
         private void RangeCheck(int index) {
             if(index >= Size || index < 0)
-                throw new ElementNotFoundException();
+                throw new SizeExceedsException();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using DataStructures.interview.chapter3;
 using DataStructures.structures;
 using DataStructures.structures.heap;
 using DataStructures.structures.list;
@@ -10,12 +9,12 @@ namespace DataStructures
     public class Program 
     {
         private static void Main(string[] args) {
-            TestPq();
+            TestHeapSort();
         }
 
         private static void Output<E>(ICollection<E> list) {
             foreach(var item in list.GetEnumerable()) 
-                Console.Write(" Item: "+item);
+                Console.Write(item + ", ");
             Console.WriteLine();
         }
         
@@ -126,7 +125,7 @@ namespace DataStructures
             
             new Sorter<int>(SortType.Asc).HeapSort(list);
             Output(list);
-            
+
             Console.WriteLine("Complete.");
         }
 
