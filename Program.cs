@@ -160,22 +160,22 @@ namespace DataStructures
 
         public static void TestBinaryTree() {
             var tree = new BinarySearchTree<char>();
-            tree.Push(1,'F');
-            tree.Push(2,'G');
-            tree.Push(4,'I');
-            tree.Push(3,'H');
-            tree.Push(-6,'B');
-            tree.Push(-7,'A');
-            tree.Push(-3,'D');
-            tree.Push(-4,'C');
-            tree.Push(-2,'E');
+            tree.Insert(1,'F');
+            tree.Insert(2,'G');
+            tree.Insert(4,'I');
+            tree.Insert(3,'H');
+            tree.Insert(-6,'B');
+            tree.Insert(-7,'A');
+            tree.Insert(-3,'D');
+            tree.Insert(-4,'C');
+            tree.Insert(-2,'E');
             tree.PrintConsole();
             tree.Remove(-3);
             tree.PrintConsole();
             tree.Remove(2);
             tree.PrintConsole();
-            tree.Push(10,'J');
-            tree.Push(11,'K');
+            tree.Insert(10,'J');
+            tree.Insert(11,'K');
             tree.Remove(-6);
             tree.PrintConsole();
             Console.WriteLine("Min: " + tree.Min());

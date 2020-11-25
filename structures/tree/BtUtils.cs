@@ -5,7 +5,7 @@
         public static bool IsBst(Node<V> node) {
             var hasLeft = node.Left != null;
             var hasRight = node.Right!= null;
-            var isBst = (!hasLeft || node.Left.Key() < node.Key()) && (!hasRight || node.Right.Key() > node.Key());
+            var isBst = (!hasLeft || node.Left.Key < node.Key) && (!hasRight || node.Right.Key > node.Key);
             if(hasLeft) {
                 isBst = isBst && IsBst(node.Left);
             }

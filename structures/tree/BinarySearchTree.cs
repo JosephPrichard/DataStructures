@@ -10,7 +10,7 @@ namespace DataStructures.structures.tree
         internal Node<V> Root;
         public int Size { private set; get; }
 
-        public void Push(int key, V v) {
+        public void Insert(int key, V v) {
             var newNode = new Node<V>(key, v);
             if(Root == null) {
                 Root = newNode;
@@ -23,36 +23,36 @@ namespace DataStructures.structures.tree
         
         public V Retrieve(int key) {
             EmptyCheck();
-            var node = Search(Root,key);
-            return node != null ? node.Val() : default;
+            var node = Retrieve(Root,key);
+            return node != null ? node.Val : default;
         }
 
         public void Remove(int key) {
             EmptyCheck();
-            var node = Search(Root,key);
+            var node = Retrieve(Root,key);
             if(node != null) {
                 Remove(node);
                 Size--;
             }
         }
 
-        private void Insert(Node<V> parent, Node<V> n) {
-            if(n.Key() < parent.Key()) {
-                if(parent.Left == null) {
-                    parent.Left = n;
-                    n.Parent = parent;
+        private void Insert(Node<V> tree, Node<V> n) {
+            if(n.Key < tree.Key) {
+                if(tree.Left == null) {
+                    tree.Left = n;
+                    n.Parent = tree;
                 }
                 else {
-                    Insert(parent.Left,n);
+                    Insert(tree.Left,n);
                 }
             }
-            else if (n.Key() > parent.Key()) {
-                if(parent.Right == null) {
-                    parent.Right = n;
-                    n.Parent = parent;
+            else if (n.Key > tree.Key) {
+                if(tree.Right == null) {
+                    tree.Right = n;
+                    n.Parent = tree;
                 }
                 else {
-                    Insert(parent.Right,n);
+                    Insert(tree.Right,n);
                 }
             }
             else {
@@ -60,34 +60,34 @@ namespace DataStructures.structures.tree
             }
         }
         
-        private Node<V> Search(Node<V> curr, int key) {
-            if(key < curr.Key()) {
-                return curr.Left != null ? Search(curr.Left, key) : null;
+        private Node<V> Retrieve(Node<V> tree, int key) {
+            if(key < tree.Key) {
+                return tree.Left != null ? Retrieve(tree.Left, key) : null;
             } 
-            else if(key > curr.Key()) {
-                return curr.Right != null ? Search(curr.Right, key) : null;
+            else if(key > tree.Key) {
+                return tree.Right != null ? Retrieve(tree.Right, key) : null;
             }
             else {
-                return curr;
+                return tree;
             }
         }
 
-        private void Remove(Node<V> r) {
-            var hasLeft = r.Left != null;
-            var hasRight = r.Right != null;
+        private void Remove(Node<V> node) {
+            var hasLeft = node.Left != null;
+            var hasRight = node.Right != null;
             if(hasRight && hasLeft) {
-                var successor = FindMin(r.Right);
-                Move(successor,r);
+                var successor = FindMin(node.Right);
+                Move(successor,node);
                 Remove(successor);
             }  
             else if(hasRight) {
-                ReplaceNodeInParent(r,r.Right);
+                ReplaceNodeInParent(node,node.Right);
             } 
             else if(hasLeft) {
-                ReplaceNodeInParent(r,r.Left);
+                ReplaceNodeInParent(node,node.Left);
             }
             else {
-                ReplaceNodeInParent(r,null);
+                ReplaceNodeInParent(node,null);
             }
         }
 
@@ -109,26 +109,26 @@ namespace DataStructures.structures.tree
         
         public V Min() {
             EmptyCheck();
-            return FindMin(Root).Val();
+            return FindMin(Root).Val;
         }
 
         public V Max() {
             EmptyCheck();
-            return FindMax(Root).Val();
+            return FindMax(Root).Val;
         }
 
-        private Node<V> FindMin(Node<V> node) {
-            while(node.Left != null) {
-                node = node.Left;
+        private Node<V> FindMin(Node<V> tree) {
+            while(tree.Left != null) {
+                tree = tree.Left;
             }
-            return node;
+            return tree;
         }
         
-        private Node<V> FindMax(Node<V> node) {
-            while(node.Right != null) {
-                node = node.Right;
+        private Node<V> FindMax(Node<V> tree) {
+            while(tree.Right != null) {
+                tree = tree.Right;
             }
-            return node;
+            return tree;
         }
         
         public int LeftHeight() {
@@ -139,19 +139,19 @@ namespace DataStructures.structures.tree
             return RightHeight(Root);
         }
 
-        public int LeftHeight(Node<V> node) {
+        public int LeftHeight(Node<V> tree) {
             var len = 0;
-            while(node.Left != null) {
-                node = node.Left;
+            while(tree.Left != null) {
+                tree = tree.Left;
                 len++;
             }
             return len;
         }
         
-        public int RightHeight(Node<V> node) {
+        public int RightHeight(Node<V> tree) {
             var len = 0;
-            while(node.Right != null) {
-                node = node.Right;
+            while(tree.Right != null) {
+                tree = tree.Right;
                 len++;
             }
             return len;
@@ -172,7 +172,7 @@ namespace DataStructures.structures.tree
         private void PreOrder(Node<V> node, ArrayList<V> list) {
             if(node == null)
                 return;
-            list.PushBack(node.Val());
+            list.PushBack(node.Val);
             if(node.Left != null) {
                 PreOrder(node.Left,list);
             } 
@@ -198,7 +198,7 @@ namespace DataStructures.structures.tree
             if(node.Right != null) {
                 PostOrder(node.Right,list);
             }
-            list.PushBack(node.Val());
+            list.PushBack(node.Val);
         }
         
         public IEnumerable<V> InOrder() {
@@ -215,7 +215,7 @@ namespace DataStructures.structures.tree
             if(node.Left != null) {
                 InOrder(node.Left,list);
             } 
-            list.PushBack(node.Val());
+            list.PushBack(node.Val);
             if(node.Right != null) {
                 InOrder(node.Right,list);
             }
@@ -236,12 +236,12 @@ namespace DataStructures.structures.tree
         
         private void PrintConsole(Node<V> node) {
             Console.Write(" | ");
-            Console.Write("P: " + node.Key());
+            Console.Write("P: " + node.Key);
             if(node.Left != null) {
-                Console.Write(", L: " + node.Left.Key());
+                Console.Write(", L: " + node.Left.Key);
             }
             if(node.Right != null) {
-                Console.Write(", R: " + node.Right.Key());
+                Console.Write(", R: " + node.Right.Key);
             }
             if(node.Left != null) {
                 PrintConsole(node.Left);
