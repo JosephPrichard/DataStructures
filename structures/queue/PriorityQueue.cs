@@ -2,42 +2,41 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace DataStructures.structures.heap
+namespace DataStructures.structures.queue
 {
-    public enum HeapType
+    public enum PriorityType
     {
         Min,
         Max
     }
     
-    public class Heap<E> : IPriorityQueue<E> where E : IComparable
+    //priority queue implemented as a heap
+    public class PriorityQueue<E> : IPriorityQueue<E> where E : IComparable
     {
         private E[] Elements;
         public int Size { private set; get; }
         private Func<E, E, bool> DoCompare;
         
-        public Heap(HeapType type) {
+        public PriorityQueue(PriorityType type) {
             SetHeapType(type);
             Elements = new E[20];
         }
 
-        public Heap(HeapType type, int capacity) {
+        public PriorityQueue(PriorityType type, int capacity) {
             SetHeapType(type);
             Elements = new E[capacity];
         }
         
-       public Heap(HeapType type, E[] array, int len) {
+        public PriorityQueue(PriorityType type, E[] array) {
             SetHeapType(type);
             Elements = new E[array.Length];
             Array.Copy(array,0,Elements,0,array.Length);
-            Size = len;
-            Heapify();
+            Size = array.Length;
+            ReOrder();
         }
 
-        public Heap(HeapType type, E[] array) : this(type,array,array.Length) { }
-
-        private void SetHeapType(HeapType type) {
-            if(type == HeapType.Min) 
+        private void SetHeapType(PriorityType type) {
+            if(type == PriorityType.Min) 
                 DoCompare = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
             else 
                 DoCompare = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
@@ -58,7 +57,7 @@ namespace DataStructures.structures.heap
         }
 
         //O(n)
-        public void Heapify() {
+        public void ReOrder() {
             for(var i = Size-1; i >= 0; i--)
                 SiftDown(i);
         }
@@ -128,13 +127,13 @@ namespace DataStructures.structures.heap
         [AssertionMethod]
         private void EmptyCheck() {
             if(Size == 0)
-                throw new EmptyHeapException();
+                throw new EmptyQueueException();
         }
         
         [AssertionMethod]
         private void RangeCheck(int index) {
             if(index >= Size || index < 0)
-                throw new ElementNotFoundException();
+                throw new ListOutOfRange();
         }
 
         private void SiftUp(int pos) {

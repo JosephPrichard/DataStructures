@@ -1,5 +1,6 @@
 ﻿using System;
-using DataStructures.structures.heap;
+using System.Data;
+using DataStructures.structures.queue;
 
 namespace DataStructures.structures.list
 {
@@ -27,28 +28,7 @@ namespace DataStructures.structures.list
             arr[ele1] = arr[ele2];
             arr[ele2] = temp;
         }
-        
-        //---HeapSort---O(nlog(n))---//
-        
-        public void HeapSort(ArrayList<E> list) {
-            var type = Type == SortType.Asc ? HeapType.Max : HeapType.Min;
-            var heap = new Heap<E>(type, list.ToArray());
-            while(heap.Size > 0) {
-                heap.Remove(0);
-            }
-            list.Copy(heap.Copy());
-        }
-        
-        public void HeapSort(E[] arr) {
-            var type = Type == SortType.Asc ? HeapType.Max : HeapType.Min;
-            var heap = new Heap<E>(type, arr);
-            while(heap.Size > 0) {
-                heap.Remove(0);
-            }
-            var copy = heap.Copy();
-            Array.Copy(copy,0,arr,0,copy.Length);
-        }
-        
+
         //---QuickSort---O(nlog(n))---//
 
         public void QuickSort(ArrayList<E> list) {
@@ -82,12 +62,55 @@ namespace DataStructures.structures.list
         }
 
         //---MergeSort---O(nlog(n))---//
+        
+        public void MergeSort(ArrayList<E> list) {
+            MergeSort(list.Elements,0,list.Size-1);
+        }
+
+        public void MergeSort(E[] arr) {
+            MergeSort(arr,0,arr.Length-1);
+        }
+
+        private void MergeSort(E[] arr, int first, int last) {
+            if(last-first < 1)
+                return; 
+            var middle = (first+last-1)/2;
+            MergeSort(arr,first,middle);
+            MergeSort(arr,middle+1,last);
+            Merge(arr,first,middle,last);
+        }
+
+        public void Merge(E[] arr, int fi, int mi, int li) {
+            var left = new E[mi+1-fi];
+            Array.Copy(arr,fi,left,0,mi+1-fi);
+            var right = new E[li-mi];
+            Array.Copy(arr,mi+1,right,0,li-mi);
+            var l = 0;
+            var r = 0;
+            while(l < left.Length && r < right.Length) {
+                if(DoCompare(left[l],right[r])) {
+                    arr[fi] = left[l];
+                    l++;
+                }
+                else {
+                    arr[fi] = right[r];
+                    r++;
+                }
+                fi++;
+            }
+            if(l >= left.Length) {
+                Array.Copy(right,r,arr,fi,right.Length-l);
+            }
+            else if(r >= right.Length) {
+                Array.Copy(left,l,arr,fi,left.Length-l);
+            }
+        }
 
         public void MergeSort(LinkedList<E> list) {
             list.Head = MergeSort(list.Head);
         }
         
-        public Node<E> MergeSort(Node<E> h) {
+        private Node<E> MergeSort(Node<E> h) {
             if(h?.Next == null)
                 return h;
             var middle = FindMiddle(h);

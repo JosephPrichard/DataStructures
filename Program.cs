@@ -1,15 +1,16 @@
 ﻿using System;
 using DataStructures.structures;
-using DataStructures.structures.heap;
 using DataStructures.structures.list;
+using DataStructures.structures.queue;
 using DataStructures.structures.stack;
+using DataStructures.structures.tree;
 
 namespace DataStructures
 {
     public class Program 
     {
         private static void Main(string[] args) {
-            TestHeapSort();
+            TestBinaryTree();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -24,7 +25,7 @@ namespace DataStructures
         }
 
         private static void TestPq() {
-            var heap = new Heap<int>(HeapType.Min);
+            var heap = new PriorityQueue<int>(PriorityType.Min);
             heap.Push(22);
             heap.Push(3);
             heap.Push(62);
@@ -123,7 +124,7 @@ namespace DataStructures
             list.AddAll(list1);
             Output(list);
             
-            new Sorter<int>(SortType.Asc).HeapSort(list);
+            new Sorter<int>(SortType.Asc).MergeSort(list);
             Output(list);
 
             Console.WriteLine("Complete.");
@@ -157,14 +158,56 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
-        public static void TestHeapSort() {
-            int[] elements = {10, 5, -4, 4, 91, -1, 6, 1, 16, 15, 60};
-            new Sorter<int>(SortType.Asc).HeapSort(elements);
-            foreach(var e in elements) {
-                Console.Write(e + ", ");
+        public static void TestBinaryTree() {
+            var tree = new BinarySearchTree<char>();
+            tree.Push(1,'F');
+            tree.Push(2,'G');
+            tree.Push(4,'I');
+            tree.Push(3,'H');
+            tree.Push(-6,'B');
+            tree.Push(-7,'A');
+            tree.Push(-3,'D');
+            tree.Push(-4,'C');
+            tree.Push(-2,'E');
+            tree.PrintConsole();
+            tree.Remove(-3);
+            tree.PrintConsole();
+            tree.Remove(2);
+            tree.PrintConsole();
+            tree.Push(10,'J');
+            tree.Push(11,'K');
+            tree.Remove(-6);
+            tree.PrintConsole();
+            Console.WriteLine("Min: " + tree.Min());
+            Console.WriteLine("Max: " + tree.Max());
+            Console.WriteLine("Val: " + tree.Retrieve(-4));
+            Console.WriteLine("LHeight: " + tree.LeftHeight());
+            Console.WriteLine("RHeight: " + tree.RightHeight());
+            foreach(var v in tree.PreOrder()) {
+                Console.Write(v + ", ");
+            }
+            Console.WriteLine();
+            foreach(var v in tree.PostOrder()) {
+                Console.Write(v + ", ");
+            }
+            Console.WriteLine();
+            foreach(var v in tree.InOrder()) {
+                Console.Write(v + ", ");
+            }
+            Console.WriteLine();
+            Console.WriteLine(BtUtils<char>.IsBst(tree.Root));
+            BtUtils<char>.Invert(tree.Root);
+            tree.PrintConsole();
+            Console.WriteLine(BtUtils<char>.IsBst(tree.Root));
+        }
+
+        private static void TestMergeSort() {
+            int[] arr = {8,9,10,5,7,90,2,11};
+            new Sorter<int>(SortType.Asc).MergeSort(arr);
+            foreach(var i in arr) {
+                Console.Write(i+", ");
             }
             Console.WriteLine();
         }
-        
     }
 }

@@ -141,7 +141,7 @@ namespace DataStructures.structures.list
         [AssertionMethod]
         private void RangeCheck(int index) {
             if(index >= Size || index < 0)
-                throw new SizeExceedsException();
+                throw new ListOutOfRange();
         }
         
     }

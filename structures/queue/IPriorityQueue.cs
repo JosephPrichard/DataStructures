@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataStructures.structures.heap
+namespace DataStructures.structures.queue
 {
     public interface IPriorityQueue<E>
     {
