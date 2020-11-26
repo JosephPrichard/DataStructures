@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace DataStructures.structures.list 
+﻿namespace DataStructures.structures.list
 {
     public interface IList<E> : ICollection<E>
     {
         E this[int index] { set; get; }
-        
+
         void PushBack(E e);
 
         E PopBack();
@@ -15,6 +13,5 @@ namespace DataStructures.structures.list
         void Remove(int index);
 
         void Insert(int index, E e);
-        
     }
 }

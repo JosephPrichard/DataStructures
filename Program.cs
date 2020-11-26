@@ -7,20 +7,21 @@ using DataStructures.structures.tree;
 
 namespace DataStructures
 {
-    public class Program 
+    public class Program
     {
         private static void Main(string[] args) {
             TestBinaryTree();
         }
 
         private static void Output<E>(ICollection<E> list) {
-            foreach(var item in list.GetEnumerable()) 
-                Console.Write(item + ", ");
+            foreach(var item in list.GetEnumerable()) {
+                Console.Write(item+", ");
+            }
             Console.WriteLine();
         }
-        
+
         private static int RandomNumber(int min, int max) {
-            var random = new Random(); 
+            var random = new Random();
             return random.Next(min, max);
         }
 
@@ -33,20 +34,20 @@ namespace DataStructures
             heap.Push(5);
             heap.Push(-21);
             while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: " + heap.Pop());
+                Console.WriteLine("Pop: "+heap.Pop());
             }
             Console.WriteLine("Push More ");
             for(var i = 0; i < 100; i++) {
-                heap.Push(RandomNumber(-1000,1000));
+                heap.Push(RandomNumber(-1000, 1000));
             }
             while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: " + heap.Pop());
+                Console.WriteLine("Pop: "+heap.Pop());
             }
             Console.WriteLine("PopPush ");
             heap.Push(1);
             for(var i = 0; i < 5; i++) {
-                Console.WriteLine("PopPush: " + heap.PopPush(RandomNumber(-100,100)));
-                Console.WriteLine("Peek: " + heap.Peek());
+                Console.WriteLine("PopPush: "+heap.PopPush(RandomNumber(-100, 100)));
+                Console.WriteLine("Peek: "+heap.Peek());
             }
             Console.WriteLine("Complete.");
         }
@@ -68,7 +69,7 @@ namespace DataStructures
             stack.Push(6);
             stack.Push(5);
             stack.Push(4);
-            
+
             var stack1 = new Stack<int>();
             stack1.Push(3);
             stack1.Push(2);
@@ -78,7 +79,7 @@ namespace DataStructures
             Console.WriteLine(stack.Peek());
 
             stack.AddAll(stack1);
-            
+
             Output(stack);
             Console.WriteLine("Complete.");
         }
@@ -99,7 +100,7 @@ namespace DataStructures
             list.Remove(1);
             list.Remove(0);
             Output(list);
-            
+
             list.PushBack(2);
             list.PushBack(4);
             list.PushBack(5);
@@ -123,8 +124,8 @@ namespace DataStructures
 
             list.AddAll(list1);
             Output(list);
-            
-            new Sorter<int>(SortType.Asc).MergeSort(list);
+
+            new Sorter<int>(SortType.Asc).QuickSort(list);
             Output(list);
 
             Console.WriteLine("Complete.");
@@ -148,10 +149,10 @@ namespace DataStructures
             list2.Push(19);
 
             list.AddAll(list2);
-            
+
             Output(list);
-            
-            new Sorter<int>(SortType.Dsc).MergeSort(list);
+
+            new Sorter<int>(SortType.Dsc).QuickSort(list);
 
             Output(list);
 
@@ -160,49 +161,46 @@ namespace DataStructures
 
         public static void TestBinaryTree() {
             var tree = new BinarySearchTree<char>();
-            tree.Insert(1,'F');
-            tree.Insert(2,'G');
-            tree.Insert(4,'I');
-            tree.Insert(3,'H');
-            tree.Insert(-6,'B');
-            tree.Insert(-7,'A');
-            tree.Insert(-3,'D');
-            tree.Insert(-4,'C');
-            tree.Insert(-2,'E');
-            tree.PrintConsole();
+            tree.Put(1, 'F');
+            tree.Put(2, 'G');
+            tree.Put(4, 'I');
+            tree.Put(3, 'H');
+            tree.Put(-6, 'B');
+            tree.Put(-7, 'A');
+            tree.Put(-3, 'D');
+            tree.Put(-4, 'C');
+            tree.Put(-2, 'E');
+            BtUtils<char>.PrintConsole(tree.Root);
+            Console.WriteLine();
             tree.Remove(-3);
-            tree.PrintConsole();
             tree.Remove(2);
-            tree.PrintConsole();
-            tree.Insert(10,'J');
-            tree.Insert(11,'K');
+            tree.Put(10, 'J');
+            tree.Put(11, 'K');
             tree.Remove(-6);
-            tree.PrintConsole();
-            Console.WriteLine("Min: " + tree.Min());
-            Console.WriteLine("Max: " + tree.Max());
-            Console.WriteLine("Val: " + tree.Retrieve(-4));
-            Console.WriteLine("LHeight: " + tree.LeftHeight());
-            Console.WriteLine("RHeight: " + tree.RightHeight());
-            foreach(var v in tree.PreOrder()) {
-                Console.Write(v + ", ");
+            BtUtils<char>.PrintConsole(tree.Root);
+            Console.WriteLine();
+            Console.WriteLine("Min: "+tree.Min());
+            Console.WriteLine("Max: "+tree.Max());
+            Console.WriteLine("Val: "+tree.Get(-4));
+            Console.WriteLine("LHeight: "+tree.LeftHeight());
+            Console.WriteLine("RHeight: "+tree.RightHeight());
+            foreach(var v in tree.Elements()) {
+                Console.Write(v+", ");
             }
             Console.WriteLine();
-            foreach(var v in tree.PostOrder()) {
-                Console.Write(v + ", ");
-            }
-            Console.WriteLine();
-            foreach(var v in tree.InOrder()) {
-                Console.Write(v + ", ");
+            foreach(var k in tree.Keys()) {
+                Console.Write(k+", ");
             }
             Console.WriteLine();
             Console.WriteLine(BtUtils<char>.IsBst(tree.Root));
-            BtUtils<char>.Invert(tree.Root);
-            tree.PrintConsole();
+            BtUtils<char>.Invert(tree.Root); //no longer searchable, internal access is allowed for testing purposes
+            BtUtils<char>.PrintConsole(tree.Root);
+            Console.WriteLine();
             Console.WriteLine(BtUtils<char>.IsBst(tree.Root));
         }
 
         private static void TestMergeSort() {
-            int[] arr = {8,9,10,5,7,90,2,11};
+            int[] arr = {8, 9, 10, 5, 7, 90, 2, 11};
             new Sorter<int>(SortType.Asc).MergeSort(arr);
             foreach(var i in arr) {
                 Console.Write(i+", ");

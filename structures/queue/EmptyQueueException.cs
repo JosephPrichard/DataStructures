@@ -1,12 +1,16 @@
-﻿namespace DataStructures.structures.queue
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace DataStructures.structures.queue
 {
-    public class EmptyQueueException : System.Exception
+    public class EmptyQueueException : Exception
     {
-        public EmptyQueueException() : base() {}
+        public EmptyQueueException() { }
+
         public EmptyQueueException(string message) : base(message) { }
-        public EmptyQueueException(string message, System.Exception inner) : base(message, inner) { }
-        
-        protected EmptyQueueException(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+
+        public EmptyQueueException(string message, Exception inner) : base(message, inner) { }
+
+        protected EmptyQueueException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

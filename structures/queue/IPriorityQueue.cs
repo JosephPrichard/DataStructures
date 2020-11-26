@@ -15,7 +15,7 @@ namespace DataStructures.structures.queue
         void Remove(E e);
 
         E PopPush(E e);
-        
+
         bool IsEmpty();
 
         IEnumerable<E> GetEnumerable();

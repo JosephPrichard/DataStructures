@@ -2,30 +2,32 @@
 {
     public class SetOfStacks
     {
-        public int Threshold { get; }
-        private readonly Stack<Stack<int>> Stack = new Stack<Stack<int>>();
+        private readonly Stack<Stack<int>> stack = new Stack<Stack<int>>();
 
         public SetOfStacks(int threshold) {
             Threshold = threshold;
-            Stack.Push(new Stack<int>());
+            stack.Push(new Stack<int>());
         }
 
+        public int Threshold { get; }
+
         public void Push(int val) {
-            if(Stack.Peek() == null || Stack.Peek().Size >= Threshold)
-                Stack.Push(new Stack<int>());
-            Stack.Peek().Push(val);
+            if(stack.Peek() == null || stack.Peek().Size >= Threshold) {
+                stack.Push(new Stack<int>());
+            }
+            stack.Peek().Push(val);
         }
-        
+
         public int Pop() {
-            if(Stack.Peek().Size == 0) {
-                Stack.Pop();
+            if(stack.Peek().Size == 0) {
+                stack.Pop();
                 Pop();
             }
-            return Stack.Peek().Pop();
+            return stack.Peek().Pop();
         }
 
         public int Peek() {
-            return Stack.Peek().Peek();
+            return stack.Peek().Peek();
         }
     }
 }

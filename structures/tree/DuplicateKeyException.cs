@@ -1,12 +1,16 @@
-﻿namespace DataStructures.structures.tree
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace DataStructures.structures.tree
 {
-    public class DuplicateKeyException : System.Exception
+    public class DuplicateKeyException : Exception
     {
-        public DuplicateKeyException() : base() {}
+        public DuplicateKeyException() { }
+
         public DuplicateKeyException(string message) : base(message) { }
-        public DuplicateKeyException(string message, System.Exception inner) : base(message, inner) { }
-        
-        protected DuplicateKeyException(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+
+        public DuplicateKeyException(string message, Exception inner) : base(message, inner) { }
+
+        protected DuplicateKeyException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

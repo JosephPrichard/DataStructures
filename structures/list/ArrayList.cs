@@ -2,45 +2,40 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace DataStructures.structures.list 
+namespace DataStructures.structures.list
 {
-    public class ArrayList<E> : IList<E> 
+    public class ArrayList<E> : IList<E>
     {
-        internal E[] Elements;
-        public int Size { get; private set; }
+        private E[] elements;
 
         public ArrayList() {
             Size = 0;
-            Elements = new E[20];
+            elements = new E[20];
         }
 
         public ArrayList(int capacity) {
             Size = 0;
-            Elements = new E[capacity];
+            elements = new E[capacity];
         }
-        
+
+        public int Size { get; private set; }
+
         public E this[int index] {
             get {
                 RangeCheck(index);
-                return Elements[index];
+                return elements[index];
             }
             set {
                 RangeCheck(index);
-                Elements[index] = value;
+                elements[index] = value;
             }
-        }
-
-        public E[] ToArray() {
-            var copy = new E[Size];
-            Array.Copy(Elements,0,copy,0,Size);
-            return copy;
         }
 
         //O(n)
         public void Push(E e) {
             EnsureCapacity(Size+1);
-            Array.Copy(Elements,0,Elements,1,Size);
-            Elements[0] = e;
+            Array.Copy(elements, 0, elements, 1, Size);
+            elements[0] = e;
             Size++;
         }
 
@@ -55,14 +50,14 @@ namespace DataStructures.structures.list
             Remove(0);
             return value;
         }
-        
+
         //O(1) amortized
         public void PushBack(E e) {
             EnsureCapacity(Size+1);
-            Elements[Size] = e;
+            elements[Size] = e;
             Size++;
         }
-        
+
         //O(1)
         public E PeekBack() {
             return this[Size-1];
@@ -75,12 +70,12 @@ namespace DataStructures.structures.list
             Remove(i);
             return value;
         }
-        
+
         //O(n)
         public void Remove(int index) {
             RangeCheck(index);
             EnsureCapacity(Size-1);
-            Array.Copy(Elements,index+1,Elements,index,Size-index);
+            Array.Copy(elements, index+1, elements, index, Size-index);
             Size--;
         }
 
@@ -88,58 +83,69 @@ namespace DataStructures.structures.list
         public void Insert(int index, E e) {
             RangeCheck(index);
             EnsureCapacity(Size+1);
-            Array.Copy(Elements,index,Elements,index+1,Size-index);
-            Elements[index] = e;
+            Array.Copy(elements, index, elements, index+1, Size-index);
+            elements[index] = e;
             Size++;
         }
-        
+
         //O(n)
         public IEnumerable<E> GetEnumerable() {
-            for(var i = 0; i < Size; i++) 
-                yield return Elements[i];
+            for(var i = 0; i < Size; i++) {
+                yield return elements[i];
+            }
         }
-        
+
         //O(n)
         public void AddAll(ICollection<E> list) {
             EnsureCapacity(Size+list.Size);
             var i = 0;
             foreach(var e in list.GetEnumerable()) {
-                Elements[i+Size] = e;
+                elements[i+Size] = e;
                 i++;
             }
             Size += list.Size;
         }
-        
+
         public bool IsEmpty() {
             return Size == 0;
         }
 
         public void Clear() {
             Size = 0;
-            Elements = Array.Empty<E>();
+            elements = Array.Empty<E>();
         }
-        
+
         //O(n)
         public bool Contains(E e, Func<E, E, bool> equals) {
-            for(var i = 0; i < Size; i++)
-                if(equals(e, this[i]))
+            for(var i = 0; i < Size; i++) {
+                if(equals(e, this[i])) {
                     return true;
+                }
+            }
             return false;
         }
 
+        public E[] ToArray() {
+            var copy = new E[Size];
+            Array.Copy(elements, 0, copy, 0, Size);
+            return copy;
+        }
+
         private void EnsureCapacity(int size) {
-            var capacity = Elements.Length;
-            if(size < capacity)
+            var capacity = elements.Length;
+            if(size < capacity) {
                 return;
-            var resizedElements = new E[(size-capacity)+(capacity*2)];
-            Array.Copy(Elements,0, resizedElements,0,Size);
-            Elements = resizedElements;
+            }
+            var resizedElements = new E[size-capacity+capacity*2];
+            Array.Copy(elements, 0, resizedElements, 0, Size);
+            elements = resizedElements;
         }
 
         [AssertionMethod]
         private void RangeCheck(int index) {
-            if(index >= Size || index < 0)
+            if(index >= Size || index < 0) {
                 throw new ListOutOfRange();
+            }
         }
     }
 }
