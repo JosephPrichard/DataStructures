@@ -1,16 +1,17 @@
 ﻿using System;
 using DataStructures.structures;
+using DataStructures.structures.hash;
 using DataStructures.structures.list;
 using DataStructures.structures.queue;
 using DataStructures.structures.stack;
-using DataStructures.structures.tree;
+using DataStructures.structures.tree.bst;
 
 namespace DataStructures
 {
     public class Program
     {
         private static void Main(string[] args) {
-            TestBinaryTree();
+            TestHashTable();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -152,7 +153,7 @@ namespace DataStructures
 
             Output(list);
 
-            new Sorter<int>(SortType.Dsc).QuickSort(list);
+            new Sorter<int>(SortType.Dsc).MergeSort(list);
 
             Output(list);
 
@@ -160,7 +161,7 @@ namespace DataStructures
         }
 
         public static void TestBinaryTree() {
-            var tree = new BinarySearchTree<char>();
+            var tree = new BinarySearchTree<int,char>();
             tree.Put(1, 'F');
             tree.Put(2, 'G');
             tree.Put(4, 'I');
@@ -170,15 +171,17 @@ namespace DataStructures
             tree.Put(-3, 'D');
             tree.Put(-4, 'C');
             tree.Put(-2, 'E');
-            BtUtils<char>.PrintConsole(tree.Root);
+            foreach(var v in tree.Elements()) {
+                Console.Write(v+", ");
+            }
             Console.WriteLine();
             tree.Remove(-3);
             tree.Remove(2);
             tree.Put(10, 'J');
+            tree.Put(11, 'L');
             tree.Put(11, 'K');
-            tree.Remove(-6);
-            BtUtils<char>.PrintConsole(tree.Root);
-            Console.WriteLine();
+            Console.WriteLine("Remove -6: "+tree.Remove(-6));
+            Console.WriteLine("Remove 0: "+tree.Remove(0)); //no key for 0
             Console.WriteLine("Min: "+tree.Min());
             Console.WriteLine("Max: "+tree.Max());
             Console.WriteLine("Val: "+tree.Get(-4));
@@ -192,11 +195,48 @@ namespace DataStructures
                 Console.Write(k+", ");
             }
             Console.WriteLine();
-            Console.WriteLine(BtUtils<char>.IsBst(tree.Root));
-            BtUtils<char>.Invert(tree.Root); //no longer searchable, internal access is allowed for testing purposes
-            BtUtils<char>.PrintConsole(tree.Root);
+        }
+
+        private static void TestHashTable() {
+            var table = new HashTable<int,char>(25);
+            table.Put(1, 'A');
+            table.Put(2, 'B');
+            table.Put(3, 'C');
+            table.Put(51, 'D');
+            table.Put(52, 'E');
+            table.Put(53, 'F');
+            table.Put(101, 'G');
+            table.Put(102, 'H');
+            table.Put(103, 'I');
+            Console.WriteLine(table.Get(3));
+            Console.WriteLine(table.Get(53));
+            Console.WriteLine(table.Get(103));
+            Console.WriteLine("Has 3?: " + table.Contains(3));
+            table.Remove(3);
+            Console.WriteLine("Has 3?: " + table.Contains(3));
+            Console.WriteLine(table.Get(3));
+            Console.WriteLine(table.Get(53));
+            Console.WriteLine(table.Get(103));
+            Console.WriteLine("Has 53?: " + table.Contains(53));
+            Console.WriteLine("Has 103?: " + table.Contains(103));
+            table.Remove(53);
+            table.Remove(103);
+            Console.WriteLine("Has 53?: " + table.Contains(53));
+            Console.WriteLine("Has 103?: " + table.Contains(103));
+            Console.WriteLine(table.Get(1));
+            Console.WriteLine(table.Get(51));
+            Console.WriteLine(table.Get(101));
+            Console.WriteLine(table.Get(2));
+            Console.WriteLine(table.Get(52));
+            Console.WriteLine(table.Get(102));
+            foreach(var k in table.Keys()) {
+                Console.Write(k+", ");
+            }
             Console.WriteLine();
-            Console.WriteLine(BtUtils<char>.IsBst(tree.Root));
+            foreach(var e in table.Elements()) {
+                Console.Write(e+", ");
+            }
+            Console.WriteLine();
         }
 
         private static void TestMergeSort() {

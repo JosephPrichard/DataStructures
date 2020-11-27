@@ -9,11 +9,10 @@ namespace DataStructures.structures.queue
         Min,
         Max
     }
-
-    //priority queue implemented as a heap
+    
     public class PriorityQueue<E> : IPriorityQueue<E> where E : IComparable
     {
-        private Func<E, E, bool> doCompare;
+        private Func<E,E,bool> doCompare;
         private E[] elements;
 
         public PriorityQueue(PriorityType type) {

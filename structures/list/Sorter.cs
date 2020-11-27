@@ -10,7 +10,7 @@ namespace DataStructures.structures.list
 
     public class Sorter<E> where E : IComparable
     {
-        private Func<E, E, bool> doCompare;
+        private Func<E,E,bool> doCompare;
 
         public Sorter(SortType typeIn) {
             SetType(typeIn);
@@ -102,6 +102,10 @@ namespace DataStructures.structures.list
             } else if(r >= right.Length) {
                 Array.Copy(left, l, arr, fi, left.Length-l);
             }
+        }
+
+        public void MergeSort(LinkedList<E> list) {
+            list.Head = MergeSort(list.Head);
         }
 
         private Node<E> MergeSort(Node<E> h) {

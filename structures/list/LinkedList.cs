@@ -6,13 +6,13 @@ namespace DataStructures.structures.list
 {
     public class LinkedList<E> : IList<E>
     {
-        private Node<E> head;
+        internal Node<E> Head;
         public int Size { get; private set; }
 
         public E this[int index] {
             set {
                 RangeCheck(index);
-                var curr = head;
+                var curr = Head;
                 for(var i = 0; i < index; i++) {
                     curr = curr.Next;
                 }
@@ -20,7 +20,7 @@ namespace DataStructures.structures.list
             }
             get {
                 RangeCheck(index);
-                var curr = head;
+                var curr = Head;
                 for(var i = 0; i < index; i++) {
                     curr = curr.Next;
                 }
@@ -31,9 +31,9 @@ namespace DataStructures.structures.list
         //o(1)
         public void Push(E e) {
             var newNode = new Node<E>(e) {
-                Next = head
+                Next = Head
             };
-            head = newNode;
+            Head = newNode;
             Size++;
         }
 
@@ -52,10 +52,10 @@ namespace DataStructures.structures.list
         //o(n)
         public void PushBack(E e) {
             var newNode = new Node<E>(e);
-            var curr = head;
+            var curr = Head;
             Size++;
             if(curr == null) {
-                head = newNode;
+                Head = newNode;
                 return;
             }
             while(curr.Next != null) {
@@ -80,7 +80,7 @@ namespace DataStructures.structures.list
         //o(n)
         public void Remove(int index) {
             RangeCheck(index);
-            var prev = head;
+            var prev = Head;
             for(var i = 0; i < index-1; i++) {
                 prev = prev.Next;
             }
@@ -91,7 +91,7 @@ namespace DataStructures.structures.list
         //o(n)
         public void Insert(int index, E e) {
             RangeCheck(index);
-            var curr = head;
+            var curr = Head;
             for(var i = 0; i < index-1; i++) {
                 curr = curr.Next;
             }
@@ -104,7 +104,7 @@ namespace DataStructures.structures.list
 
         //o(n)
         public IEnumerable<E> GetEnumerable() {
-            var curr = head;
+            var curr = Head;
             while(curr != null) {
                 yield return curr.Val;
                 curr = curr.Next;
@@ -113,7 +113,7 @@ namespace DataStructures.structures.list
 
         //o(n)
         public void AddAll(ICollection<E> list) {
-            var tail = head;
+            var tail = Head;
             while(tail.Next != null) {
                 tail = tail.Next;
             }
@@ -131,11 +131,11 @@ namespace DataStructures.structures.list
 
         public void Clear() {
             Size = 0;
-            head = null;
+            Head = null;
         }
 
         public bool Contains(E e, Func<E, E, bool> equals) {
-            var curr = head;
+            var curr = Head;
             while(curr != null) {
                 if(equals(e, curr.Val)) {
                     return true;
