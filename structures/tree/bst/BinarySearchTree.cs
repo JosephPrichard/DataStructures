@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using DataStructures.structures.list;
 using JetBrains.Annotations;
 
@@ -73,10 +74,15 @@ namespace DataStructures.structures.tree.bst
                 yield return list[i].Value;
             }
         }
-
+        
         public int Rank(K key) {
+            var number = Rank(root, key);
+            return LessThan(root.Key,key) ? ++number : number;
+        }
+
+        public int Number(K key) {
             var node = Get(root, key);
-            return node != null ? Rank(node) : 0;
+            return node != null ? Number(node) : 0;
         }
 
         public V Min() {
@@ -233,20 +239,26 @@ namespace DataStructures.structures.tree.bst
             if(node == null) {
                 return;
             }
-            if(node.Left != null && GreaterOrEqual(node.Left.Key,lower)) {
+            if(node.Left != null && GreaterOrEqual(node.Key,lower)) {
                 RangeSearch(node.Left,lower,upper,list);
             }
             if(LessOrEqual(node.Key,upper) && GreaterOrEqual(node.Key,lower)) {
                 list.PushBack(node.Data);
             }
-            if(node.Right != null && LessOrEqual(node.Right.Key,upper)) {
+            if(node.Right != null && LessOrEqual(node.Key,upper)) {
                 RangeSearch(node.Right,lower,upper,list);
             }
         }
 
-        private int Rank(Node<K,V> node) {
-            return (node.Right != null ? Rank(node.Right) + 1 : 0) + 
-                   (node.Left != null ? Rank(node.Left) + 1 : 0);
+        private int Number(Node<K,V> node) {
+            return (node.Right != null ? Number(node.Right) + 1 : 0) + 
+                   (node.Left != null ? Number(node.Left) + 1 : 0);
+        }
+
+        private int Rank(Node<K,V> node, K key) {
+            return (node.Right != null && LessThan(node.Key,key) 
+                       ? Rank(node.Right,key) + (LessThan(node.Right.Key,key) ? 1 : 0) : 0) + 
+                   (node.Left != null ? Rank(node.Left,key) + (LessThan(node.Left.Key,key) ? 1 : 0) : 0);
         }
         
         [AssertionMethod]

@@ -187,7 +187,10 @@ namespace DataStructures
             Console.WriteLine("Val: "+tree.Get(-4));
             Console.WriteLine("LHeight: "+tree.LeftHeight());
             Console.WriteLine("RHeight: "+tree.RightHeight());
-            Console.WriteLine("Rank: "+tree.Rank(1));
+            Console.WriteLine("Number: "+tree.Number(4));
+            Console.WriteLine("Rank: "+tree.Rank(4));
+            Console.WriteLine("Rank: "+tree.Rank(3));
+            Console.WriteLine("Rank: "+tree.Rank(11));
             foreach(var v in tree.Elements()) {
                 Console.Write(v+", ");
             }
@@ -196,7 +199,15 @@ namespace DataStructures
                 Console.Write(k+", ");
             }
             Console.WriteLine();
-            foreach(var v in tree.RangeSearch(2,10)) {
+            foreach(var v in tree.RangeSearch(3,10)) {
+                Console.Write(v+", ");
+            }
+            Console.WriteLine();
+            foreach(var v in tree.RangeSearch(-7,-2)) {
+                Console.Write(v+", ");
+            }
+            Console.WriteLine();
+            foreach(var v in tree.RangeSearch(-3,10)) {
                 Console.Write(v+", ");
             }
             Console.WriteLine();

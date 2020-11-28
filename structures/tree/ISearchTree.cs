@@ -6,11 +6,13 @@ namespace DataStructures.structures.tree
     {
         public IEnumerable<V> RangeSearch(K lower, K upper);
 
-        public int Rank(K key);
-        
         public V Min();
 
         public V Max();
+
+        public int Rank(K key);
+
+        public int Number(K key);
 
         public int LeftHeight();
 
