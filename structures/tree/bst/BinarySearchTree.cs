@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace DataStructures.structures.tree.bst
 {
-    public class BinarySearchTree<K,V> : IMap<K,V> where K : IComparable
+    public class BinarySearchTree<K,V> : ISearchTree<K,V> where K : IComparable
     {
         private Node<K,V> root;
         
@@ -66,6 +66,19 @@ namespace DataStructures.structures.tree.bst
             }
         }
         
+        public IEnumerable<V> RangeSearch(K lower, K upper) {
+            var list = new ArrayList<KeyValuePair<K,V>>(Size);
+            RangeSearch(root,lower,upper,list);
+            for(var i = 0; i < list.Size; i++) {
+                yield return list[i].Value;
+            }
+        }
+
+        public int Rank(K key) {
+            var node = Get(root, key);
+            return node != null ? Rank(node) : 0;
+        }
+
         public V Min() {
             EmptyCheck();
             return Max(root).Val;
@@ -83,13 +96,21 @@ namespace DataStructures.structures.tree.bst
         public int RightHeight() {
             return RightHeight(root);
         }
-        
+
         private bool LessThan(K key1, K key2) {
             return key1.CompareTo(key2) == -1;
         }
         
         private bool GreaterThan(K key1, K key2) {
             return key1.CompareTo(key2) == 1;
+        }
+        
+        private bool LessOrEqual(K key1, K key2) {
+            return !GreaterThan(key1,key2);
+        }
+        
+        private bool GreaterOrEqual(K key1, K key2) {
+            return !LessThan(key1,key2);
         }
         
         private bool EqualTo(K key1, K key2) {
@@ -207,7 +228,27 @@ namespace DataStructures.structures.tree.bst
                 InOrder(node.Right, list);
             }
         }
+        
+        private void RangeSearch(Node<K,V> node, K lower, K upper, ArrayList<KeyValuePair<K,V>> list) {
+            if(node == null) {
+                return;
+            }
+            if(node.Left != null && GreaterOrEqual(node.Left.Key,lower)) {
+                RangeSearch(node.Left,lower,upper,list);
+            }
+            if(LessOrEqual(node.Key,upper) && GreaterOrEqual(node.Key,lower)) {
+                list.PushBack(node.Data);
+            }
+            if(node.Right != null && LessOrEqual(node.Right.Key,upper)) {
+                RangeSearch(node.Right,lower,upper,list);
+            }
+        }
 
+        private int Rank(Node<K,V> node) {
+            return (node.Right != null ? Rank(node.Right) + 1 : 0) + 
+                   (node.Left != null ? Rank(node.Left) + 1 : 0);
+        }
+        
         [AssertionMethod]
         private void EmptyCheck() {
             if(Size == 0) {

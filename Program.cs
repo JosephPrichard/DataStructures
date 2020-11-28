@@ -11,7 +11,7 @@ namespace DataStructures
     public class Program
     {
         private static void Main(string[] args) {
-            TestHashTable();
+            TestBinaryTree();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -187,12 +187,17 @@ namespace DataStructures
             Console.WriteLine("Val: "+tree.Get(-4));
             Console.WriteLine("LHeight: "+tree.LeftHeight());
             Console.WriteLine("RHeight: "+tree.RightHeight());
+            Console.WriteLine("Rank: "+tree.Rank(1));
             foreach(var v in tree.Elements()) {
                 Console.Write(v+", ");
             }
             Console.WriteLine();
             foreach(var k in tree.Keys()) {
                 Console.Write(k+", ");
+            }
+            Console.WriteLine();
+            foreach(var v in tree.RangeSearch(2,10)) {
+                Console.Write(v+", ");
             }
             Console.WriteLine();
         }
@@ -208,6 +213,7 @@ namespace DataStructures
             table.Put(101, 'G');
             table.Put(102, 'H');
             table.Put(103, 'I');
+            Console.WriteLine("Size: " + table.Size);
             Console.WriteLine(table.Get(3));
             Console.WriteLine(table.Get(53));
             Console.WriteLine(table.Get(103));
@@ -237,6 +243,7 @@ namespace DataStructures
                 Console.Write(e+", ");
             }
             Console.WriteLine();
+            Console.WriteLine("Size: " + table.Size);
         }
 
         private static void TestMergeSort() {

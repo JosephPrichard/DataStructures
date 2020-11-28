@@ -137,7 +137,7 @@ namespace DataStructures.structures.queue
         [AssertionMethod]
         private void RangeCheck(int index) {
             if(index >= Size || index < 0) {
-                throw new ListOutOfRange();
+                throw new OutOfRangeException();
             }
         }
 

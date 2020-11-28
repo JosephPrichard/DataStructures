@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using DataStructures.structures.list;
 
@@ -20,7 +21,6 @@ namespace DataStructures.structures.hash
             var pair = new KeyValuePair<K,V>(key,val);
             if(head == null) {
                 table[h] = new Node<KeyValuePair<K, V>>(pair);
-                Size++;
             } else {
                 var prev = head;
                 while(head != null) {
@@ -32,8 +32,9 @@ namespace DataStructures.structures.hash
                     head = head.Next;
                 }
                 prev.Next = new Node<KeyValuePair<K, V>>(pair);
-                Size++;
+                
             }
+            Size++;
         }
 
         public V Get(K key) {
@@ -48,12 +49,14 @@ namespace DataStructures.structures.hash
             if(head != null) {
                 if(head.Val.Key.Equals(key)) {
                     table[h] = head.Next;
+                    Size--;
                     return true;
                 }
                 head = head.Next;
                 while(head != null) {
                     if(head.Val.Key.Equals(key)) {
                         prev.Next = head.Next;
+                        Size--;
                         return true;
                     }
                     prev = head;
@@ -119,6 +122,6 @@ namespace DataStructures.structures.hash
         public int Hash(K key) {
             return Abs(key.GetHashCode() % table.Length);
         }
-        
+
     }
 }
