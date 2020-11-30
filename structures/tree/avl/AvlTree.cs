@@ -39,12 +39,8 @@ namespace DataStructures.structures.tree.avl
                 root = new Node<K, V>(pair);
             } else {
                 var newNode = Put(root, pair);
-                if(newNode != null) {
-                    if(ImBalanced(newNode)) {
-                        //Console.WriteLine("Before Rotation");
-                        //PrintConsole();
-                        Rotate(newNode.Parent);
-                    }
+                if(newNode != null && BrokeBalance(newNode)) {
+                    RotateMiddle(newNode.Parent);
                 }
             }
             Size++;
@@ -60,8 +56,12 @@ namespace DataStructures.structures.tree.avl
             EmptyCheck();
             var node = Get(root, key);
             if(node != null) {
-                Remove(node);
                 Size--;
+                Remove(node);
+                var unbalanced = FindUnbalanced(node.Parent);
+                if(unbalanced != null) {
+                    RotateParent(unbalanced);
+                }
             }
             return node != null;
         }
@@ -128,23 +128,23 @@ namespace DataStructures.structures.tree.avl
             return Max(root).Val;
         }
 
-        protected bool LessThan(K key1, K key2) {
+        private bool LessThan(K key1, K key2) {
             return key1.CompareTo(key2) == -1;
         }
         
-        protected bool GreaterThan(K key1, K key2) {
+        private bool GreaterThan(K key1, K key2) {
             return key1.CompareTo(key2) == 1;
         }
         
-        protected bool LessOrEqual(K key1, K key2) {
+        private bool LessOrEqual(K key1, K key2) {
             return !GreaterThan(key1,key2);
         }
         
-        protected bool GreaterOrEqual(K key1, K key2) {
+        private bool GreaterOrEqual(K key1, K key2) {
             return !LessThan(key1,key2);
         }
         
-        protected bool EqualTo(K key1, K key2) {
+        private bool EqualTo(K key1, K key2) {
             return key1.CompareTo(key2) == 0;
         }
 
@@ -173,7 +173,20 @@ namespace DataStructures.structures.tree.avl
             }
         }
 
-        private bool ImBalanced(Node<K,V> newNode) {
+        private Node<K,V> FindUnbalanced(Node<K,V> node) {
+            if(node != null) {
+                return ImBalanced(node) ? node : FindUnbalanced(node.Parent);
+            } else {
+                return null;
+            }
+        }
+
+        private bool ImBalanced(Node<K,V> node) {
+            var balance = Depth(node.Left) - Depth(node.Right);
+            return balance >= 2 || balance <= -2;
+        }
+
+        private bool BrokeBalance(Node<K,V> newNode) {
             if(newNode.Parent?.Parent != null) {
                 var node = newNode.Parent.Parent;
                 var balance = Depth(node.Left) - Depth(node.Right);
@@ -183,7 +196,7 @@ namespace DataStructures.structures.tree.avl
             }
         }
 
-        private void Rotate(Node<K,V> middle) {
+        private void RotateMiddle(Node<K,V> middle) {
             if(middle.Parent.Right == middle) {
                 if(middle.Right != null) {
                     LeftRotation(middle);
@@ -198,14 +211,30 @@ namespace DataStructures.structures.tree.avl
                 }
             }
         }
+        
+        private void RotateParent(Node<K,V> parent) {
+            if(parent.Right != null) {
+                if(parent.Right.Right != null) {
+                    LeftRotation(parent.Right);
+                } else {
+                    RightLeftRotation(parent.Right);
+                }
+            } else {
+                if(parent.Left.Left != null) {
+                    RightRotation(parent.Left);
+                } else {
+                    LeftRightRotation(parent.Left);
+                }
+            }
+        }
 
         private void LeftRotation(Node<K,V> middle) {
-            var child = middle.Right;
             var parent = middle.Parent;
             var parentParent = parent.Parent;
+            var left = middle.Left;
             middle.Left = parent;
             parent.Parent = middle;
-            parent.Right = null;
+            parent.Right = left;
             middle.Parent = parentParent;
             if(parentParent != null) {
                 if(parentParent.Right == parent) {
@@ -219,12 +248,12 @@ namespace DataStructures.structures.tree.avl
         }
         
         private void RightRotation(Node<K,V> middle) {
-            var child = middle.Left;
             var parent = middle.Parent;
             var parentParent = parent.Parent;
+            var right = middle.Right;
             middle.Right = parent;
             parent.Parent = middle;
-            parent.Left = null;
+            parent.Left = right;
             middle.Parent = parentParent;
             if(parentParent != null) {
                 if(parentParent.Right == parent) {
@@ -240,22 +269,24 @@ namespace DataStructures.structures.tree.avl
         private void LeftRightRotation(Node<K,V> middle) {
             var child = middle.Right;
             var parent = middle.Parent;
+            var childLeft = child.Left;
             child.Left = middle;
             child.Parent = parent;
             parent.Left = child;
             middle.Parent = child;
-            middle.Right = null;
+            middle.Right = childLeft;
             RightRotation(child);
         }
         
         private void RightLeftRotation(Node<K,V> middle) {
             var child = middle.Left;
             var parent = middle.Parent;
+            var childRight = child.Right;
             child.Right = middle;
             child.Parent = parent;
             parent.Right = child;
             middle.Parent = child;
-            middle.Left = null;
+            middle.Left = childRight;
             LeftRotation(child);
         }
         

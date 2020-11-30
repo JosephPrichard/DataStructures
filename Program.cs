@@ -170,6 +170,8 @@ namespace DataStructures
             tree.PrintConsole();
             tree.Put(6, 'F');
             tree.PrintConsole();
+            tree.Remove(1);
+            tree.PrintConsole();
             foreach(var k in tree.Keys()) {
                 Console.Write(k+", ");
             }
