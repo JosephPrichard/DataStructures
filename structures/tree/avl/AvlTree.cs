@@ -11,28 +11,6 @@ namespace DataStructures.structures.tree.avl
         
         public int Size { private set; get; }
 
-        public void PrintConsole() {
-            PrintConsole(root);
-            Console.WriteLine();
-        }
-        
-        public static void PrintConsole(Node<K,V> node) {
-            Console.Write(" | ");
-            Console.Write("P: "+node.Key);
-            if(node.Left != null) {
-                Console.Write(", L: "+node.Left.Key);
-            }
-            if(node.Right != null) {
-                Console.Write(", R: "+node.Right.Key);
-            }
-            if(node.Left != null) {
-                PrintConsole(node.Left);
-            }
-            if(node.Right != null) {
-                PrintConsole(node.Right);
-            }
-        }
-
         public void Put(K key, V val) {
             var pair = new KeyValuePair<K,V>(key, val);
             if(root == null) {
@@ -58,7 +36,7 @@ namespace DataStructures.structures.tree.avl
             if(node != null) {
                 Size--;
                 Remove(node);
-                var unbalanced = FindUnbalanced(node.Parent);
+                var unbalanced = FindImbalanced(node.Parent);
                 if(unbalanced != null) {
                     RotateParent(unbalanced);
                 }
@@ -173,9 +151,9 @@ namespace DataStructures.structures.tree.avl
             }
         }
 
-        private Node<K,V> FindUnbalanced(Node<K,V> node) {
+        private Node<K,V> FindImbalanced(Node<K,V> node) {
             if(node != null) {
-                return ImBalanced(node) ? node : FindUnbalanced(node.Parent);
+                return ImBalanced(node) ? node : FindImbalanced(node.Parent);
             } else {
                 return null;
             }
@@ -187,13 +165,7 @@ namespace DataStructures.structures.tree.avl
         }
 
         private bool BrokeBalance(Node<K,V> newNode) {
-            if(newNode.Parent?.Parent != null) {
-                var node = newNode.Parent.Parent;
-                var balance = Depth(node.Left) - Depth(node.Right);
-                return balance >= 2 || balance <= -2;
-            } else {
-                return false;
-            }
+            return newNode.Parent?.Parent != null && ImBalanced(newNode.Parent.Parent);
         }
 
         private void RotateMiddle(Node<K,V> middle) {
@@ -413,6 +385,34 @@ namespace DataStructures.structures.tree.avl
         private void EmptyCheck() {
             if(Size == 0) {
                 throw new EmptyTreeException();
+            }
+        }
+        
+        //for debugging
+        
+        public void PrintConsole() {
+            if(root == null) {
+                Console.WriteLine("Empty");
+                return;
+            }
+            PrintConsole(root);
+            Console.WriteLine();
+        }
+        
+        public static void PrintConsole(Node<K,V> node) {
+            Console.Write(" | ");
+            Console.Write("P: "+node.Key);
+            if(node.Left != null) {
+                Console.Write(", L: "+node.Left.Key);
+            }
+            if(node.Right != null) {
+                Console.Write(", R: "+node.Right.Key);
+            }
+            if(node.Left != null) {
+                PrintConsole(node.Left);
+            }
+            if(node.Right != null) {
+                PrintConsole(node.Right);
             }
         }
     }

@@ -166,11 +166,32 @@ namespace DataStructures
             tree.Put(2, 'E');
             tree.Put(1, 'D');
             tree.PrintConsole();
-            tree.Put(7, 'D');
+            tree.Put(7, 'I');
             tree.PrintConsole();
-            tree.Put(6, 'F');
+            tree.Put(6, 'H');
+            tree.Put(4, 'G');
+            tree.Put(8, 'J');
+            tree.Put(-1, 'C');
+            tree.Put(-3, 'B');
+            tree.Put(-5, 'A');
             tree.PrintConsole();
+            foreach(var v in tree.Elements()) {
+                Console.Write(v+", ");
+            }
+            Console.WriteLine();
             tree.Remove(1);
+            tree.PrintConsole();
+            tree.Remove(3);
+            tree.Remove(2);
+            tree.Remove(7);
+            tree.Remove(6);
+            tree.Remove(8);
+            tree.PrintConsole();
+            tree.Remove(-5);
+            tree.PrintConsole();
+            tree.Remove(-3);
+            tree.Remove(4);
+            tree.Remove(-1);
             tree.PrintConsole();
             foreach(var k in tree.Keys()) {
                 Console.Write(k+", ");
