@@ -180,7 +180,9 @@ namespace DataStructures
             }
             Console.WriteLine();
             tree.Remove(1);
+            tree.Put(5,'Z');
             tree.PrintConsole();
+            tree.Remove(5);
             tree.Remove(3);
             tree.Remove(2);
             tree.Remove(7);
@@ -193,9 +195,12 @@ namespace DataStructures
             tree.Remove(4);
             tree.Remove(-1);
             tree.PrintConsole();
-            foreach(var k in tree.Keys()) {
-                Console.Write(k+", ");
-            }
+            tree.Put(1,'A');
+            tree.Put(2,'B');
+            tree.Put(3,'C');
+            tree.Put(4,'D');
+            tree.Put(5,'E');
+            tree.PrintConsole();
         }
 
         public static void TestBinaryTree() {
