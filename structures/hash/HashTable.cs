@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using DataStructures.structures.list;
 
@@ -26,13 +25,11 @@ namespace DataStructures.structures.hash
                 while(head != null) {
                     if(head.Val.Key.Equals(key)) {
                         head.Val = pair;
-                        return;
                     }
                     prev = head;
                     head = head.Next;
                 }
                 prev.Next = new Node<KeyValuePair<K, V>>(pair);
-                
             }
             Size++;
         }

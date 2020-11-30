@@ -1,5 +1,5 @@
 ﻿
-namespace DataStructures.structures.tree.bt
+namespace DataStructures.structures.tree.binary
 {
     public class Node<V> 
     {

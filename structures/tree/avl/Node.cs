@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace DataStructures.structures.tree.bst
+namespace DataStructures.structures.tree.avl
 {
     public class Node<K,V>
     {
-        public Node(K key, V val) {
+        protected Node(K key, V val) {
             Data = new KeyValuePair<K, V>(key, val);
         }
         

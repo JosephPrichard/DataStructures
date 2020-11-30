@@ -14,8 +14,5 @@ namespace DataStructures.structures.tree
 
         public int Number(K key);
 
-        public int LeftHeight();
-
-        public int RightHeight();
     }
 }

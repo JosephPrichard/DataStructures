@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructures.structures.tree.bt
+namespace DataStructures.structures.tree.binary
 {
     public class BtUtils<V>
     {

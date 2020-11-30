@@ -4,14 +4,14 @@ using DataStructures.structures.hash;
 using DataStructures.structures.list;
 using DataStructures.structures.queue;
 using DataStructures.structures.stack;
-using DataStructures.structures.tree.bst;
+using DataStructures.structures.tree.avl;
 
 namespace DataStructures
 {
     public class Program
     {
         private static void Main(string[] args) {
-            TestBinaryTree();
+            TestAvlBalancing();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -160,8 +160,23 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
+        public static void TestAvlBalancing() {
+            var tree = new AvlTree<double, char>();
+            tree.Put(3, 'F');
+            tree.Put(2, 'E');
+            tree.Put(1, 'D');
+            tree.PrintConsole();
+            tree.Put(7, 'D');
+            tree.PrintConsole();
+            tree.Put(6, 'F');
+            tree.PrintConsole();
+            foreach(var k in tree.Keys()) {
+                Console.Write(k+", ");
+            }
+        }
+
         public static void TestBinaryTree() {
-            var tree = new BinarySearchTree<int,char>();
+            var tree = new AvlTree<int,char>();
             tree.Put(1, 'F');
             tree.Put(2, 'G');
             tree.Put(4, 'I');
@@ -185,12 +200,12 @@ namespace DataStructures
             Console.WriteLine("Min: "+tree.Min());
             Console.WriteLine("Max: "+tree.Max());
             Console.WriteLine("Val: "+tree.Get(-4));
-            Console.WriteLine("LHeight: "+tree.LeftHeight());
-            Console.WriteLine("RHeight: "+tree.RightHeight());
             Console.WriteLine("Number: "+tree.Number(4));
             Console.WriteLine("Rank: "+tree.Rank(4));
             Console.WriteLine("Rank: "+tree.Rank(3));
             Console.WriteLine("Rank: "+tree.Rank(11));
+            Console.WriteLine("Rank: "+tree.Rank(10));
+            Console.WriteLine("Select: "+tree.Select(5));
             foreach(var v in tree.Elements()) {
                 Console.Write(v+", ");
             }
