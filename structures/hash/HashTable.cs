@@ -1,23 +1,24 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DataStructures.structures.list;
 
 namespace DataStructures.structures.hash
 {
-    public class HashTable<K,V> : IMap<K,V>
+    public class HashTable<K, V> : IMap<K, V>
     {
-        private readonly Node<KeyValuePair<K,V>>[] table;
+        private readonly Node<KeyValuePair<K, V>>[] table;
 
-        public HashTable(int predictedCount) {
-            table = new Node<KeyValuePair<K,V>>[predictedCount*2];
+        public HashTable(int predictedCount)
+        {
+            table = new Node<KeyValuePair<K, V>>[predictedCount * 2];
         }
-        
+
         public int Size { private set; get; }
-        
-        public void Put(K key, V val) {
+
+        public void Put(K key, V val)
+        {
             var h = Hash(key);
             var head = table[h];
-            var pair = new KeyValuePair<K,V>(key,val);
+            var pair = new KeyValuePair<K, V>(key, val);
             if(head == null) {
                 table[h] = new Node<KeyValuePair<K, V>>(pair);
             } else {
@@ -34,14 +35,16 @@ namespace DataStructures.structures.hash
             Size++;
         }
 
-        public V Get(K key) {
+        public V Get(K key)
+        {
             var pair = GetPair(key);
             return pair.HasValue ? pair.Value.Value : default;
         }
 
-        public bool Remove(K key) {
+        public bool Remove(K key)
+        {
             var h = Hash(key);
-            var head  = table[h];
+            var head = table[h];
             var prev = head;
             if(head != null) {
                 if(head.Val.Key.Equals(key)) {
@@ -63,21 +66,25 @@ namespace DataStructures.structures.hash
             return false;
         }
 
-        public bool Contains(K key) {
+        public bool Contains(K key)
+        {
             return GetPair(key).HasValue;
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             for(var i = 0; i < table.Length; i++) {
                 table[0] = null;
             }
         }
 
-        public bool IsEmpty() {
+        public bool IsEmpty()
+        {
             return Size == 0;
         }
 
-        public IEnumerable<K> Keys() {
+        public IEnumerable<K> Keys()
+        {
             foreach(var n in table) {
                 var head = n;
                 while(head != null) {
@@ -87,7 +94,8 @@ namespace DataStructures.structures.hash
             }
         }
 
-        public IEnumerable<V> Elements() {
+        public IEnumerable<V> Elements()
+        {
             foreach(var n in table) {
                 var head = n;
                 while(head != null) {
@@ -97,8 +105,9 @@ namespace DataStructures.structures.hash
             }
         }
 
-        private KeyValuePair<K,V>? GetPair(K key) {
-            var head  = table[Hash(key)];
+        private KeyValuePair<K, V>? GetPair(K key)
+        {
+            var head = table[Hash(key)];
             while(head != null) {
                 if(head.Val.Key.Equals(key)) {
                     return head.Val;
@@ -108,7 +117,8 @@ namespace DataStructures.structures.hash
             return null;
         }
 
-        private static int Abs(int val) {
+        private static int Abs(int val)
+        {
             if(val >= 0) {
                 return val;
             } else {
@@ -116,9 +126,9 @@ namespace DataStructures.structures.hash
             }
         }
 
-        public int Hash(K key) {
+        public int Hash(K key)
+        {
             return Abs(key.GetHashCode() % table.Length);
         }
-
     }
 }

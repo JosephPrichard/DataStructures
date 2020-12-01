@@ -10,23 +10,27 @@ namespace DataStructures
 {
     public class Program
     {
-        private static void Main(string[] args) {
+        private static void Main(string[] args)
+        {
             TestAvlBalancing2();
         }
 
-        private static void Output<E>(ICollection<E> list) {
+        private static void Output<E>(ICollection<E> list)
+        {
             foreach(var item in list.GetEnumerable()) {
-                Console.Write(item+", ");
+                Console.Write(item + ", ");
             }
             Console.WriteLine();
         }
 
-        private static int RandomNumber(int min, int max) {
+        private static int RandomNumber(int min, int max)
+        {
             var random = new Random();
             return random.Next(min, max);
         }
 
-        private static void TestPq() {
+        private static void TestPq()
+        {
             var heap = new PriorityQueue<int>(PriorityType.Min);
             heap.Push(22);
             heap.Push(3);
@@ -35,25 +39,26 @@ namespace DataStructures
             heap.Push(5);
             heap.Push(-21);
             while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: "+heap.Pop());
+                Console.WriteLine("Pop: " + heap.Pop());
             }
             Console.WriteLine("Push More ");
             for(var i = 0; i < 100; i++) {
                 heap.Push(RandomNumber(-1000, 1000));
             }
             while(!heap.IsEmpty()) {
-                Console.WriteLine("Pop: "+heap.Pop());
+                Console.WriteLine("Pop: " + heap.Pop());
             }
             Console.WriteLine("PopPush ");
             heap.Push(1);
             for(var i = 0; i < 5; i++) {
-                Console.WriteLine("PopPush: "+heap.PopPush(RandomNumber(-100, 100)));
-                Console.WriteLine("Peek: "+heap.Peek());
+                Console.WriteLine("PopPush: " + heap.PopPush(RandomNumber(-100, 100)));
+                Console.WriteLine("Peek: " + heap.Peek());
             }
             Console.WriteLine("Complete.");
         }
 
-        private static void TestSortStack() {
+        private static void TestSortStack()
+        {
             var stack = new Stack<int>();
             stack.Push(6);
             stack.Push(5);
@@ -65,7 +70,8 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
-        private static void TestStack() {
+        private static void TestStack()
+        {
             var stack = new Stack<int>();
             stack.Push(6);
             stack.Push(5);
@@ -85,7 +91,8 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
-        private static void TestAl() {
+        private static void TestAl()
+        {
             var list = new ArrayList<int>(5);
             list.Push(1);
             list.PushBack(2);
@@ -132,7 +139,8 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
-        public static void TestLl() {
+        public static void TestLl()
+        {
             var list = new LinkedList<int>();
             list.PushBack(5);
             list.PushBack(4);
@@ -160,7 +168,8 @@ namespace DataStructures
             Console.WriteLine("Complete.");
         }
 
-        public static void TestAvlBalancing() {
+        public static void TestAvlBalancing()
+        {
             var tree = new AvlTree<double, char>();
             tree.Put(3, 'F');
             tree.Put(2, 'E');
@@ -176,11 +185,11 @@ namespace DataStructures
             tree.Put(-5, 'A');
             tree.PrintConsole();
             foreach(var v in tree.Elements()) {
-                Console.Write(v+", ");
+                Console.Write(v + ", ");
             }
             Console.WriteLine();
             tree.Remove(1);
-            tree.Put(5,'Z');
+            tree.Put(5, 'Z');
             tree.PrintConsole();
             tree.Remove(5);
             tree.Remove(3);
@@ -195,36 +204,37 @@ namespace DataStructures
             tree.Remove(4);
             tree.Remove(-1);
             tree.PrintConsole();
-            tree.Put(1,'A');
-            tree.Put(2,'B');
-            tree.Put(3,'C');
-            tree.Put(4,'D');
-            tree.Put(5,'E');
+            tree.Put(1, 'A');
+            tree.Put(2, 'B');
+            tree.Put(3, 'C');
+            tree.Put(4, 'D');
+            tree.Put(5, 'E');
             tree.PrintConsole();
             tree.Clear();
-            tree.Put(20,'A');
-            tree.Put(4,'B');
-            tree.Put(15,'C');
+            tree.Put(20, 'A');
+            tree.Put(4, 'B');
+            tree.Put(15, 'C');
             tree.PrintConsole();
             tree.Clear();
         }
 
-        public static void TestAvlBalancing2() {
+        public static void TestAvlBalancing2()
+        {
             var tree = new AvlTree<double, char>();
-            tree.Put(20,'A');
-            tree.Put(4,'B');
-            tree.Put(26,'C');
-            tree.Put(3,'D');
-            tree.Put(9,'E');
-            tree.Put(2,'F');
-            tree.Put(7,'G');
-            tree.Put(11,'H');
-            tree.Put(21,'I');
-            tree.Put(30,'K');
+            tree.Put(20, 'A');
+            tree.Put(4, 'B');
+            tree.Put(26, 'C');
+            tree.Put(3, 'D');
+            tree.Put(9, 'E');
+            tree.Put(2, 'F');
+            tree.Put(7, 'G');
+            tree.Put(11, 'H');
+            tree.Put(21, 'I');
+            tree.Put(30, 'K');
             tree.PrintConsole();
             tree.Remove(2);
             tree.PrintConsole();
-            tree.Put(31,'Z');
+            tree.Put(31, 'Z');
             tree.Remove(3);
             tree.Remove(4);
             tree.Remove(7);
@@ -240,19 +250,31 @@ namespace DataStructures
             tree.Remove(20);
         }
 
-        public static void TestAvlBalancing3() {
+        public static void TestAvlBalancing3()
+        {
             var tree = new AvlTree<double, char>();
-            tree.Put(1,'A');
-            tree.Put(2,'A');
-            tree.Put(3,'A');
+            tree.Put(5, 'A');
+            tree.Put(2, 'B');
+            tree.Put(8, 'C');
+            tree.Put(1, 'D');
+            tree.Put(3, 'E');
+            tree.Put(7, 'F');
+            tree.Put(9, 'G');
+            tree.Put(4, 'H');
+            tree.Put(6, 'I');
             tree.PrintConsole();
-            tree.Put(-1,'A');
-            tree.Put(0,'A');
+            tree.Remove(1);
+            tree.Remove(8);
+            tree.Remove(5);
+            tree.PrintConsole();
+            tree.Remove(9);
+            tree.Remove(7);
             tree.PrintConsole();
         }
 
-        public static void TestBinaryTree() {
-            var tree = new AvlTree<int,char>();
+        public static void TestBinaryTree()
+        {
+            var tree = new AvlTree<int, char>();
             tree.Put(1, 'F');
             tree.Put(2, 'G');
             tree.Put(4, 'I');
@@ -263,7 +285,7 @@ namespace DataStructures
             tree.Put(-4, 'C');
             tree.Put(-2, 'E');
             foreach(var v in tree.Elements()) {
-                Console.Write(v+", ");
+                Console.Write(v + ", ");
             }
             Console.WriteLine();
             tree.Remove(-3);
@@ -271,41 +293,42 @@ namespace DataStructures
             tree.Put(10, 'J');
             tree.Put(11, 'L');
             tree.Put(11, 'K');
-            Console.WriteLine("Remove -6: "+tree.Remove(-6));
-            Console.WriteLine("Remove 0: "+tree.Remove(0)); //no key for 0
-            Console.WriteLine("Min: "+tree.Min());
-            Console.WriteLine("Max: "+tree.Max());
-            Console.WriteLine("Val: "+tree.Get(-4));
-            Console.WriteLine("Number: "+tree.Number(4));
-            Console.WriteLine("Rank: "+tree.Rank(4));
-            Console.WriteLine("Rank: "+tree.Rank(3));
-            Console.WriteLine("Rank: "+tree.Rank(11));
-            Console.WriteLine("Rank: "+tree.Rank(10));
-            Console.WriteLine("Select: "+tree.Select(5));
+            Console.WriteLine("Remove -6: " + tree.Remove(-6));
+            Console.WriteLine("Remove 0: " + tree.Remove(0)); //no key for 0
+            Console.WriteLine("Min: " + tree.Min());
+            Console.WriteLine("Max: " + tree.Max());
+            Console.WriteLine("Val: " + tree.Get(-4));
+            Console.WriteLine("Number: " + tree.Number(4));
+            Console.WriteLine("Rank: " + tree.Rank(4));
+            Console.WriteLine("Rank: " + tree.Rank(3));
+            Console.WriteLine("Rank: " + tree.Rank(11));
+            Console.WriteLine("Rank: " + tree.Rank(10));
+            Console.WriteLine("Select: " + tree.Select(5));
             foreach(var v in tree.Elements()) {
-                Console.Write(v+", ");
+                Console.Write(v + ", ");
             }
             Console.WriteLine();
             foreach(var k in tree.Keys()) {
-                Console.Write(k+", ");
+                Console.Write(k + ", ");
             }
             Console.WriteLine();
-            foreach(var v in tree.RangeSearch(3,10)) {
-                Console.Write(v+", ");
+            foreach(var v in tree.RangeSearch(3, 10)) {
+                Console.Write(v + ", ");
             }
             Console.WriteLine();
-            foreach(var v in tree.RangeSearch(-7,-2)) {
-                Console.Write(v+", ");
+            foreach(var v in tree.RangeSearch(-7, -2)) {
+                Console.Write(v + ", ");
             }
             Console.WriteLine();
-            foreach(var v in tree.RangeSearch(-3,10)) {
-                Console.Write(v+", ");
+            foreach(var v in tree.RangeSearch(-3, 10)) {
+                Console.Write(v + ", ");
             }
             Console.WriteLine();
         }
 
-        private static void TestHashTable() {
-            var table = new HashTable<int,char>(25);
+        private static void TestHashTable()
+        {
+            var table = new HashTable<int, char>(25);
             table.Put(1, 'A');
             table.Put(2, 'B');
             table.Put(3, 'C');
@@ -338,21 +361,22 @@ namespace DataStructures
             Console.WriteLine(table.Get(52));
             Console.WriteLine(table.Get(102));
             foreach(var k in table.Keys()) {
-                Console.Write(k+", ");
+                Console.Write(k + ", ");
             }
             Console.WriteLine();
             foreach(var e in table.Elements()) {
-                Console.Write(e+", ");
+                Console.Write(e + ", ");
             }
             Console.WriteLine();
             Console.WriteLine("Size: " + table.Size);
         }
 
-        private static void TestMergeSort() {
+        private static void TestMergeSort()
+        {
             int[] arr = {8, 9, 10, 5, 7, 90, 2, 11};
             new Sorter<int>(SortType.Asc).MergeSort(arr);
             foreach(var i in arr) {
-                Console.Write(i+", ");
+                Console.Write(i + ", ");
             }
             Console.WriteLine();
         }

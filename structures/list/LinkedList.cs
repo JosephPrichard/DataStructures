@@ -29,7 +29,8 @@ namespace DataStructures.structures.list
         }
 
         //o(1)
-        public void Push(E e) {
+        public void Push(E e)
+        {
             var newNode = new Node<E>(e) {
                 Next = Head
             };
@@ -38,19 +39,22 @@ namespace DataStructures.structures.list
         }
 
         //o(1)
-        public E Peek() {
+        public E Peek()
+        {
             return this[0];
         }
 
         //o(1)
-        public E Pop() {
+        public E Pop()
+        {
             var value = this[0];
             Remove(0);
             return value;
         }
 
         //o(n)
-        public void PushBack(E e) {
+        public void PushBack(E e)
+        {
             var newNode = new Node<E>(e);
             var curr = Head;
             Size++;
@@ -65,23 +69,26 @@ namespace DataStructures.structures.list
         }
 
         //o(n)
-        public E PeekBack() {
-            return this[Size-1];
+        public E PeekBack()
+        {
+            return this[Size - 1];
         }
 
         //o(n)
-        public E PopBack() {
-            var i = Size-1;
+        public E PopBack()
+        {
+            var i = Size - 1;
             var value = this[i];
             Remove(i);
             return value;
         }
 
         //o(n)
-        public void Remove(int index) {
+        public void Remove(int index)
+        {
             RangeCheck(index);
             var prev = Head;
-            for(var i = 0; i < index-1; i++) {
+            for(var i = 0; i < index - 1; i++) {
                 prev = prev.Next;
             }
             prev.Next = prev.Next.Next;
@@ -89,10 +96,11 @@ namespace DataStructures.structures.list
         }
 
         //o(n)
-        public void Insert(int index, E e) {
+        public void Insert(int index, E e)
+        {
             RangeCheck(index);
             var curr = Head;
-            for(var i = 0; i < index-1; i++) {
+            for(var i = 0; i < index - 1; i++) {
                 curr = curr.Next;
             }
             var newNode = new Node<E>(e) {
@@ -103,7 +111,8 @@ namespace DataStructures.structures.list
         }
 
         //o(n)
-        public IEnumerable<E> GetEnumerable() {
+        public IEnumerable<E> GetEnumerable()
+        {
             var curr = Head;
             while(curr != null) {
                 yield return curr.Val;
@@ -112,7 +121,8 @@ namespace DataStructures.structures.list
         }
 
         //o(n)
-        public void AddAll(ICollection<E> list) {
+        public void AddAll(ICollection<E> list)
+        {
             var tail = Head;
             while(tail.Next != null) {
                 tail = tail.Next;
@@ -125,16 +135,19 @@ namespace DataStructures.structures.list
             Size += list.Size;
         }
 
-        public bool IsEmpty() {
+        public bool IsEmpty()
+        {
             return Size == 0;
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             Size = 0;
             Head = null;
         }
 
-        public bool Contains(E e, Func<E, E, bool> equals) {
+        public bool Contains(E e, Func<E, E, bool> equals)
+        {
             var curr = Head;
             while(curr != null) {
                 if(equals(e, curr.Val)) {
@@ -146,7 +159,8 @@ namespace DataStructures.structures.list
         }
 
         [AssertionMethod]
-        private void RangeCheck(int index) {
+        private void RangeCheck(int index)
+        {
             if(index >= Size || index < 0) {
                 throw new OutOfRangeException();
             }

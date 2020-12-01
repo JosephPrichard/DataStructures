@@ -5,12 +5,16 @@ namespace DataStructures.structures.stack
 {
     public class EmptyStackException : Exception
     {
-        public EmptyStackException() { }
+        public EmptyStackException()
+        { }
 
-        public EmptyStackException(string message) : base(message) { }
+        public EmptyStackException(string message) : base(message)
+        { }
 
-        public EmptyStackException(string message, Exception inner) : base(message, inner) { }
+        public EmptyStackException(string message, Exception inner) : base(message, inner)
+        { }
 
-        protected EmptyStackException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected EmptyStackException(SerializationInfo info, StreamingContext context) : base(info, context)
+        { }
     }
 }

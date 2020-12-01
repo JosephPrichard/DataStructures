@@ -1,9 +1,9 @@
-﻿
-namespace DataStructures.structures.tree.binary
+﻿namespace DataStructures.structures.tree.binary
 {
-    public class Node<V> 
+    public class Node<V>
     {
-        public Node(V val) {
+        public Node(V val)
+        {
             Val = val;
         }
 

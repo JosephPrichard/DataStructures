@@ -2,7 +2,8 @@
 {
     public class Node<T>
     {
-        public Node(T val) {
+        public Node(T val)
+        {
             Val = val;
         }
 

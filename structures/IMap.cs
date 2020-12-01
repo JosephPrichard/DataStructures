@@ -1,12 +1,11 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DataStructures.structures
 {
-    public interface IMap<K,V> 
+    public interface IMap<K, V>
     {
         public int Size { get; }
-        
+
         void Put(K key, V val);
 
         V Get(K key);

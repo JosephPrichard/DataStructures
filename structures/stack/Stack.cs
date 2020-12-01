@@ -10,7 +10,8 @@ namespace DataStructures.structures.stack
         public int Size { private set; get; }
 
         //o(1)
-        public void Push(E e) {
+        public void Push(E e)
+        {
             var newNode = new Node<E>(e) {
                 Next = top
             };
@@ -19,7 +20,8 @@ namespace DataStructures.structures.stack
         }
 
         //o(1)
-        public E Peek() {
+        public E Peek()
+        {
             if(Size == 0) {
                 throw new EmptyStackException();
             }
@@ -27,14 +29,16 @@ namespace DataStructures.structures.stack
         }
 
         //o(1)
-        public E Pop() {
+        public E Pop()
+        {
             var value = Peek();
             top = top.Next;
             Size--;
             return value;
         }
 
-        public IEnumerable<E> GetEnumerable() {
+        public IEnumerable<E> GetEnumerable()
+        {
             var curr = top;
             while(curr != null) {
                 yield return curr.Val;
@@ -43,7 +47,8 @@ namespace DataStructures.structures.stack
         }
 
         //o(n)
-        public void AddAll(ICollection<E> list) {
+        public void AddAll(ICollection<E> list)
+        {
             var tail = top;
             while(tail.Next != null) {
                 tail = tail.Next;
@@ -54,17 +59,20 @@ namespace DataStructures.structures.stack
             Size += list.Size;
         }
 
-        public bool IsEmpty() {
+        public bool IsEmpty()
+        {
             return Size == 0;
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             Size = 0;
             top = null;
         }
 
         //o(n)
-        public bool Contains(E e, Func<E, E, bool> equals) {
+        public bool Contains(E e, Func<E, E, bool> equals)
+        {
             var curr = top;
             while(curr != null) {
                 if(equals(e, curr.Val)) {
