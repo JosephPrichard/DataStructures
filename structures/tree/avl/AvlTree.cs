@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using DataStructures.structures.list;
 using JetBrains.Annotations;
 
@@ -15,14 +16,18 @@ namespace DataStructures.structures.tree.avl
             var pair = new KeyValuePair<K,V>(key, val);
             if(root == null) {
                 root = new Node<K, V>(pair);
+                Size++;
             } else {
                 var newNode = Put(root, pair);
-                if(newNode?.Parent?.Parent != null 
-                   && ImBalanced(newNode.Parent.Parent)) {
-                    Rotate(newNode.Parent.Parent);
+                if(newNode != null) {
+                    Size++;
+                    var balances = new Stack<int>();
+                    var imbalanced = FindImbalanced(newNode.Parent,balances);
+                    if(imbalanced != null) {
+                        Rotate(imbalanced, balances.Pop(), balances.Pop());
+                    }
                 }
             }
-            Size++;
         }
 
         public V Get(K key) {
@@ -37,9 +42,12 @@ namespace DataStructures.structures.tree.avl
             if(node != null) {
                 Size--;
                 Remove(node);
-                var imbalanced = FindImbalanced(node.Parent);
+                var balances = new Stack<int>();
+                var imbalanced = FindImbalanced(node.Parent,balances);
                 if(imbalanced != null) {
-                    Rotate(imbalanced);
+                    var pBalance = balances.Pop();
+                    var mBalance = pBalance > 0 ? CalcBalance(imbalanced.Right) : CalcBalance(imbalanced.Left);
+                    Rotate(imbalanced, pBalance, mBalance);
                 }
             }
             return node != null;
@@ -123,28 +131,33 @@ namespace DataStructures.structures.tree.avl
             return !LessThan(key1,key2);
         }
 
-        private bool ImBalanced(Node<K,V> node) {
-            var balance = Depth(node.Left) - Depth(node.Right);
+        private int CalcBalance(Node<K,V> node) {
+            return Depth(node.Right) - Depth(node.Left);
+        }
+
+        private bool ImBalanced(int balance) {
             return balance >= 2 || balance <= -2;
         }
 
-        private Node<K,V> FindImbalanced(Node<K,V> node) {
+        private Node<K,V> FindImbalanced(Node<K,V> node, Stack<int> balances) {
             if(node != null) {
-                return ImBalanced(node) ? node : FindImbalanced(node.Parent);
+                var balance = CalcBalance(node);
+                balances.Push(balance);
+                return ImBalanced(balance) ? node : FindImbalanced(node.Parent, balances);
             } else {
                 return null;
             }
         }
-        
-        private void Rotate(Node<K,V> imbalanced) {
-            if(imbalanced.Right != null) {
-                if(imbalanced.Right.Right != null) {
+
+        private void Rotate(Node<K,V> imbalanced, int pBalance, int mBalance) {
+            if(pBalance > 0) {
+                if(mBalance > 0) {
                     LeftRotation(imbalanced.Right);
                 } else {
                     RightLeftRotation(imbalanced.Right);
                 }
             } else {
-                if(imbalanced.Left.Left != null) {
+                if(mBalance < 0) {
                     RightRotation(imbalanced.Left);
                 } else {
                     LeftRightRotation(imbalanced.Left);
@@ -363,7 +376,7 @@ namespace DataStructures.structures.tree.avl
         
         public void PrintConsole() {
             if(root == null) {
-                Console.WriteLine("Empty");
+                Console.WriteLine(" | Empty");
                 return;
             }
             PrintConsole(root);

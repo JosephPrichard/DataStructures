@@ -201,6 +201,43 @@ namespace DataStructures
             tree.Put(4,'D');
             tree.Put(5,'E');
             tree.PrintConsole();
+            tree.Clear();
+            tree.Put(20,'A');
+            tree.Put(4,'B');
+            tree.Put(15,'C');
+            tree.PrintConsole();
+            tree.Clear();
+        }
+
+        public static void TestAvlBalancing2() {
+            var tree = new AvlTree<double, char>();
+            tree.Put(20,'A');
+            tree.Put(4,'B');
+            tree.Put(26,'C');
+            tree.Put(3,'D');
+            tree.Put(9,'E');
+            tree.Put(2,'F');
+            tree.Put(7,'G');
+            tree.Put(11,'H');
+            tree.Put(21,'I');
+            tree.Put(30,'K');
+            tree.PrintConsole();
+            tree.Remove(2);
+            tree.PrintConsole();
+            tree.Put(31,'Z');
+            tree.Remove(3);
+            tree.Remove(4);
+            tree.Remove(7);
+            tree.Remove(11);
+            tree.PrintConsole();
+            tree.Remove(31);
+            tree.Remove(30);
+            tree.PrintConsole();
+            tree.Remove(26);
+            tree.PrintConsole();
+            tree.Remove(9);
+            tree.Remove(21);
+            tree.Remove(20);
         }
 
         public static void TestBinaryTree() {
