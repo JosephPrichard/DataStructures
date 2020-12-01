@@ -19,5 +19,7 @@ namespace DataStructures.structures.tree.avl
         public KeyValuePair<K, V> Data { set; get; }
         public K Key => Data.Key;
         public V Val => Data.Value;
+
+        public int Height { set; get; }
     }
 }

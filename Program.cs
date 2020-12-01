@@ -11,7 +11,7 @@ namespace DataStructures
     public class Program
     {
         private static void Main(string[] args) {
-            TestAvlBalancing();
+            TestAvlBalancing2();
         }
 
         private static void Output<E>(ICollection<E> list) {
@@ -238,6 +238,17 @@ namespace DataStructures
             tree.Remove(9);
             tree.Remove(21);
             tree.Remove(20);
+        }
+
+        public static void TestAvlBalancing3() {
+            var tree = new AvlTree<double, char>();
+            tree.Put(1,'A');
+            tree.Put(2,'A');
+            tree.Put(3,'A');
+            tree.PrintConsole();
+            tree.Put(-1,'A');
+            tree.Put(0,'A');
+            tree.PrintConsole();
         }
 
         public static void TestBinaryTree() {

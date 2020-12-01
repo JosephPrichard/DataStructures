@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 using DataStructures.structures.list;
 using JetBrains.Annotations;
 
@@ -21,6 +20,7 @@ namespace DataStructures.structures.tree.avl
                 var newNode = Put(root, pair);
                 if(newNode != null) {
                     Size++;
+                    AdjustHeights(newNode);
                     var balances = new Stack<int>();
                     var imbalanced = FindImbalanced(newNode.Parent,balances);
                     if(imbalanced != null) {
@@ -41,9 +41,10 @@ namespace DataStructures.structures.tree.avl
             var node = Get(root, key);
             if(node != null) {
                 Size--;
-                Remove(node);
+                var successor = Remove(node);
+                AdjustHeights(node);
                 var balances = new Stack<int>();
-                var imbalanced = FindImbalanced(node.Parent,balances);
+                var imbalanced = FindImbalanced(successor,balances);
                 if(imbalanced != null) {
                     var pBalance = balances.Pop();
                     var mBalance = pBalance > 0 ? CalcBalance(imbalanced.Right) : CalcBalance(imbalanced.Left);
@@ -131,8 +132,24 @@ namespace DataStructures.structures.tree.avl
             return !LessThan(key1,key2);
         }
 
+        private int Max(int val1, int val2) {
+            return val1 > val2 ? val1 : val2;
+        }
+
+        private void AdjustHeights(Node<K,V> node) {
+            node.Height = Max(Height(node.Left), 
+                Height(node.Right)) + 1;
+            if(node.Parent != null) {
+                AdjustHeights(node.Parent);
+            }
+        }
+
+        private int Height(Node<K,V> node) {
+            return node == null ? 0 : node.Height;
+        }  
+
         private int CalcBalance(Node<K,V> node) {
-            return Depth(node.Right) - Depth(node.Left);
+            return Height(node.Right) - Height(node.Left);
         }
 
         private bool ImBalanced(int balance) {
@@ -166,6 +183,7 @@ namespace DataStructures.structures.tree.avl
         }
 
         private void SetRotationParent(Node<K,V> parentParent, Node<K,V> parent, Node<K,V> middle) {
+            middle.Parent = parentParent;
             if(parentParent != null) {
                 if(parentParent.Right == parent) {
                     parentParent.Right = middle;
@@ -184,8 +202,11 @@ namespace DataStructures.structures.tree.avl
             middle.Left = parent;
             parent.Parent = middle;
             parent.Right = left;
-            middle.Parent = parentParent;
+            if(left != null) {
+                left.Parent = parent;
+            }
             SetRotationParent(parentParent, parent, middle);
+            AdjustHeights(parent);
         }
         
         private void RightRotation(Node<K,V> middle) {
@@ -195,8 +216,11 @@ namespace DataStructures.structures.tree.avl
             middle.Right = parent;
             parent.Parent = middle;
             parent.Left = right;
-            middle.Parent = parentParent;
+            if(right != null) {
+                right.Parent = parent;
+            }
             SetRotationParent(parentParent, parent, middle);
+            AdjustHeights(parent);
         }
 
         private void LeftRightRotation(Node<K,V> middle) {
@@ -208,7 +232,11 @@ namespace DataStructures.structures.tree.avl
             parent.Left = child;
             middle.Parent = child;
             middle.Right = childLeft;
+            if(childLeft != null) {
+                childLeft.Parent = middle;
+            }
             RightRotation(child);
+            AdjustHeights(middle);
         }
         
         private void RightLeftRotation(Node<K,V> middle) {
@@ -220,7 +248,11 @@ namespace DataStructures.structures.tree.avl
             parent.Right = child;
             middle.Parent = child;
             middle.Left = childRight;
+            if(childRight != null) {
+                childRight.Parent = middle;
+            }
             LeftRotation(child);
+            AdjustHeights(middle);
         }
         
         private Node<K,V> Put(Node<K,V> tree, KeyValuePair<K,V> pair) {
@@ -258,20 +290,23 @@ namespace DataStructures.structures.tree.avl
             }
         }
 
-        private void Remove(Node<K,V> node) {
+        private Node<K,V> Remove(Node<K,V> node) {
             var hasLeft = node.Left != null;
             var hasRight = node.Right != null;
             if(hasRight && hasLeft) {
                 var successor = Min(node.Right);
                 Move(successor, node);
-                Remove(successor);
+                return Remove(successor);
             } else {
                 if(hasRight) {
                     Replace(node, node.Right);
+                    return node.Right;
                 } else if(hasLeft) {
                     Replace(node, node.Left);
+                    return node.Left;
                 } else {
                     Replace(node, null);
+                    return node.Parent;
                 }
             }
         }
@@ -334,16 +369,6 @@ namespace DataStructures.structures.tree.avl
             }
             if(node.Right != null && LessOrEqual(node.Key,upper)) {
                 RangeSearch(node.Right,lower,upper,list);
-            }
-        }
-
-        private int Depth(Node<K,V> node) {
-            if(node == null) {
-                return 0;
-            } else {
-                var lDepth = Depth(node.Left);
-                var rDepth = Depth(node.Right);
-                return lDepth > rDepth ? lDepth + 1 : rDepth + 1;
             }
         }
 
