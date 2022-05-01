@@ -1,10 +1,4 @@
 # DataStructures
- Implementations of some common abstract data structures and algorithms in C#.
+Efficient implementations of some common abstract data structures.
 
-### LinkedList
-### ArrayList
-### Stack
-### PriorityQueue
-### BinaryTree
-### AVLTree
-### HashTable
+Includes: LinkedList, ArrayList, Stack, PriorityQueue, BinaryTree, AVLTree, HashTable
