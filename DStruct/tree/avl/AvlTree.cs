@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using DStruct.ds.list;
+using DStruct.list;
 
-namespace DStruct.ds.tree.avl
+namespace DStruct.tree.avl
 {
     public class AvlTree<K, V> : ISearchTree<K, V> where K : IComparable
     {

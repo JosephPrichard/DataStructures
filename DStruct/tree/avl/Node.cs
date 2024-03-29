@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DStruct.ds.tree.avl
+namespace DStruct.tree.avl
 {
     public class Node<K, V>
     {

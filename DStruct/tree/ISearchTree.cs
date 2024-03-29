@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataStructures.structures;
 
-namespace DStruct.ds.tree
+namespace DStruct.tree
 {
     public interface ISearchTree<K, V> : IMap<K, V>
     {

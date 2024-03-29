@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DStruct.ds.tree.binary
+namespace DStruct.tree.binary
 {
     public class BtUtils<V>
     {

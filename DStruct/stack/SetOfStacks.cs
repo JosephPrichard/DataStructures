@@ -1,4 +1,4 @@
-﻿namespace DStruct.ds.stack
+﻿namespace DStruct.stack
 {
     public class SetOfStacks
     {

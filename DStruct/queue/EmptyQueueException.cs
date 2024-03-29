@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DStruct.ds.queue
+namespace DStruct.queue
 {
     public class EmptyQueueException : Exception
     {

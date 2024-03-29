@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using DataStructures.structures;
 
-namespace DStruct.ds.list
+namespace DStruct.list
 {
-    public class LinkedList<E> : IList<E>
+    public class LinkedList<E> : DStruct.list.IList<E>
     {
         internal Node<E> Head;
         public int Size { get; private set; }

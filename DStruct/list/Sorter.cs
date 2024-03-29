@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DStruct.ds.list
+namespace DStruct.list
 {
     public enum SortType
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DStruct.ds.stack
+namespace DStruct.stack
 {
     public class EmptyStackException : Exception
     {

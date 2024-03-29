@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DataStructures.structures;
 
-namespace DStruct.ds.queue
+namespace DStruct.queue
 {
     public enum PriorityType
     {

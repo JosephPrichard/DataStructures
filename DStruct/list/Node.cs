@@ -1,4 +1,4 @@
-﻿namespace DStruct.ds.stack
+﻿namespace DStruct.list
 {
     public class Node<T>
     {
@@ -8,6 +8,6 @@
         }
 
         public Node<T> Next { set; get; }
-        public T Val { get; }
+        public T Val { set; get; }
     }
 }

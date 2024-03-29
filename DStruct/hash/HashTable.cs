@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using DataStructures.structures;
-using DStruct.ds.list;
+using DStruct.list;
 
-namespace DStruct.ds.hash
+namespace DStruct.hash
 {
     public class HashTable<K, V> : IMap<K, V>
     {

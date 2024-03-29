@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DStruct.ds.queue
+namespace DStruct.queue
 {
     public interface IPriorityQueue<E>
     {

@@ -40,32 +40,32 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ds\graph\Graph.cs" />
-        <Compile Include="ds\hash\HashTable.cs" />
-        <Compile Include="ds\ICollection.cs" />
-        <Compile Include="ds\IMap.cs" />
-        <Compile Include="ds\list\ArrayList.cs" />
-        <Compile Include="ds\list\IList.cs" />
-        <Compile Include="ds\list\LinkedList.cs" />
-        <Compile Include="ds\list\Node.cs" />
-        <Compile Include="ds\list\Sorter.cs" />
-        <Compile Include="ds\OutOfRangeException.cs" />
-        <Compile Include="ds\queue\EmptyQueueException.cs" />
-        <Compile Include="ds\queue\IPriorityQueue.cs" />
-        <Compile Include="ds\queue\PriorityQueue.cs" />
-        <Compile Include="ds\stack\EmptyStackException.cs" />
-        <Compile Include="ds\stack\Node.cs" />
-        <Compile Include="ds\stack\SetOfStacks.cs" />
-        <Compile Include="ds\stack\SortStack.cs" />
-        <Compile Include="ds\stack\Stack.cs" />
-        <Compile Include="ds\tree\avl\AvlTree.cs" />
-        <Compile Include="ds\tree\avl\Node.cs" />
-        <Compile Include="ds\tree\binary\BtUtils.cs" />
-        <Compile Include="ds\tree\binary\Node.cs" />
-        <Compile Include="ds\tree\EmptyTreeException.cs" />
-        <Compile Include="ds\tree\ISearchTree.cs" />
+        <Compile Include="graph\Graph.cs" />
+        <Compile Include="hash\HashTable.cs" />
+        <Compile Include="ICollection.cs" />
+        <Compile Include="IMap.cs" />
+        <Compile Include="list\ArrayList.cs" />
+        <Compile Include="list\IList.cs" />
+        <Compile Include="list\LinkedList.cs" />
+        <Compile Include="list\Node.cs" />
+        <Compile Include="list\Sorter.cs" />
+        <Compile Include="OutOfRangeException.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="queue\EmptyQueueException.cs" />
+        <Compile Include="queue\IPriorityQueue.cs" />
+        <Compile Include="queue\PriorityQueue.cs" />
+        <Compile Include="stack\EmptyStackException.cs" />
+        <Compile Include="stack\Node.cs" />
+        <Compile Include="stack\SetOfStacks.cs" />
+        <Compile Include="stack\SortStack.cs" />
+        <Compile Include="stack\Stack.cs" />
+        <Compile Include="tree\avl\AvlTree.cs" />
+        <Compile Include="tree\avl\Node.cs" />
+        <Compile Include="tree\binary\BtUtils.cs" />
+        <Compile Include="tree\binary\Node.cs" />
+        <Compile Include="tree\EmptyTreeException.cs" />
+        <Compile Include="tree\ISearchTree.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

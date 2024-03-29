@@ -1,6 +1,6 @@
 ﻿using DataStructures.structures;
 
-namespace DStruct.ds.list
+namespace DStruct.list
 {
     public interface IList<E> : ICollection<E>
     {

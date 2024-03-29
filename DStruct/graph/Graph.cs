@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DStruct.ds.graph
+namespace DStruct.graph
 {
     public interface IGraph<T>
     {

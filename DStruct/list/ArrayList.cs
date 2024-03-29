@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using DataStructures.structures;
 
-namespace DStruct.ds.list
+namespace DStruct.list
 {
-    public class ArrayList<E> : DStruct.ds.list.IList<E>
+    public class ArrayList<E> : IList<E>
     {
         private E[] elements;
 

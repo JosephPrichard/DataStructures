@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DStruct.ds.stack
+namespace DStruct.stack
 {
     public class Stack<E> : DataStructures.structures.ICollection<E>
     {

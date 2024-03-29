@@ -1,10 +1,10 @@
 ﻿using System;
 using DataStructures.structures;
-using DStruct.ds.hash;
-using DStruct.ds.list;
-using DStruct.ds.queue;
-using DStruct.ds.stack;
-using DStruct.ds.tree.avl;
+using DStruct.hash;
+using DStruct.list;
+using DStruct.queue;
+using DStruct.stack;
+using DStruct.tree.avl;
 
 namespace DStruct
 {
