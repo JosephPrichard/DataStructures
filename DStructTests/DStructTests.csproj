@@ -43,16 +43,16 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="hash\TestHashTable.cs" />
-        <Compile Include="heap\HeapTest.cs" />
-        <Compile Include="list\TestArrayList.cs">
+        <Compile Include="Hash\TestHashTable.cs" />
+        <Compile Include="Heap\HeapTest.cs" />
+        <Compile Include="List\TestArrayList.cs">
           <DependentUpon>TestLinkedList.cs</DependentUpon>
         </Compile>
-        <Compile Include="list\TestLinkedList.cs" />
-        <Compile Include="list\TestSorter.cs" />
+        <Compile Include="List\TestLinkedList.cs" />
+        <Compile Include="List\TestSorter.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="stack\TestStack.cs" />
-        <Compile Include="tree\TestAvlTree.cs" />
+        <Compile Include="Stack\TestStack.cs" />
+        <Compile Include="Tree\TestAvlTree.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\DStruct\DStruct.csproj">

@@ -39,31 +39,31 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="graph\Graph.cs" />
-        <Compile Include="hash\HashTable.cs" />
-        <Compile Include="heap\EmptyHeapException.cs" />
-        <Compile Include="heap\Heap.cs" />
-        <Compile Include="heap\IPriorityQueue.cs" />
+        <Compile Include="Graph\Graph.cs" />
+        <Compile Include="Hash\HashTable.cs" />
+        <Compile Include="Heap\EmptyHeapException.cs" />
+        <Compile Include="Heap\Heap.cs" />
+        <Compile Include="Heap\IPriorityQueue.cs" />
         <Compile Include="ICollection.cs" />
         <Compile Include="IMap.cs" />
-        <Compile Include="list\ArrayList.cs" />
-        <Compile Include="list\IList.cs" />
-        <Compile Include="list\LinkedList.cs" />
-        <Compile Include="list\Node.cs" />
-        <Compile Include="list\Sorter.cs" />
+        <Compile Include="List\ArrayList.cs" />
+        <Compile Include="List\IList.cs" />
+        <Compile Include="List\LinkedList.cs" />
+        <Compile Include="List\Node.cs" />
+        <Compile Include="List\Sorter.cs" />
         <Compile Include="OutOfRangeException.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="stack\EmptyStackException.cs" />
-        <Compile Include="stack\Node.cs" />
-        <Compile Include="stack\SetOfStacks.cs" />
-        <Compile Include="stack\SortStack.cs" />
-        <Compile Include="stack\Stack.cs" />
-        <Compile Include="tree\avl\AvlTree.cs" />
-        <Compile Include="tree\avl\Node.cs" />
-        <Compile Include="tree\binary\BtUtils.cs" />
-        <Compile Include="tree\binary\Node.cs" />
-        <Compile Include="tree\EmptyTreeException.cs" />
-        <Compile Include="tree\ISearchTree.cs" />
+        <Compile Include="Stack\EmptyStackException.cs" />
+        <Compile Include="Stack\Node.cs" />
+        <Compile Include="Stack\SetOfStacks.cs" />
+        <Compile Include="Stack\SortStack.cs" />
+        <Compile Include="Stack\Stack.cs" />
+        <Compile Include="Tree\avl\AvlTree.cs" />
+        <Compile Include="Tree\avl\Node.cs" />
+        <Compile Include="Tree\binary\BtUtils.cs" />
+        <Compile Include="Tree\binary\Node.cs" />
+        <Compile Include="Tree\EmptyTreeException.cs" />
+        <Compile Include="Tree\ISearchTree.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
