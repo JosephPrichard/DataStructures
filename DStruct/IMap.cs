@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataStructures.structures
+namespace DStruct
 {
     public interface IMap<K, V>
     {

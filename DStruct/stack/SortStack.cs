@@ -5,20 +5,25 @@
         public static Stack<int> Sort(Stack<int> input)
         {
             var output = new Stack<int>();
-            while(!input.IsEmpty()) {
-                Insert(output, input.Pop());
+            while (!input.IsEmpty())
+            {
+                Insert(output, input.PopFront());
             }
+
             return output;
         }
 
         public static void Insert(Stack<int> stack, int element)
         {
-            if(stack.IsEmpty() || stack.Peek() > element) {
-                stack.Push(element);
-            } else {
-                var popped = stack.Pop();
+            if (stack.IsEmpty() || stack.PeekFront() > element)
+            {
+                stack.PushFront(element);
+            }
+            else
+            {
+                var popped = stack.PopFront();
                 Insert(stack, element);
-                stack.Push(popped);
+                stack.PushFront(popped);
             }
         }
     }

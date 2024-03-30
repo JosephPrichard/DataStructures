@@ -7,31 +7,35 @@
         public SetOfStacks(int threshold)
         {
             Threshold = threshold;
-            stack.Push(new Stack<int>());
+            stack.PushFront(new Stack<int>());
         }
 
         public int Threshold { get; }
 
         public void Push(int val)
         {
-            if(stack.Peek() == null || stack.Peek().Size >= Threshold) {
-                stack.Push(new Stack<int>());
+            if (stack.PeekFront() == null || stack.PeekFront().Size >= Threshold)
+            {
+                stack.PushFront(new Stack<int>());
             }
-            stack.Peek().Push(val);
+
+            stack.PeekFront().PushFront(val);
         }
 
         public int Pop()
         {
-            if(stack.Peek().Size == 0) {
-                stack.Pop();
+            if (stack.PeekFront().Size == 0)
+            {
+                stack.PopFront();
                 Pop();
             }
-            return stack.Peek().Pop();
+
+            return stack.PeekFront().PopFront();
         }
 
         public int Peek()
         {
-            return stack.Peek().Peek();
+            return stack.PeekFront().PeekFront();
         }
     }
 }

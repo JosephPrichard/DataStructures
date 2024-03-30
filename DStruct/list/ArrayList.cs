@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataStructures.structures;
 
 namespace DStruct.list
 {
@@ -19,22 +18,35 @@ namespace DStruct.list
             Size = 0;
             elements = new E[capacity];
         }
+        
+        public ArrayList(IReadOnlyList<E> elems)
+        {
+            Size = elems.Count;
+            elements = new E[Size];
+            for (var i = 0; i < Size; i++)
+            {
+                elements[i] = elems[i];
+            }
+        }
 
         public int Size { get; private set; }
 
-        public E this[int index] {
-            get {
+        public E this[int index]
+        {
+            get
+            {
                 RangeCheck(index);
                 return elements[index];
             }
-            set {
+            set
+            {
                 RangeCheck(index);
                 elements[index] = value;
             }
         }
 
         //O(n)
-        public void Push(E e)
+        public void PushFront(E e)
         {
             EnsureCapacity(Size + 1);
             Array.Copy(elements, 0, elements, 1, Size);
@@ -43,13 +55,13 @@ namespace DStruct.list
         }
 
         //O(1)
-        public E Peek()
+        public E PeekFront()
         {
             return this[0];
         }
 
         //O(n)
-        public E Pop()
+        public E PopFront()
         {
             var value = this[0];
             Remove(0);
@@ -83,9 +95,8 @@ namespace DStruct.list
         public void Remove(int index)
         {
             RangeCheck(index);
-            EnsureCapacity(Size - 1);
-            Array.Copy(elements, index + 1, elements, index, Size - index);
             Size--;
+            Array.Copy(elements, index + 1, elements, index, Size - index);
         }
 
         //O(n)
@@ -101,20 +112,23 @@ namespace DStruct.list
         //O(n)
         public IEnumerable<E> GetEnumerable()
         {
-            for(var i = 0; i < Size; i++) {
+            for (var i = 0; i < Size; i++)
+            {
                 yield return elements[i];
             }
         }
 
         //O(n)
-        public void AddAll(DataStructures.structures.ICollection<E> list)
+        public void AddAll(ICollection<E> list)
         {
             EnsureCapacity(Size + list.Size);
             var i = 0;
-            foreach(var e in list.GetEnumerable()) {
+            foreach (var e in list.GetEnumerable())
+            {
                 elements[i + Size] = e;
                 i++;
             }
+
             Size += list.Size;
         }
 
@@ -132,11 +146,14 @@ namespace DStruct.list
         //O(n)
         public bool Contains(E e, Func<E, E, bool> equals)
         {
-            for(var i = 0; i < Size; i++) {
-                if(equals(e, this[i])) {
+            for (var i = 0; i < Size; i++)
+            {
+                if (equals(e, this[i]))
+                {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -150,17 +167,20 @@ namespace DStruct.list
         private void EnsureCapacity(int size)
         {
             var capacity = elements.Length;
-            if(size < capacity) {
+            if (size < capacity)
+            {
                 return;
             }
+
             var resizedElements = new E[size - capacity + capacity * 2];
             Array.Copy(elements, 0, resizedElements, 0, Size);
             elements = resizedElements;
         }
-        
+
         private void RangeCheck(int index)
         {
-            if(index >= Size || index < 0) {
+            if (index >= Size || index < 0)
+            {
                 throw new OutOfRangeException();
             }
         }

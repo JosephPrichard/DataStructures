@@ -4,15 +4,31 @@ using System.Linq;
 
 namespace DStruct.stack
 {
-    public class Stack<E> : DataStructures.structures.ICollection<E>
+    public class Stack<E> : ICollection<E>
     {
         private Node<E> top;
         public int Size { private set; get; }
 
-        //o(1)
         public void Push(E e)
         {
-            var newNode = new Node<E>(e) {
+            PushFront(e);
+        }
+        
+        public E Peek()
+        {
+            return PeekFront();
+        }
+        
+        public E Pop()
+        {
+            return PopFront();
+        }
+
+        //o(1)
+        public void PushFront(E e)
+        {
+            var newNode = new Node<E>(e)
+            {
                 Next = top
             };
             top = newNode;
@@ -20,18 +36,20 @@ namespace DStruct.stack
         }
 
         //o(1)
-        public E Peek()
+        public E PeekFront()
         {
-            if(Size == 0) {
+            if (Size == 0)
+            {
                 throw new EmptyStackException();
             }
+
             return top.Val;
         }
 
         //o(1)
-        public E Pop()
+        public E PopFront()
         {
-            var value = Peek();
+            var value = PeekFront();
             top = top.Next;
             Size--;
             return value;
@@ -40,23 +58,26 @@ namespace DStruct.stack
         public IEnumerable<E> GetEnumerable()
         {
             var curr = top;
-            while(curr != null) {
+            while (curr != null)
+            {
                 yield return curr.Val;
                 curr = curr.Next;
             }
         }
 
         //o(n)
-        public void AddAll(DataStructures.structures.ICollection<E> list)
+        public void AddAll(ICollection<E> list)
         {
             var tail = top;
-            while(tail.Next != null) {
+            while (tail.Next != null)
+            {
                 tail = tail.Next;
             }
-            foreach(var e in list.GetEnumerable().Reverse()) {
-                Push(e);
+
+            foreach (var e in list.GetEnumerable().Reverse())
+            {
+                PushFront(e);
             }
-            Size += list.Size;
         }
 
         public bool IsEmpty()
@@ -74,12 +95,16 @@ namespace DStruct.stack
         public bool Contains(E e, Func<E, E, bool> equals)
         {
             var curr = top;
-            while(curr != null) {
-                if(equals(e, curr.Val)) {
+            while (curr != null)
+            {
+                if (equals(e, curr.Val))
+                {
                     return true;
                 }
+
                 curr = curr.Next;
             }
+
             return false;
         }
     }

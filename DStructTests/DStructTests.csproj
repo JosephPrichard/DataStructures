@@ -5,11 +5,12 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{17ACD6E3-B2DE-41D2-BB82-C8F3D0992B74}</ProjectGuid>
+        <ProjectGuid>{4DC485C3-1F8A-475E-B3ED-050C5012599A}</ProjectGuid>
+        <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>DStruct</RootNamespace>
-        <AssemblyName>DStruct</AssemblyName>
+        <RootNamespace>DStructTests</RootNamespace>
+        <AssemblyName>DStructTests</AssemblyName>
         <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -37,33 +38,27 @@
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
         <Reference Include="System.Xml"/>
+        <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+            <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="graph\Graph.cs" />
-        <Compile Include="hash\HashTable.cs" />
-        <Compile Include="heap\EmptyHeapException.cs" />
-        <Compile Include="heap\Heap.cs" />
-        <Compile Include="heap\IPriorityQueue.cs" />
-        <Compile Include="ICollection.cs" />
-        <Compile Include="IMap.cs" />
-        <Compile Include="list\ArrayList.cs" />
-        <Compile Include="list\IList.cs" />
-        <Compile Include="list\LinkedList.cs" />
-        <Compile Include="list\Node.cs" />
-        <Compile Include="list\Sorter.cs" />
-        <Compile Include="OutOfRangeException.cs" />
+        <Compile Include="hash\TestHashTable.cs" />
+        <Compile Include="heap\HeapTest.cs" />
+        <Compile Include="list\TestArrayList.cs">
+          <DependentUpon>TestLinkedList.cs</DependentUpon>
+        </Compile>
+        <Compile Include="list\TestLinkedList.cs" />
+        <Compile Include="list\TestSorter.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="stack\EmptyStackException.cs" />
-        <Compile Include="stack\Node.cs" />
-        <Compile Include="stack\SetOfStacks.cs" />
-        <Compile Include="stack\SortStack.cs" />
-        <Compile Include="stack\Stack.cs" />
-        <Compile Include="tree\avl\AvlTree.cs" />
-        <Compile Include="tree\avl\Node.cs" />
-        <Compile Include="tree\binary\BtUtils.cs" />
-        <Compile Include="tree\binary\Node.cs" />
-        <Compile Include="tree\EmptyTreeException.cs" />
-        <Compile Include="tree\ISearchTree.cs" />
+        <Compile Include="stack\TestStack.cs" />
+        <Compile Include="tree\TestAvlTree.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\DStruct\DStruct.csproj">
+        <Project>{17acd6e3-b2de-41d2-bb82-c8f3d0992b74}</Project>
+        <Name>DStruct</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

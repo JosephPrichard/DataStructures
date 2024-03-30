@@ -1,37 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataStructures.structures;
 
 namespace DStruct.list
 {
-    public class LinkedList<E> : DStruct.list.IList<E>
+    public class LinkedList<E> : IList<E>
     {
         internal Node<E> Head;
         public int Size { get; private set; }
 
-        public E this[int index] {
-            set {
+        public E this[int index]
+        {
+            set
+            {
                 RangeCheck(index);
                 var curr = Head;
-                for(var i = 0; i < index; i++) {
+                for (var i = 0; i < index; i++)
+                {
                     curr = curr.Next;
                 }
+
                 curr.Val = value;
             }
-            get {
+            get
+            {
                 RangeCheck(index);
                 var curr = Head;
-                for(var i = 0; i < index; i++) {
+                for (var i = 0; i < index; i++)
+                {
                     curr = curr.Next;
                 }
+
                 return curr.Val;
             }
         }
 
         //o(1)
-        public void Push(E e)
+        public void PushFront(E e)
         {
-            var newNode = new Node<E>(e) {
+            var newNode = new Node<E>(e)
+            {
                 Next = Head
             };
             Head = newNode;
@@ -39,13 +46,13 @@ namespace DStruct.list
         }
 
         //o(1)
-        public E Peek()
+        public E PeekFront()
         {
             return this[0];
         }
 
         //o(1)
-        public E Pop()
+        public E PopFront()
         {
             var value = this[0];
             Remove(0);
@@ -58,13 +65,17 @@ namespace DStruct.list
             var newNode = new Node<E>(e);
             var curr = Head;
             Size++;
-            if(curr == null) {
+            if (curr == null)
+            {
                 Head = newNode;
                 return;
             }
-            while(curr.Next != null) {
+
+            while (curr.Next != null)
+            {
                 curr = curr.Next;
             }
+
             curr.Next = newNode;
         }
 
@@ -87,10 +98,20 @@ namespace DStruct.list
         public void Remove(int index)
         {
             RangeCheck(index);
+            
+            if (index == 0)
+            {
+                Head = Head.Next;
+                Size--;
+                return;
+            }
+            
             var prev = Head;
-            for(var i = 0; i < index - 1; i++) {
+            for (var i = 0; i < index - 1; i++)
+            {
                 prev = prev.Next;
             }
+
             prev.Next = prev.Next.Next;
             Size--;
         }
@@ -100,10 +121,13 @@ namespace DStruct.list
         {
             RangeCheck(index);
             var curr = Head;
-            for(var i = 0; i < index - 1; i++) {
+            for (var i = 0; i < index - 1; i++)
+            {
                 curr = curr.Next;
             }
-            var newNode = new Node<E>(e) {
+
+            var newNode = new Node<E>(e)
+            {
                 Next = curr.Next
             };
             curr.Next = newNode;
@@ -114,24 +138,30 @@ namespace DStruct.list
         public IEnumerable<E> GetEnumerable()
         {
             var curr = Head;
-            while(curr != null) {
-                yield return curr.Val;
+            for (var i = 0; i < Size && curr != null; i++)
+            {
+                var v = curr.Val;
                 curr = curr.Next;
+                yield return v;
             }
         }
 
         //o(n)
-        public void AddAll(DataStructures.structures.ICollection<E> list)
+        public void AddAll(ICollection<E> list)
         {
             var tail = Head;
-            while(tail.Next != null) {
+            while (tail.Next != null)
+            {
                 tail = tail.Next;
             }
-            foreach(var e in list.GetEnumerable()) {
+            
+            foreach (var e in list.GetEnumerable())
+            {
                 var newNode = new Node<E>(e);
                 tail.Next = newNode;
                 tail = tail.Next;
             }
+
             Size += list.Size;
         }
 
@@ -149,18 +179,23 @@ namespace DStruct.list
         public bool Contains(E e, Func<E, E, bool> equals)
         {
             var curr = Head;
-            while(curr != null) {
-                if(equals(e, curr.Val)) {
+            while (curr != null)
+            {
+                if (equals(e, curr.Val))
+                {
                     return true;
                 }
+
                 curr = curr.Next;
             }
+
             return false;
         }
-        
+
         private void RangeCheck(int index)
         {
-            if(index >= Size || index < 0) {
+            if (index >= Size || index < 0)
+            {
                 throw new OutOfRangeException();
             }
         }

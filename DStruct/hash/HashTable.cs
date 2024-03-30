@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DataStructures.structures;
 using DStruct.list;
 
 namespace DStruct.hash
@@ -20,19 +19,27 @@ namespace DStruct.hash
             var h = Hash(key);
             var head = table[h];
             var pair = new KeyValuePair<K, V>(key, val);
-            if(head == null) {
+            if (head == null)
+            {
                 table[h] = new Node<KeyValuePair<K, V>>(pair);
-            } else {
+            }
+            else
+            {
                 var prev = head;
-                while(head != null) {
-                    if(head.Val.Key.Equals(key)) {
+                while (head != null)
+                {
+                    if (head.Val.Key.Equals(key))
+                    {
                         head.Val = pair;
                     }
+
                     prev = head;
                     head = head.Next;
                 }
+
                 prev.Next = new Node<KeyValuePair<K, V>>(pair);
             }
+
             Size++;
         }
 
@@ -47,23 +54,30 @@ namespace DStruct.hash
             var h = Hash(key);
             var head = table[h];
             var prev = head;
-            if(head != null) {
-                if(head.Val.Key.Equals(key)) {
+            if (head != null)
+            {
+                if (head.Val.Key.Equals(key))
+                {
                     table[h] = head.Next;
                     Size--;
                     return true;
                 }
+
                 head = head.Next;
-                while(head != null) {
-                    if(head.Val.Key.Equals(key)) {
+                while (head != null)
+                {
+                    if (head.Val.Key.Equals(key))
+                    {
                         prev.Next = head.Next;
                         Size--;
                         return true;
                     }
+
                     prev = head;
                     head = head.Next;
                 }
             }
+
             return false;
         }
 
@@ -74,9 +88,12 @@ namespace DStruct.hash
 
         public void Clear()
         {
-            for(var i = 0; i < table.Length; i++) {
-                table[0] = null;
+            for (var i = 0; i < table.Length; i++)
+            {
+                table[i] = null;
             }
+
+            Size = 0;
         }
 
         public bool IsEmpty()
@@ -86,9 +103,11 @@ namespace DStruct.hash
 
         public IEnumerable<K> Keys()
         {
-            foreach(var n in table) {
+            foreach (var n in table)
+            {
                 var head = n;
-                while(head != null) {
+                while (head != null)
+                {
                     yield return head.Val.Key;
                     head = head.Next;
                 }
@@ -97,9 +116,11 @@ namespace DStruct.hash
 
         public IEnumerable<V> Elements()
         {
-            foreach(var n in table) {
+            foreach (var n in table)
+            {
                 var head = n;
-                while(head != null) {
+                while (head != null)
+                {
                     yield return head.Val.Value;
                     head = head.Next;
                 }
@@ -109,25 +130,32 @@ namespace DStruct.hash
         private KeyValuePair<K, V>? GetPair(K key)
         {
             var head = table[Hash(key)];
-            while(head != null) {
-                if(head.Val.Key.Equals(key)) {
+            while (head != null)
+            {
+                if (head.Val.Key.Equals(key))
+                {
                     return head.Val;
                 }
+
                 head = head.Next;
             }
+
             return null;
         }
 
         private static int Abs(int val)
         {
-            if(val >= 0) {
+            if (val >= 0)
+            {
                 return val;
-            } else {
+            }
+            else
+            {
                 return -val;
             }
         }
 
-        public int Hash(K key)
+        private int Hash(K key)
         {
             return Abs(key.GetHashCode() % table.Length);
         }

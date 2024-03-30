@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataStructures.structures;
 
-namespace DStruct.queue
+namespace DStruct.heap
 {
     public enum PriorityType
     {
@@ -10,24 +9,24 @@ namespace DStruct.queue
         Max
     }
 
-    public class PriorityQueue<E> : IPriorityQueue<E> where E : IComparable
+    public class Heap<E> : IPriorityQueue<E> where E : IComparable
     {
         private Func<E, E, bool> doCompare;
         private E[] elements;
 
-        public PriorityQueue(PriorityType type)
+        public Heap(PriorityType type)
         {
             SetHeapType(type);
             elements = new E[20];
         }
 
-        public PriorityQueue(PriorityType type, int capacity)
+        public Heap(PriorityType type, int capacity)
         {
             SetHeapType(type);
             elements = new E[capacity];
         }
 
-        public PriorityQueue(PriorityType type, E[] array)
+        public Heap(PriorityType type, E[] array)
         {
             SetHeapType(type);
             elements = new E[array.Length];
@@ -82,8 +81,10 @@ namespace DStruct.queue
 
         public void Remove(E e)
         {
-            for(var i = 0; i < Size; i++) {
-                if(elements[i].Equals(e)) {
+            for (var i = 0; i < Size; i++)
+            {
+                if (elements[i].Equals(e))
+                {
                     Remove(i);
                     return;
                 }
@@ -103,7 +104,8 @@ namespace DStruct.queue
         //o(n)
         public IEnumerable<E> GetEnumerable()
         {
-            for(var i = 0; i < Size; i++) {
+            for (var i = 0; i < Size; i++)
+            {
                 yield return elements[i];
             }
         }
@@ -116,16 +118,19 @@ namespace DStruct.queue
 
         private void SetHeapType(PriorityType type)
         {
-            if(type == PriorityType.Min) {
+            if (type == PriorityType.Min)
+            {
                 doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
-            } else {
+            }
+            else
+            {
                 doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
             }
         }
 
         public int Depth()
         {
-            return (int) Math.Floor(Math.Log(Size, 2)) + 1;
+            return (int)Math.Floor(Math.Log(Size, 2)) + 1;
         }
 
         public E[] Copy()
@@ -138,21 +143,24 @@ namespace DStruct.queue
         //O(n)
         public void ReOrder()
         {
-            for(var i = Size - 1; i >= 0; i--) {
+            for (var i = Size - 1; i >= 0; i--)
+            {
                 SiftDown(i);
             }
         }
-        
+
         private void EmptyCheck()
         {
-            if(Size == 0) {
-                throw new EmptyQueueException();
+            if (Size == 0)
+            {
+                throw new EmptyHeapException();
             }
         }
-        
+
         private void RangeCheck(int index)
         {
-            if(index >= Size || index < 0) {
+            if (index >= Size || index < 0)
+            {
                 throw new OutOfRangeException();
             }
         }
@@ -160,12 +168,16 @@ namespace DStruct.queue
         private void SiftUp(int pos)
         {
             var parent = (pos - 1) / 2;
-            while(parent >= 0) {
-                if(doCompare(elements[pos], elements[parent])) {
+            while (parent >= 0)
+            {
+                if (doCompare(elements[pos], elements[parent]))
+                {
                     Swap(pos, parent);
                     pos = parent;
                     parent = (pos - 1) / 2;
-                } else {
+                }
+                else
+                {
                     parent = -1;
                 }
             }
@@ -175,11 +187,14 @@ namespace DStruct.queue
         {
             var left = 2 * pos + 1;
             var right = 2 * pos + 2;
-            if(left >= Size) {
+            if (left >= Size)
+            {
                 return;
             }
+
             var child = right >= Size || doCompare(elements[left], elements[right]) ? left : right;
-            if(doCompare(elements[child], elements[pos])) {
+            if (doCompare(elements[child], elements[pos]))
+            {
                 Swap(child, pos);
                 SiftDown(child);
             }
@@ -188,9 +203,11 @@ namespace DStruct.queue
         private void EnsureCapacity(int size)
         {
             var capacity = elements.Length;
-            if(size < capacity) {
+            if (size < capacity)
+            {
                 return;
             }
+
             var resizedElements = new E[size - capacity + capacity * 2];
             Array.Copy(elements, 0, resizedElements, 0, Size);
             elements = resizedElements;

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataStructures.structures
+namespace DStruct
 {
     public interface ICollection<E>
     {
         int Size { get; }
 
-        void Push(E e);
+        void PushFront(E e);
 
-        E Peek();
+        E PeekFront();
 
-        E Pop();
+        E PopFront();
 
         void AddAll(ICollection<E> list);
 

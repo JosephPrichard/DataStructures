@@ -4,7 +4,7 @@ namespace DStruct.tree.binary
 {
     public class BtUtils<V>
     {
-        public static void Swap(Node<V> parent, Node<V> left, Node<V> right)
+        private static void Swap(Node<V> parent, Node<V> left, Node<V> right)
         {
             parent.Left = right;
             parent.Right = left;
@@ -16,13 +16,18 @@ namespace DStruct.tree.binary
             var hasRight = parent.Right != null;
             var left = parent.Left;
             var right = parent.Right;
-            if(hasLeft || hasRight) {
+            if (hasLeft || hasRight)
+            {
                 Swap(parent, left, right);
             }
-            if(hasLeft) {
+
+            if (hasLeft)
+            {
                 Invert(left);
             }
-            if(hasRight) {
+
+            if (hasRight)
+            {
                 Invert(right);
             }
         }
@@ -31,16 +36,23 @@ namespace DStruct.tree.binary
         {
             Console.Write(" | ");
             Console.Write("P: " + node.Val);
-            if(node.Left != null) {
+            if (node.Left != null)
+            {
                 Console.Write(", L: " + node.Left.Val);
             }
-            if(node.Right != null) {
+
+            if (node.Right != null)
+            {
                 Console.Write(", R: " + node.Right.Val);
             }
-            if(node.Left != null) {
+
+            if (node.Left != null)
+            {
                 PrintConsole(node.Left);
             }
-            if(node.Right != null) {
+
+            if (node.Right != null)
+            {
                 PrintConsole(node.Right);
             }
         }

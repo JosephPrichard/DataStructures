@@ -1,0 +1,43 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=02b52831_002D507d_002D4579_002Db6c1_002Df3d36e51b91e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Pop" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_Pop&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc4d8854_002D97a2_002D416b_002D9ca8_002D4ee69f795d80/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Should_Remove" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestLinkedList.Should_Remove&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestLinkedList.Should_AddAll&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList.Should_Insert&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList.Should_Remove&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList.Should_AddAll&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter.Should_QuickSort_ArrayList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter.Should_MergeSort_ArrayList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter.Should_MergeSort_LinkedList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_Push&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_Pop&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.heap.HeapTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestLinkedList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cc37a467_002D5f98_002D4e62_002D919a_002D728d1d1d7e7c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Pop #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_Pop&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_AddAll&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.hash.TestHashTable.Should_Put_Then_Set&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.hash.TestHashTable.Should_Remove_And_Contains&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.hash.TestHashTable.Should_Clear_Then_Contains_False&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree.Should_Insert&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree.Should_Put&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree.Should_Put_Then_Remove&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree.Should_Put_Then_Range_Iterate&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree.Should_Put_Then_Order_Iterate&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree.Should_Put_Then_Remove_Then_RangeSearch&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.hash.TestHashTable&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
