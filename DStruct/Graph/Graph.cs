@@ -6,16 +6,18 @@ namespace DStruct.Graph
     {
         void AddVertex(T vertex);
         
-        void AddDirectedEdge(T from, T to);
+        void AddDirectedEdge(Edge<T> edge);
         
-        void AddUndirectedEdge(T from, T to);
+        void AddUndirectedEdge(Edge<T> edge);
 
         bool ContainsVertex(T vertex);
         
-        bool ContainsEdge(T from, T to);
+        bool ContainsEdge(Edge<T> edge);
 
         IEnumerable<T> Neighbors(T from);
 
         IEnumerable<T> Vertices();
+
+        IEnumerable<Edge<T>> Edges();
     }
 }

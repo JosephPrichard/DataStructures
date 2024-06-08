@@ -17,26 +17,26 @@ namespace DStruct.Graph
             _adjacencyList.Put(vertex, new ArrayList<T>());
         }
 
-        public void AddDirectedEdge(T from, T to)
+        public void AddDirectedEdge(Edge<T> edge)
         {
-            var neighborsFrom = _adjacencyList.Get(from);
-            var neighborsTo = _adjacencyList.Get(to);
+            var neighborsFrom = _adjacencyList.Get(edge.From);
+            var neighborsTo = _adjacencyList.Get(edge.To);
             if (neighborsFrom == null || neighborsTo == null)
             {
                 throw new MissingVertexException();
             }
-            neighborsFrom.PushBack(to);
-            neighborsTo.PushBack(from);
+            neighborsFrom.PushBack(edge.To);
+            neighborsTo.PushBack(edge.From);
         }
 
-        public void AddUndirectedEdge(T from, T to)
+        public void AddUndirectedEdge(Edge<T> edge)
         {
-            var neighborsFrom = _adjacencyList.Get(from);
+            var neighborsFrom = _adjacencyList.Get(edge.From);
             if (neighborsFrom == null)
             {
                 throw new MissingVertexException();
             }
-            neighborsFrom.PushBack(to);
+            neighborsFrom.PushBack(edge.To);
         }
 
         public bool ContainsVertex(T vertex)
@@ -44,14 +44,14 @@ namespace DStruct.Graph
             return _adjacencyList.Contains(vertex);
         }
 
-        public bool ContainsEdge(T from, T to)
+        public bool ContainsEdge(Edge<T> edge)
         {
-            var neighborsFrom = _adjacencyList.Get(from);
+            var neighborsFrom = _adjacencyList.Get(edge.From);
             if (neighborsFrom == null)
             {
                 throw new MissingVertexException();
             }
-            return neighborsFrom.Contains(to);
+            return neighborsFrom.Contains(edge.To);
         }
 
         public IEnumerable<T> Neighbors(T vertex)
@@ -62,6 +62,18 @@ namespace DStruct.Graph
         public IEnumerable<T> Vertices()
         {
             return _adjacencyList.Keys();
+        }
+        
+        public IEnumerable<Edge<T>> Edges()
+        {
+            var keys = _adjacencyList.Keys();
+            foreach (var key in keys)
+            {
+                foreach (var value in _adjacencyList.Get(key).GetEnumerable())
+                {
+                    yield return new Edge<T>(key, value);
+                }
+            }
         }
     }
 }

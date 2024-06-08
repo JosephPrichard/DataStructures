@@ -13,6 +13,7 @@
         <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>12</LangVersion>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,7 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Graph\Edge.cs" />
         <Compile Include="Graph\ListGraph.cs" />
         <Compile Include="Graph\DuplicateVertexException.cs" />
         <Compile Include="Graph\Graph.cs" />

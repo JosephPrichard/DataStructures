@@ -3,17 +3,12 @@ using DStruct.List;
 
 namespace DStruct.Hash
 {
-    public class HashTable<TKey, TValue> : IMap<TKey, TValue>
+    public class HashTable<TKey, TValue>(int predictedCount) : IMap<TKey, TValue>
     {
-        private readonly Node<KeyValuePair<TKey, TValue>>[] _table;
+        private readonly Node<KeyValuePair<TKey, TValue>>[] _table = new Node<KeyValuePair<TKey, TValue>>[predictedCount * 2];
 
-        public HashTable() : this(27)
+        public HashTable() : this(7)
         {
-        }
-
-        public HashTable(int predictedCount)
-        {
-            _table = new Node<KeyValuePair<TKey, TValue>>[predictedCount * 2];
         }
 
         public int Size { private set; get; }
