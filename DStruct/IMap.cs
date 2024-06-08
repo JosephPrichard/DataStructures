@@ -2,24 +2,26 @@
 
 namespace DStruct
 {
-    public interface IMap<K, V>
+    public interface IMap<TKey, TValue>
     {
         int Size { get; }
+        
+        TValue this[TKey key] { set; get; }
 
-        void Put(K key, V val);
+        void Put(TKey key, TValue val);
 
-        V Get(K key);
+        TValue Get(TKey key);
 
-        bool Remove(K key);
+        bool Remove(TKey key);
 
-        bool Contains(K key);
+        bool Contains(TKey key);
 
         void Clear();
 
         bool IsEmpty();
 
-        IEnumerable<K> Keys();
+        IEnumerable<TKey> Keys();
 
-        IEnumerable<V> Elements();
+        IEnumerable<TValue> Elements();
     }
 }

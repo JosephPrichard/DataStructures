@@ -9,28 +9,28 @@ namespace DStruct.Heap
         Max
     }
 
-    public class Heap<E> : IPriorityQueue<E> where E : IComparable
+    public class TestHeap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     {
-        private Func<E, E, bool> doCompare;
-        private E[] elements;
+        private Func<TElem, TElem, bool> _doCompare;
+        private TElem[] _elements;
 
-        public Heap(PriorityType type)
+        public TestHeap(PriorityType type)
         {
             SetHeapType(type);
-            elements = new E[20];
+            _elements = new TElem[20];
         }
 
-        public Heap(PriorityType type, int capacity)
+        public TestHeap(PriorityType type, int capacity)
         {
             SetHeapType(type);
-            elements = new E[capacity];
+            _elements = new TElem[capacity];
         }
 
-        public Heap(PriorityType type, E[] array)
+        public TestHeap(PriorityType type, TElem[] array)
         {
             SetHeapType(type);
-            elements = new E[array.Length];
-            Array.Copy(array, 0, elements, 0, array.Length);
+            _elements = new TElem[array.Length];
+            Array.Copy(array, 0, _elements, 0, array.Length);
             Size = array.Length;
             ReOrder();
         }
@@ -43,33 +43,33 @@ namespace DStruct.Heap
         }
 
         //O(1) due to probability
-        public void Push(E e)
+        public void Push(TElem e)
         {
             EnsureCapacity(Size + 1);
-            elements[Size] = e;
+            _elements[Size] = e;
             SiftUp(Size);
             Size++;
         }
 
-        //O(1)
-        public E Peek()
+        // O(1)
+        public TElem Peek()
         {
             EmptyCheck();
-            return elements[0];
+            return _elements[0];
         }
 
-        //O(log(n))
-        public E Pop()
+        // O(log(n))
+        public TElem Pop()
         {
             EmptyCheck();
-            var val = elements[0];
+            var val = _elements[0];
             Move(Size - 1, 0);
             Size--;
             SiftDown(0);
             return val;
         }
 
-        //O(log(n))
+        // O(log(n))
         public void Remove(int index)
         {
             EmptyCheck();
@@ -79,11 +79,11 @@ namespace DStruct.Heap
             SiftDown(index);
         }
 
-        public void Remove(E e)
+        public void Remove(TElem e)
         {
             for (var i = 0; i < Size; i++)
             {
-                if (elements[i].Equals(e))
+                if (_elements[i].Equals(e))
                 {
                     Remove(i);
                     return;
@@ -91,40 +91,40 @@ namespace DStruct.Heap
             }
         }
 
-        //O(log(n))
-        public E PopPush(E e)
+        // O(log(n))
+        public TElem PopPush(TElem e)
         {
             EmptyCheck();
-            var val = elements[0];
-            elements[0] = e;
+            var val = _elements[0];
+            _elements[0] = e;
             SiftDown(0);
             return val;
         }
 
-        //o(n)
-        public IEnumerable<E> GetEnumerable()
+        // o(n)
+        public IEnumerable<TElem> GetEnumerable()
         {
             for (var i = 0; i < Size; i++)
             {
-                yield return elements[i];
+                yield return _elements[i];
             }
         }
 
         public void Clear()
         {
             Size = 0;
-            elements = Array.Empty<E>();
+            _elements = Array.Empty<TElem>();
         }
 
         private void SetHeapType(PriorityType type)
         {
             if (type == PriorityType.Min)
             {
-                doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
+                _doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
             }
             else
             {
-                doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
+                _doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
             }
         }
 
@@ -133,10 +133,10 @@ namespace DStruct.Heap
             return (int)Math.Floor(Math.Log(Size, 2)) + 1;
         }
 
-        public E[] Copy()
+        public TElem[] Copy()
         {
-            var copy = new E[Size];
-            Array.Copy(elements, 0, copy, 0, Size);
+            var copy = new TElem[Size];
+            Array.Copy(_elements, 0, copy, 0, Size);
             return copy;
         }
 
@@ -170,7 +170,7 @@ namespace DStruct.Heap
             var parent = (pos - 1) / 2;
             while (parent >= 0)
             {
-                if (doCompare(elements[pos], elements[parent]))
+                if (_doCompare(_elements[pos], _elements[parent]))
                 {
                     Swap(pos, parent);
                     pos = parent;
@@ -192,8 +192,8 @@ namespace DStruct.Heap
                 return;
             }
 
-            var child = right >= Size || doCompare(elements[left], elements[right]) ? left : right;
-            if (doCompare(elements[child], elements[pos]))
+            var child = right >= Size || _doCompare(_elements[left], _elements[right]) ? left : right;
+            if (_doCompare(_elements[child], _elements[pos]))
             {
                 Swap(child, pos);
                 SiftDown(child);
@@ -202,27 +202,27 @@ namespace DStruct.Heap
 
         private void EnsureCapacity(int size)
         {
-            var capacity = elements.Length;
+            var capacity = _elements.Length;
             if (size < capacity)
             {
                 return;
             }
 
-            var resizedElements = new E[size - capacity + capacity * 2];
-            Array.Copy(elements, 0, resizedElements, 0, Size);
-            elements = resizedElements;
+            var resizedElements = new TElem[size - capacity + capacity * 2];
+            Array.Copy(_elements, 0, resizedElements, 0, Size);
+            _elements = resizedElements;
         }
 
         private void Swap(int index1, int index2)
         {
-            var val = elements[index1];
-            elements[index1] = elements[index2];
-            elements[index2] = val;
+            var val = _elements[index1];
+            _elements[index1] = _elements[index2];
+            _elements[index2] = val;
         }
 
         private void Move(int from, int to)
         {
-            elements[to] = elements[from];
+            _elements[to] = _elements[from];
         }
     }
 }

@@ -3,87 +3,87 @@ using System.Collections.Generic;
 
 namespace DStruct.List
 {
-    public class ArrayList<E> : IList<E>
+    public class ArrayList<T> : IList<T>
     {
-        private E[] elements;
+        private T[] _elements;
 
         public ArrayList()
         {
             Size = 0;
-            elements = new E[20];
+            _elements = new T[20];
         }
 
         public ArrayList(int capacity)
         {
             Size = 0;
-            elements = new E[capacity];
+            _elements = new T[capacity];
         }
         
-        public ArrayList(IReadOnlyList<E> elems)
+        public ArrayList(IReadOnlyList<T> elems)
         {
             Size = elems.Count;
-            elements = new E[Size];
+            _elements = new T[Size];
             for (var i = 0; i < Size; i++)
             {
-                elements[i] = elems[i];
+                _elements[i] = elems[i];
             }
         }
 
         public int Size { get; private set; }
 
-        public E this[int index]
+        public T this[int index]
         {
             get
             {
                 RangeCheck(index);
-                return elements[index];
+                return _elements[index];
             }
             set
             {
                 RangeCheck(index);
-                elements[index] = value;
+                _elements[index] = value;
             }
         }
 
-        //O(n)
-        public void PushFront(E e)
+        // O(n)
+        public void PushFront(T e)
         {
             EnsureCapacity(Size + 1);
-            Array.Copy(elements, 0, elements, 1, Size);
-            elements[0] = e;
+            Array.Copy(_elements, 0, _elements, 1, Size);
+            _elements[0] = e;
             Size++;
         }
 
-        //O(1)
-        public E PeekFront()
+        // O(1)
+        public T PeekFront()
         {
             return this[0];
         }
 
-        //O(n)
-        public E PopFront()
+        // O(n)
+        public T PopFront()
         {
             var value = this[0];
             Remove(0);
             return value;
         }
 
-        //O(1) amortized
-        public void PushBack(E e)
+        // O(1) amortized
+        public void PushBack(T e)
         {
             EnsureCapacity(Size + 1);
-            elements[Size] = e;
+            _elements[Size] = e;
             Size++;
         }
 
-        //O(1)
-        public E PeekBack()
+        // O(1)
+        public T PeekBack()
         {
             return this[Size - 1];
         }
 
-        //O(1)
-        public E PopBack()
+        // O(1)
+        public T PopBack()
         {
             var i = Size - 1;
             var value = this[i];
@@ -91,41 +91,41 @@ namespace DStruct.List
             return value;
         }
 
-        //O(n)
+        // O(n)
         public void Remove(int index)
         {
             RangeCheck(index);
             Size--;
-            Array.Copy(elements, index + 1, elements, index, Size - index);
+            Array.Copy(_elements, index + 1, _elements, index, Size - index);
         }
 
-        //O(n)
-        public void Insert(int index, E e)
+        // O(n)
+        public void Insert(int index, T e)
         {
             RangeCheck(index);
             EnsureCapacity(Size + 1);
-            Array.Copy(elements, index, elements, index + 1, Size - index);
-            elements[index] = e;
+            Array.Copy(_elements, index, _elements, index + 1, Size - index);
+            _elements[index] = e;
             Size++;
         }
 
-        //O(n)
-        public IEnumerable<E> GetEnumerable()
+        // O(n)
+        public IEnumerable<T> GetEnumerable()
         {
             for (var i = 0; i < Size; i++)
             {
-                yield return elements[i];
+                yield return _elements[i];
             }
         }
 
-        //O(n)
-        public void AddAll(ICollection<E> list)
+        // O(n)
+        public void AddAll(ICollection<T> list)
         {
             EnsureCapacity(Size + list.Size);
             var i = 0;
             foreach (var e in list.GetEnumerable())
             {
-                elements[i + Size] = e;
+                _elements[i + Size] = e;
                 i++;
             }
 
@@ -140,15 +140,15 @@ namespace DStruct.List
         public void Clear()
         {
             Size = 0;
-            elements = Array.Empty<E>();
+            _elements = Array.Empty<T>();
         }
 
-        //O(n)
-        public bool Contains(E e, Func<E, E, bool> equals)
+        // O(n)
+        public bool Contains(T e)
         {
             for (var i = 0; i < Size; i++)
             {
-                if (equals(e, this[i]))
+                if (e.Equals(this[i]))
                 {
                     return true;
                 }
@@ -157,24 +157,24 @@ namespace DStruct.List
             return false;
         }
 
-        public E[] ToArray()
+        public T[] ToArray()
         {
-            var copy = new E[Size];
-            Array.Copy(elements, 0, copy, 0, Size);
+            var copy = new T[Size];
+            Array.Copy(_elements, 0, copy, 0, Size);
             return copy;
         }
 
         private void EnsureCapacity(int size)
         {
-            var capacity = elements.Length;
+            var capacity = _elements.Length;
             if (size < capacity)
             {
                 return;
             }
 
-            var resizedElements = new E[size - capacity + capacity * 2];
-            Array.Copy(elements, 0, resizedElements, 0, Size);
-            elements = resizedElements;
+            var resizedElements = new T[size - capacity + capacity * 2];
+            Array.Copy(_elements, 0, resizedElements, 0, Size);
+            _elements = resizedElements;
         }
 
         private void RangeCheck(int index)

@@ -4,23 +4,29 @@ using DStruct.List;
 
 namespace DStruct.Tree.avl
 {
-    public class AvlTree<K, V> : ISearchTree<K, V> where K : IComparable
+    public class AvlTree<TKey, TValue> : ISearchTree<TKey, TValue> where TKey : IComparable
     {
-        private Node<K, V> root;
+        private Node<TKey, TValue> _root;
 
         public int Size { private set; get; }
 
-        public void Put(K key, V val)
+        public TValue this[TKey key]
         {
-            var pair = new KeyValuePair<K, V>(key, val);
-            if (root == null)
+            get => Get(key);
+            set => Put(key, value);
+        }
+
+        public void Put(TKey key, TValue val)
+        {
+            var pair = new KeyValuePair<TKey, TValue>(key, val);
+            if (_root == null)
             {
-                root = new Node<K, V>(pair);
+                _root = new Node<TKey, TValue>(pair);
                 Size++;
             }
             else
             {
-                var newNode = Put(root, pair);
+                var newNode = Put(_root, pair);
                 if (newNode != null)
                 {
                     Size++;
@@ -35,17 +41,17 @@ namespace DStruct.Tree.avl
             }
         }
 
-        public V Get(K key)
+        public TValue Get(TKey key)
         {
             EmptyCheck();
-            var node = Get(root, key);
+            var node = Get(_root, key);
             return node != null ? node.Val : default;
         }
 
-        public bool Remove(K key)
+        public bool Remove(TKey key)
         {
             EmptyCheck();
-            var node = Get(root, key);
+            var node = Get(_root, key);
             if (node != null)
             {
                 Size--;
@@ -64,14 +70,14 @@ namespace DStruct.Tree.avl
             return node != null;
         }
 
-        public bool Contains(K key)
+        public bool Contains(TKey key)
         {
-            return Get(root, key) != null;
+            return Get(_root, key) != null;
         }
 
         public void Clear()
         {
-            root = null;
+            _root = null;
             Size = 0;
         }
 
@@ -80,82 +86,82 @@ namespace DStruct.Tree.avl
             return Size == 0;
         }
 
-        public IEnumerable<K> Keys()
+        public IEnumerable<TKey> Keys()
         {
-            var list = new ArrayList<Node<K, V>>(Size);
-            InOrder(root, list);
+            var list = new ArrayList<Node<TKey, TValue>>(Size);
+            InOrder(_root, list);
             for (var i = 0; i < list.Size; i++)
             {
                 yield return list[i].Key;
             }
         }
 
-        public IEnumerable<V> Elements()
+        public IEnumerable<TValue> Elements()
         {
-            var list = new ArrayList<Node<K, V>>(Size);
-            InOrder(root, list);
+            var list = new ArrayList<Node<TKey, TValue>>(Size);
+            InOrder(_root, list);
             for (var i = 0; i < list.Size; i++)
             {
                 yield return list[i].Val;
             }
         }
 
-        public IEnumerable<V> RangeSearch(K lower, K upper)
+        public IEnumerable<TValue> RangeSearch(TKey lower, TKey upper)
         {
-            var list = new ArrayList<KeyValuePair<K, V>>(Size);
-            RangeSearch(root, lower, upper, list);
+            var list = new ArrayList<KeyValuePair<TKey, TValue>>(Size);
+            RangeSearch(_root, lower, upper, list);
             for (var i = 0; i < list.Size; i++)
             {
                 yield return list[i].Value;
             }
         }
 
-        public int Number(K key)
+        public int Number(TKey key)
         {
-            var node = Get(root, key);
+            var node = Get(_root, key);
             return node != null ? Number(node) : 0;
         }
 
-        public int Rank(K key)
+        public int Rank(TKey key)
         {
-            var number = Rank(root, key);
-            return LessThan(root.Key, key) ? ++number : number;
+            var number = Rank(_root, key);
+            return LessThan(_root.Key, key) ? ++number : number;
         }
 
-        public V Min()
+        public TValue Min()
         {
             EmptyCheck();
-            return Min(root).Val;
+            return Min(_root).Val;
         }
 
-        public V Max()
+        public TValue Max()
         {
             EmptyCheck();
-            return Max(root).Val;
+            return Max(_root).Val;
         }
 
-        public K Select(int rank)
+        public TKey Select(int rank)
         {
-            var selected = Select(root, rank);
+            var selected = Select(_root, rank);
             return selected != null ? selected.Key : default;
         }
 
-        private bool LessThan(K key1, K key2)
+        private bool LessThan(TKey key1, TKey key2)
         {
             return key1.CompareTo(key2) == -1;
         }
 
-        private bool GreaterThan(K key1, K key2)
+        private bool GreaterThan(TKey key1, TKey key2)
         {
             return key1.CompareTo(key2) == 1;
         }
 
-        private bool LessOrEqual(K key1, K key2)
+        private bool LessOrEqual(TKey key1, TKey key2)
         {
             return !GreaterThan(key1, key2);
         }
 
-        private bool GreaterOrEqual(K key1, K key2)
+        private bool GreaterOrEqual(TKey key1, TKey key2)
         {
             return !LessThan(key1, key2);
         }
@@ -165,12 +171,12 @@ namespace DStruct.Tree.avl
             return val1 > val2 ? val1 : val2;
         }
 
-        private int Height(Node<K, V> node)
+        private int Height(Node<TKey, TValue> node)
         {
             return node == null ? 0 : node.Height;
         }
 
-        private int CalcBalance(Node<K, V> node)
+        private int CalcBalance(Node<TKey, TValue> node)
         {
             return Height(node.Right) - Height(node.Left);
         }
@@ -180,7 +186,7 @@ namespace DStruct.Tree.avl
             return balance >= 2 || balance <= -2;
         }
 
-        private void AdjustHeights(Node<K, V> node)
+        private void AdjustHeights(Node<TKey, TValue> node)
         {
             AdjustHeight(node);
             if (node.Parent != null)
@@ -189,12 +195,12 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private void AdjustHeight(Node<K, V> node)
+        private void AdjustHeight(Node<TKey, TValue> node)
         {
             node.Height = Max(Height(node.Left), Height(node.Right)) + 1;
         }
 
-        private Node<K, V> FindImbalanced(Node<K, V> node, Stack<int> balances)
+        private Node<TKey, TValue> FindImbalanced(Node<TKey, TValue> node, Stack<int> balances)
         {
             if (node != null)
             {
@@ -208,7 +214,7 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private void Rotate(Node<K, V> imbalanced, int pBalance, int mBalance)
+        private void Rotate(Node<TKey, TValue> imbalanced, int pBalance, int mBalance)
         {
             if (pBalance > 0)
             {
@@ -236,7 +242,7 @@ namespace DStruct.Tree.avl
             AdjustHeights(imbalanced);
         }
 
-        private void SetRotationParent(Node<K, V> parentParent, Node<K, V> parent, Node<K, V> middle)
+        private void SetRotationParent(Node<TKey, TValue> parentParent, Node<TKey, TValue> parent, Node<TKey, TValue> middle)
         {
             middle.Parent = parentParent;
             if (parentParent != null)
@@ -252,11 +258,11 @@ namespace DStruct.Tree.avl
             }
             else
             {
-                root = middle;
+                _root = middle;
             }
         }
 
-        private void LeftRotation(Node<K, V> middle)
+        private void LeftRotation(Node<TKey, TValue> middle)
         {
             var parent = middle.Parent;
             var parentParent = parent.Parent;
@@ -272,7 +278,7 @@ namespace DStruct.Tree.avl
             SetRotationParent(parentParent, parent, middle);
         }
 
-        private void RightRotation(Node<K, V> middle)
+        private void RightRotation(Node<TKey, TValue> middle)
         {
             var parent = middle.Parent;
             var parentParent = parent.Parent;
@@ -288,7 +294,7 @@ namespace DStruct.Tree.avl
             SetRotationParent(parentParent, parent, middle);
         }
 
-        private void LeftRightRotation(Node<K, V> middle)
+        private void LeftRightRotation(Node<TKey, TValue> middle)
         {
             var child = middle.Right;
             var parent = middle.Parent;
@@ -307,7 +313,7 @@ namespace DStruct.Tree.avl
             AdjustHeight(middle);
         }
 
-        private void RightLeftRotation(Node<K, V> middle)
+        private void RightLeftRotation(Node<TKey, TValue> middle)
         {
             var child = middle.Left;
             var parent = middle.Parent;
@@ -326,13 +332,13 @@ namespace DStruct.Tree.avl
             AdjustHeight(middle);
         }
 
-        private Node<K, V> Put(Node<K, V> tree, KeyValuePair<K, V> pair)
+        private Node<TKey, TValue> Put(Node<TKey, TValue> tree, KeyValuePair<TKey, TValue> pair)
         {
             if (LessThan(pair.Key, tree.Key))
             {
                 if (tree.Left == null)
                 {
-                    var newNode = new Node<K, V>(pair);
+                    var newNode = new Node<TKey, TValue>(pair);
                     tree.Left = newNode;
                     newNode.Parent = tree;
                     return newNode;
@@ -346,7 +352,7 @@ namespace DStruct.Tree.avl
             {
                 if (tree.Right == null)
                 {
-                    var newNode = new Node<K, V>(pair);
+                    var newNode = new Node<TKey, TValue>(pair);
                     tree.Right = newNode;
                     newNode.Parent = tree;
                     return newNode;
@@ -363,7 +369,7 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private Node<K, V> Get(Node<K, V> tree, K key)
+        private Node<TKey, TValue> Get(Node<TKey, TValue> tree, TKey key)
         {
             if (tree == null)
             {
@@ -383,7 +389,7 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private Node<K, V> Remove(Node<K, V> node)
+        private Node<TKey, TValue> Remove(Node<TKey, TValue> node)
         {
             var hasLeft = node.Left != null;
             var hasRight = node.Right != null;
@@ -413,11 +419,11 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private void Replace(Node<K, V> node, Node<K, V> newNode)
+        private void Replace(Node<TKey, TValue> node, Node<TKey, TValue> newNode)
         {
             if (node.Parent == null)
             {
-                root = newNode;
+                _root = newNode;
                 return;
             }
 
@@ -436,7 +442,7 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private Node<K, V> Min(Node<K, V> tree)
+        private Node<TKey, TValue> Min(Node<TKey, TValue> tree)
         {
             while (tree.Left != null)
             {
@@ -446,7 +452,7 @@ namespace DStruct.Tree.avl
             return tree;
         }
 
-        private Node<K, V> Max(Node<K, V> tree)
+        private Node<TKey, TValue> Max(Node<TKey, TValue> tree)
         {
             while (tree.Right != null)
             {
@@ -456,12 +462,12 @@ namespace DStruct.Tree.avl
             return tree;
         }
 
-        private void Move(Node<K, V> from, Node<K, V> to)
+        private void Move(Node<TKey, TValue> from, Node<TKey, TValue> to)
         {
             to.Data = from.Data;
         }
 
-        private void InOrder(Node<K, V> node, ArrayList<Node<K, V>> list)
+        private void InOrder(Node<TKey, TValue> node, ArrayList<Node<TKey, TValue>> list)
         {
             if (node == null)
             {
@@ -480,7 +486,7 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private void RangeSearch(Node<K, V> node, K lower, K upper, ArrayList<KeyValuePair<K, V>> list)
+        private void RangeSearch(Node<TKey, TValue> node, TKey lower, TKey upper, ArrayList<KeyValuePair<TKey, TValue>> list)
         {
             if (node == null)
             {
@@ -503,13 +509,13 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private int Number(Node<K, V> node)
+        private int Number(Node<TKey, TValue> node)
         {
             return (node.Right != null ? Number(node.Right) + 1 : 0) +
                    (node.Left != null ? Number(node.Left) + 1 : 0);
         }
 
-        private int Rank(Node<K, V> node, K key)
+        private int Rank(Node<TKey, TValue> node, TKey key)
         {
             return (node.Right != null && LessThan(node.Key, key)
                        ? Rank(node.Right, key) + (LessThan(node.Right.Key, key) ? 1 : 0)
@@ -517,7 +523,7 @@ namespace DStruct.Tree.avl
                    (node.Left != null ? Rank(node.Left, key) + (LessThan(node.Left.Key, key) ? 1 : 0) : 0);
         }
 
-        private Node<K, V> Select(Node<K, V> node, int rank)
+        private Node<TKey, TValue> Select(Node<TKey, TValue> node, int rank)
         {
             if (Rank(node.Key) == rank)
             {
@@ -539,17 +545,17 @@ namespace DStruct.Tree.avl
 
         public void PrintConsole()
         {
-            if (root == null)
+            if (_root == null)
             {
                 Console.WriteLine(" | Empty");
                 return;
             }
 
-            PrintConsole(root);
+            PrintConsole(_root);
             Console.WriteLine();
         }
 
-        private static void PrintConsole(Node<K, V> node)
+        private static void PrintConsole(Node<TKey, TValue> node)
         {
             Console.Write(" | ");
             Console.Write("P: " + node.Key);

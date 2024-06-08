@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace DStruct.List
 {
-    public class LinkedList<E> : IList<E>
+    public class LinkedList<T> : IList<T>
     {
-        internal Node<E> Head;
+        internal Node<T> Head;
         public int Size { get; private set; }
 
-        public E this[int index]
+        public T this[int index]
         {
             set
             {
@@ -34,10 +34,10 @@ namespace DStruct.List
             }
         }
 
-        //o(1)
-        public void PushFront(E e)
+        // o(1)
+        public void PushFront(T e)
         {
-            var newNode = new Node<E>(e)
+            var newNode = new Node<T>(e)
             {
                 Next = Head
             };
@@ -45,24 +45,24 @@ namespace DStruct.List
             Size++;
         }
 
-        //o(1)
-        public E PeekFront()
+        // o(1)
+        public T PeekFront()
         {
             return this[0];
         }
 
-        //o(1)
-        public E PopFront()
+        // o(1)
+        public T PopFront()
         {
             var value = this[0];
             Remove(0);
             return value;
         }
 
-        //o(n)
-        public void PushBack(E e)
+        // o(n)
+        public void PushBack(T e)
         {
-            var newNode = new Node<E>(e);
+            var newNode = new Node<T>(e);
             var curr = Head;
             Size++;
             if (curr == null)
@@ -79,14 +79,14 @@ namespace DStruct.List
             curr.Next = newNode;
         }
 
-        //o(n)
-        public E PeekBack()
+        // o(n)
+        public T PeekBack()
         {
             return this[Size - 1];
         }
 
-        //o(n)
-        public E PopBack()
+        // o(n)
+        public T PopBack()
         {
             var i = Size - 1;
             var value = this[i];
@@ -94,7 +94,7 @@ namespace DStruct.List
             return value;
         }
 
-        //o(n)
+        // o(n)
         public void Remove(int index)
         {
             RangeCheck(index);
@@ -116,8 +116,8 @@ namespace DStruct.List
             Size--;
         }
 
-        //o(n)
-        public void Insert(int index, E e)
+        // o(n)
+        public void Insert(int index, T e)
         {
             RangeCheck(index);
             var curr = Head;
@@ -126,7 +126,7 @@ namespace DStruct.List
                 curr = curr.Next;
             }
 
-            var newNode = new Node<E>(e)
+            var newNode = new Node<T>(e)
             {
                 Next = curr.Next
             };
@@ -134,8 +134,8 @@ namespace DStruct.List
             Size++;
         }
 
-        //o(n)
-        public IEnumerable<E> GetEnumerable()
+        // o(n)
+        public IEnumerable<T> GetEnumerable()
         {
             var curr = Head;
             for (var i = 0; i < Size && curr != null; i++)
@@ -146,8 +146,8 @@ namespace DStruct.List
             }
         }
 
-        //o(n)
-        public void AddAll(ICollection<E> list)
+        // o(n)
+        public void AddAll(ICollection<T> list)
         {
             var tail = Head;
             while (tail.Next != null)
@@ -157,7 +157,7 @@ namespace DStruct.List
             
             foreach (var e in list.GetEnumerable())
             {
-                var newNode = new Node<E>(e);
+                var newNode = new Node<T>(e);
                 tail.Next = newNode;
                 tail = tail.Next;
             }
@@ -176,12 +176,12 @@ namespace DStruct.List
             Head = null;
         }
 
-        public bool Contains(E e, Func<E, E, bool> equals)
+        public bool Contains(T e)
         {
             var curr = Head;
             while (curr != null)
             {
-                if (equals(e, curr.Val))
+                if (e.Equals(curr.Val))
                 {
                     return true;
                 }

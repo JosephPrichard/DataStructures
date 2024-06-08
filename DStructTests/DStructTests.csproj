@@ -43,8 +43,9 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Graph\TestAdjacencyGraph.cs" />
         <Compile Include="Hash\TestHashTable.cs" />
-        <Compile Include="Heap\HeapTest.cs" />
+        <Compile Include="Heap\TestHeap.cs" />
         <Compile Include="List\TestArrayList.cs">
           <DependentUpon>TestLinkedList.cs</DependentUpon>
         </Compile>

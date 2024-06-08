@@ -4,60 +4,60 @@ using System.Linq;
 
 namespace DStruct.Stack
 {
-    public class Stack<E> : ICollection<E>
+    public class Stack<T> : ICollection<T>
     {
-        private Node<E> top;
+        private Node<T> _top;
         public int Size { private set; get; }
 
-        public void Push(E e)
+        public void Push(T e)
         {
             PushFront(e);
         }
         
-        public E Peek()
+        public T Peek()
         {
             return PeekFront();
         }
         
-        public E Pop()
+        public T Pop()
         {
             return PopFront();
         }
 
-        //o(1)
-        public void PushFront(E e)
+        // o(1)
+        public void PushFront(T e)
         {
-            var newNode = new Node<E>(e)
+            var newNode = new Node<T>(e)
             {
-                Next = top
+                Next = _top
             };
-            top = newNode;
+            _top = newNode;
             Size++;
         }
 
-        //o(1)
-        public E PeekFront()
+        // o(1)
+        public T PeekFront()
         {
             if (Size == 0)
             {
                 throw new EmptyStackException();
             }
 
-            return top.Val;
+            return _top.Val;
         }
 
-        //o(1)
-        public E PopFront()
+        // o(1)
+        public T PopFront()
         {
             var value = PeekFront();
-            top = top.Next;
+            _top = _top.Next;
             Size--;
             return value;
         }
 
-        public IEnumerable<E> GetEnumerable()
+        public IEnumerable<T> GetEnumerable()
         {
-            var curr = top;
+            var curr = _top;
             while (curr != null)
             {
                 yield return curr.Val;
@@ -65,10 +65,10 @@ namespace DStruct.Stack
             }
         }
 
-        //o(n)
-        public void AddAll(ICollection<E> list)
+        // o(n)
+        public void AddAll(ICollection<T> list)
         {
-            var tail = top;
+            var tail = _top;
             while (tail.Next != null)
             {
                 tail = tail.Next;
@@ -88,16 +88,16 @@ namespace DStruct.Stack
         public void Clear()
         {
             Size = 0;
-            top = null;
+            _top = null;
         }
 
-        //o(n)
-        public bool Contains(E e, Func<E, E, bool> equals)
+        // o(n)
+        public bool Contains(T e)
         {
-            var curr = top;
+            var curr = _top;
             while (curr != null)
             {
-                if (equals(e, curr.Val))
+                if (e.Equals(curr.Val))
                 {
                     return true;
                 }

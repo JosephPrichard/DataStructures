@@ -1,17 +1,17 @@
 ﻿namespace DStruct.List
 {
-    public interface IList<E> : ICollection<E>
+    public interface IList<T> : ICollection<T>
     {
-        E this[int index] { set; get; }
+        T this[int index] { set; get; }
 
-        void PushBack(E e);
+        void PushBack(T e);
 
-        E PopBack();
+        T PopBack();
 
-        E PeekBack();
+        T PeekBack();
 
         void Remove(int index);
 
-        void Insert(int index, E e);
+        void Insert(int index, T e);
     }
 }

@@ -3,24 +3,24 @@ using System.Collections.Generic;
 
 namespace DStruct
 {
-    public interface ICollection<E>
+    public interface ICollection<T>
     {
         int Size { get; }
 
-        void PushFront(E e);
+        void PushFront(T e);
 
-        E PeekFront();
+        T PeekFront();
 
-        E PopFront();
+        T PopFront();
 
-        void AddAll(ICollection<E> list);
+        void AddAll(ICollection<T> list);
 
-        IEnumerable<E> GetEnumerable();
+        IEnumerable<T> GetEnumerable();
 
         bool IsEmpty();
 
         void Clear();
 
-        bool Contains(E e, Func<E, E, bool> equals);
+        bool Contains(T e);
     }
 }

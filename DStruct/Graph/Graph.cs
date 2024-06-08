@@ -4,11 +4,17 @@ namespace DStruct.Graph
 {
     public interface IGraph<T>
     {
-        bool Add(T vertex);
+        void AddVertex(T vertex);
+        
+        void AddDirectedEdge(T from, T to);
+        
+        void AddUndirectedEdge(T from, T to);
 
-        void Connect(T from, T to);
+        bool ContainsVertex(T vertex);
+        
+        bool ContainsEdge(T from, T to);
 
-        bool Contains(T vertex);
+        IEnumerable<T> Neighbors(T from);
 
         IEnumerable<T> Vertices();
     }

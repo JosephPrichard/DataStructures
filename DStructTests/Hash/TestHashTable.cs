@@ -27,6 +27,7 @@ namespace DStructTests.Hash
             Assert.That(table.Get(1), Is.EqualTo('A'));
             Assert.That(table.Get(51), Is.EqualTo('D'));
             Assert.That(table.Get(101), Is.EqualTo('G'));
+            Assert.That(table.Get(0), Is.EqualTo('\0'));
         }
 
         [Test]

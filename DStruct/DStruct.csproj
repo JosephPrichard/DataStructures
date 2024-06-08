@@ -12,6 +12,7 @@
         <AssemblyName>DStruct</AssemblyName>
         <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,10 +40,13 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Graph\ListGraph.cs" />
+        <Compile Include="Graph\DuplicateVertexException.cs" />
         <Compile Include="Graph\Graph.cs" />
+        <Compile Include="Graph\MissingVertexException.cs" />
         <Compile Include="Hash\HashTable.cs" />
         <Compile Include="Heap\EmptyHeapException.cs" />
-        <Compile Include="Heap\Heap.cs" />
+        <Compile Include="Heap\TestHeap.cs" />
         <Compile Include="Heap\IPriorityQueue.cs" />
         <Compile Include="ICollection.cs" />
         <Compile Include="IMap.cs" />
@@ -55,8 +59,6 @@
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Stack\EmptyStackException.cs" />
         <Compile Include="Stack\Node.cs" />
-        <Compile Include="Stack\SetOfStacks.cs" />
-        <Compile Include="Stack\SortStack.cs" />
         <Compile Include="Stack\Stack.cs" />
         <Compile Include="Tree\avl\AvlTree.cs" />
         <Compile Include="Tree\avl\Node.cs" />

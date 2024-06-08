@@ -3,25 +3,35 @@ using DStruct.List;
 
 namespace DStruct.Hash
 {
-    public class HashTable<K, V> : IMap<K, V>
+    public class HashTable<TKey, TValue> : IMap<TKey, TValue>
     {
-        private readonly Node<KeyValuePair<K, V>>[] table;
+        private readonly Node<KeyValuePair<TKey, TValue>>[] _table;
+
+        public HashTable() : this(27)
+        {
+        }
 
         public HashTable(int predictedCount)
         {
-            table = new Node<KeyValuePair<K, V>>[predictedCount * 2];
+            _table = new Node<KeyValuePair<TKey, TValue>>[predictedCount * 2];
         }
 
         public int Size { private set; get; }
+        
+        public TValue this[TKey key]
+        {
+            get => Get(key);
+            set => Put(key, value);
+        }
 
-        public void Put(K key, V val)
+        public void Put(TKey key, TValue val)
         {
             var h = Hash(key);
-            var head = table[h];
-            var pair = new KeyValuePair<K, V>(key, val);
+            var head = _table[h];
+            var pair = new KeyValuePair<TKey, TValue>(key, val);
             if (head == null)
             {
-                table[h] = new Node<KeyValuePair<K, V>>(pair);
+                _table[h] = new Node<KeyValuePair<TKey, TValue>>(pair);
             }
             else
             {
@@ -37,28 +47,28 @@ namespace DStruct.Hash
                     head = head.Next;
                 }
 
-                prev.Next = new Node<KeyValuePair<K, V>>(pair);
+                prev.Next = new Node<KeyValuePair<TKey, TValue>>(pair);
             }
 
             Size++;
         }
 
-        public V Get(K key)
+        public TValue Get(TKey key)
         {
             var pair = GetPair(key);
             return pair.HasValue ? pair.Value.Value : default;
         }
 
-        public bool Remove(K key)
+        public bool Remove(TKey key)
         {
             var h = Hash(key);
-            var head = table[h];
+            var head = _table[h];
             var prev = head;
             if (head != null)
             {
                 if (head.Val.Key.Equals(key))
                 {
-                    table[h] = head.Next;
+                    _table[h] = head.Next;
                     Size--;
                     return true;
                 }
@@ -81,16 +91,16 @@ namespace DStruct.Hash
             return false;
         }
 
-        public bool Contains(K key)
+        public bool Contains(TKey key)
         {
             return GetPair(key).HasValue;
         }
 
         public void Clear()
         {
-            for (var i = 0; i < table.Length; i++)
+            for (var i = 0; i < _table.Length; i++)
             {
-                table[i] = null;
+                _table[i] = null;
             }
 
             Size = 0;
@@ -101,9 +111,9 @@ namespace DStruct.Hash
             return Size == 0;
         }
 
-        public IEnumerable<K> Keys()
+        public IEnumerable<TKey> Keys()
         {
-            foreach (var n in table)
+            foreach (var n in _table)
             {
                 var head = n;
                 while (head != null)
@@ -114,9 +124,9 @@ namespace DStruct.Hash
             }
         }
 
-        public IEnumerable<V> Elements()
+        public IEnumerable<TValue> Elements()
         {
-            foreach (var n in table)
+            foreach (var n in _table)
             {
                 var head = n;
                 while (head != null)
@@ -127,9 +137,9 @@ namespace DStruct.Hash
             }
         }
 
-        private KeyValuePair<K, V>? GetPair(K key)
+        private KeyValuePair<TKey, TValue>? GetPair(TKey key)
         {
-            var head = table[Hash(key)];
+            var head = _table[Hash(key)];
             while (head != null)
             {
                 if (head.Val.Key.Equals(key))
@@ -155,9 +165,9 @@ namespace DStruct.Hash
             }
         }
 
-        private int Hash(K key)
+        private int Hash(TKey key)
         {
-            return Abs(key.GetHashCode() % table.Length);
+            return Abs(key.GetHashCode() % _table.Length);
         }
     }
 }

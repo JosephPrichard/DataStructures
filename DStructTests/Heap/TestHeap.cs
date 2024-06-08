@@ -7,12 +7,12 @@ using NUnit.Framework;
 namespace DStructTests.Heap
 {
     [TestFixture]
-    public class HeapTest
+    public class TestHeap
     {
         [Test]
         public void Should_Push_Then_Pop()
         {
-            var heap = new Heap<int>(PriorityType.Min);
+            var heap = new TestHeap<int>(PriorityType.Min);
             heap.Push(22);
             heap.Push(3);
             heap.Push(62);
@@ -31,7 +31,7 @@ namespace DStructTests.Heap
         {
             var random = new Random();
             
-            var heap = new Heap<int>(PriorityType.Min);
+            var heap = new TestHeap<int>(PriorityType.Min);
             
             var inputs = new List<int>();
             for(var i = 0; i < 100; i++)
@@ -58,7 +58,7 @@ namespace DStructTests.Heap
         {
             var random = new Random();
             
-            var heap = new Heap<int>(PriorityType.Min);
+            var heap = new TestHeap<int>(PriorityType.Min);
             heap.Push(1);
 
             var prev = 1;
