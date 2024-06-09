@@ -83,8 +83,11 @@ tree.Put(3, 'D');
 tree.Put(9, 'E');
 tree.Put(2, 'F');
 tree.Put(7, 'G');
-tree.Put(11, 'H');
-tree.Put(21, 'I');
+tree[11] = 'H';
+tree[21] = 'I';
+
+var elem1 = tree.Get(20); // 'A'
+var elem2 = tree[11]; // 'H'
 
 var elements = tree.Elements(); // ['F', 'D', 'B', 'G', 'E', 'H', 'A', 'I', 'C']
 var rangeElems = tree.RangeSearch(2, 7); // ['F', 'D', 'G']
