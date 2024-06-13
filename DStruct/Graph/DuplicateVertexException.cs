@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace DStruct.Graph
+namespace DStruct.Graph;
+
+public class DuplicateVertexException : Exception
 {
-    public class DuplicateVertexException : Exception
-    {
-    }
 }

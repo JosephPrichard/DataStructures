@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DStruct
-{
+namespace DStruct;
+
     public interface ICollection<T>
     {
         int Size { get; }
@@ -23,4 +23,3 @@ namespace DStruct
 
         bool Contains(T e);
     }
-}

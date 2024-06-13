@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DStruct.List
-{
+namespace DStruct.List;
     public class LinkedList<T> : IList<T>
     {
         internal Node<T> Head;
@@ -19,7 +18,7 @@ namespace DStruct.List
                     curr = curr.Next;
                 }
 
-                curr.Val = value;
+                curr.Value = value;
             }
             get
             {
@@ -30,7 +29,7 @@ namespace DStruct.List
                     curr = curr.Next;
                 }
 
-                return curr.Val;
+                return curr.Value;
             }
         }
 
@@ -140,7 +139,7 @@ namespace DStruct.List
             var curr = Head;
             for (var i = 0; i < Size && curr != null; i++)
             {
-                var v = curr.Val;
+                var v = curr.Value;
                 curr = curr.Next;
                 yield return v;
             }
@@ -181,7 +180,7 @@ namespace DStruct.List
             var curr = Head;
             while (curr != null)
             {
-                if (e.Equals(curr.Val))
+                if (e.Equals(curr.Value))
                 {
                     return true;
                 }
@@ -200,4 +199,3 @@ namespace DStruct.List
             }
         }
     }
-}

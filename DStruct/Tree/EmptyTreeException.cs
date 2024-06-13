@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DStruct.Tree
-{
+namespace DStruct.Tree;
+
     public class EmptyTreeException : Exception
     {
         public EmptyTreeException()
@@ -21,4 +21,3 @@ namespace DStruct.Tree
         {
         }
     }
-}

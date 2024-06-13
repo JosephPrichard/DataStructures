@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace DStruct.Graph
+namespace DStruct.Graph;
+
+public class MissingVertexException : Exception
 {
-    public class MissingVertexException : Exception
-    {
-    }
 }

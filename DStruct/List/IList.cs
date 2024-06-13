@@ -1,5 +1,4 @@
-﻿namespace DStruct.List
-{
+﻿namespace DStruct.List;
     public interface IList<T> : ICollection<T>
     {
         T this[int index] { set; get; }
@@ -14,4 +13,3 @@
 
         void Insert(int index, T e);
     }
-}

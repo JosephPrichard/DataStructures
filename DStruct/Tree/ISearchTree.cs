@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace DStruct.Tree
+namespace DStruct.Tree;
+
+public interface ISearchTree<K, V> : IMap<K, V>
 {
-    public interface ISearchTree<K, V> : IMap<K, V>
-    {
-        IEnumerable<V> RangeSearch(K lower, K upper);
+    IEnumerable<V> RangeSearch(K lower, K upper);
 
-        V Min();
+    V Min();
 
-        V Max();
+    V Max();
 
-        int Rank(K key);
+    int Rank(K key);
 
-        int Number(K key);
-    }
+    int Number(K key);
 }

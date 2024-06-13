@@ -1,27 +1,29 @@
 ﻿using System.Collections.Generic;
+using DStruct.Hash;
 
-namespace DStruct
+namespace DStruct;
+
+public interface IMap<TKey, TValue>
 {
-    public interface IMap<TKey, TValue>
-    {
-        int Size { get; }
-        
-        TValue this[TKey key] { set; get; }
+    int Size { get; }
 
-        void Put(TKey key, TValue val);
+    TValue this[TKey key] { set; get; }
 
-        TValue Get(TKey key);
+    void Put(TKey key, TValue val);
 
-        bool Remove(TKey key);
+    TValue Get(TKey key);
 
-        bool Contains(TKey key);
+    bool Remove(TKey key);
 
-        void Clear();
+    bool Contains(TKey key);
 
-        bool IsEmpty();
+    void Clear();
 
-        IEnumerable<TKey> Keys();
+    bool IsEmpty();
 
-        IEnumerable<TValue> Elements();
-    }
+    IEnumerable<TKey> Keys();
+
+    IEnumerable<TValue> Values();
+
+    IEnumerable<KvPair<TKey, TValue>> Pairs();
 }

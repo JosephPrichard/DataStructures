@@ -1,13 +1,7 @@
-﻿namespace DStruct.List
-{
-    public class Node<T>
-    {
-        public Node(T val)
-        {
-            Val = val;
-        }
+﻿namespace DStruct.List;
 
-        public Node<T> Next { set; get; }
-        public T Val { set; get; }
-    }
+public class Node<T>(T value)
+{
+    public Node<T> Next { set; get; }
+    public T Value { set; get; } = value;
 }

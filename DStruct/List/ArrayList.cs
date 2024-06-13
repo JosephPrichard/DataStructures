@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DStruct.List
-{
+namespace DStruct.List;
+
     public class ArrayList<T> : IList<T>
     {
         private T[] _elements;
@@ -185,4 +185,3 @@ namespace DStruct.List
             }
         }
     }
-}

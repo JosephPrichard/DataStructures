@@ -1,13 +1,7 @@
-﻿namespace DStruct.Stack
-{
-    public class Node<T>
-    {
-        public Node(T val)
-        {
-            Val = val;
-        }
+﻿namespace DStruct.Stack;
 
-        public Node<T> Next { set; get; }
-        public T Val { get; }
-    }
+public class Node<T>(T value)
+{
+    public Node<T> Next { set; get; }
+    public T Value { get; } = value;
 }

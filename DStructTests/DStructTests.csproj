@@ -13,6 +13,7 @@
         <AssemblyName>DStructTests</AssemblyName>
         <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,6 +45,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Graph\TestAdjacencyGraph.cs" />
+        <Compile Include="Hash\TestConcurrentHashTable.cs" />
         <Compile Include="Hash\TestHashTable.cs" />
         <Compile Include="Heap\TestHeap.cs" />
         <Compile Include="List\TestArrayList.cs">

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DStruct.Stack
-{
+namespace DStruct.Stack;
     public class Stack<T> : ICollection<T>
     {
         private Node<T> _top;
@@ -43,7 +42,7 @@ namespace DStruct.Stack
                 throw new EmptyStackException();
             }
 
-            return _top.Val;
+            return _top.Value;
         }
 
         // o(1)
@@ -60,7 +59,7 @@ namespace DStruct.Stack
             var curr = _top;
             while (curr != null)
             {
-                yield return curr.Val;
+                yield return curr.Value;
                 curr = curr.Next;
             }
         }
@@ -97,7 +96,7 @@ namespace DStruct.Stack
             var curr = _top;
             while (curr != null)
             {
-                if (e.Equals(curr.Val))
+                if (e.Equals(curr.Value))
                 {
                     return true;
                 }
@@ -108,4 +107,3 @@ namespace DStruct.Stack
             return false;
         }
     }
-}

@@ -1,168 +1,155 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DStruct.List;
 
-namespace DStruct.Hash
+namespace DStruct.Hash;
+
+public class HashTable<TKey, TValue>(int predictedCount) : IMap<TKey, TValue>
 {
-    public class HashTable<TKey, TValue>(int predictedCount) : IMap<TKey, TValue>
+    private readonly Node<KvPair<TKey, TValue>>[] _table = new Node<KvPair<TKey, TValue>>[predictedCount * 2];
+
+    public HashTable() : this(17)
     {
-        private readonly Node<KeyValuePair<TKey, TValue>>[] _table = new Node<KeyValuePair<TKey, TValue>>[predictedCount * 2];
+    }
 
-        public HashTable() : this(7)
+    public int Size { private set; get; }
+    
+    public TValue this[TKey key]
+    {
+        get => Get(key);
+        set => Put(key, value);
+    }
+
+    public void Put(TKey key, TValue val)
+    {
+        var h = Hash(key);
+        var head = _table[h];
+        var pair = new KvPair<TKey, TValue>(key, val);
+        if (head == null)
         {
+            _table[h] = new Node<KvPair<TKey, TValue>>(pair);
         }
-
-        public int Size { private set; get; }
-        
-        public TValue this[TKey key]
+        else
         {
-            get => Get(key);
-            set => Put(key, value);
-        }
-
-        public void Put(TKey key, TValue val)
-        {
-            var h = Hash(key);
-            var head = _table[h];
-            var pair = new KeyValuePair<TKey, TValue>(key, val);
-            if (head == null)
+            var prev = head;
+            while (head != null)
             {
-                _table[h] = new Node<KeyValuePair<TKey, TValue>>(pair);
-            }
-            else
-            {
-                var prev = head;
-                while (head != null)
+                if (head.Value.Key.Equals(key))
                 {
-                    if (head.Val.Key.Equals(key))
-                    {
-                        head.Val = pair;
-                    }
-
-                    prev = head;
-                    head = head.Next;
+                    head.Value = pair;
                 }
 
-                prev.Next = new Node<KeyValuePair<TKey, TValue>>(pair);
+                prev = head;
+                head = head.Next;
             }
 
-            Size++;
+            prev.Next = new Node<KvPair<TKey, TValue>>(pair);
         }
 
-        public TValue Get(TKey key)
-        {
-            var pair = GetPair(key);
-            return pair.HasValue ? pair.Value.Value : default;
-        }
+        Size++;
+    }
 
-        public bool Remove(TKey key)
+    public TValue Get(TKey key)
+    {
+        var pair = GetPair(key);
+        return pair is { HasValue: true } ? pair.Value : default;
+    }
+
+    public bool Remove(TKey key)
+    {
+        var h = Hash(key);
+        var head = _table[h];
+        var prev = head;
+        if (head != null)
         {
-            var h = Hash(key);
-            var head = _table[h];
-            var prev = head;
-            if (head != null)
+            if (head.Value.Key.Equals(key))
             {
-                if (head.Val.Key.Equals(key))
+                _table[h] = head.Next;
+                Size--;
+                return true;
+            }
+
+            head = head.Next;
+            while (head != null)
+            {
+                if (head.Value.Key.Equals(key))
                 {
-                    _table[h] = head.Next;
+                    prev.Next = head.Next;
                     Size--;
                     return true;
                 }
 
+                prev = head;
                 head = head.Next;
-                while (head != null)
-                {
-                    if (head.Val.Key.Equals(key))
-                    {
-                        prev.Next = head.Next;
-                        Size--;
-                        return true;
-                    }
-
-                    prev = head;
-                    head = head.Next;
-                }
-            }
-
-            return false;
-        }
-
-        public bool Contains(TKey key)
-        {
-            return GetPair(key).HasValue;
-        }
-
-        public void Clear()
-        {
-            for (var i = 0; i < _table.Length; i++)
-            {
-                _table[i] = null;
-            }
-
-            Size = 0;
-        }
-
-        public bool IsEmpty()
-        {
-            return Size == 0;
-        }
-
-        public IEnumerable<TKey> Keys()
-        {
-            foreach (var n in _table)
-            {
-                var head = n;
-                while (head != null)
-                {
-                    yield return head.Val.Key;
-                    head = head.Next;
-                }
             }
         }
 
-        public IEnumerable<TValue> Elements()
+        return false;
+    }
+
+    public bool Contains(TKey key)
+    {
+        var pair = GetPair(key);
+        return pair is { HasValue: true };
+    }
+
+    public void Clear()
+    {
+        for (var i = 0; i < _table.Length; i++)
         {
-            foreach (var n in _table)
-            {
-                var head = n;
-                while (head != null)
-                {
-                    yield return head.Val.Value;
-                    head = head.Next;
-                }
-            }
+            _table[i] = null;
         }
 
-        private KeyValuePair<TKey, TValue>? GetPair(TKey key)
+        Size = 0;
+    }
+
+    public bool IsEmpty()
+    {
+        return Size == 0;
+    }
+
+    public IEnumerable<TKey> Keys()
+    {
+        return Pairs().Select(pair => pair.Key);
+    }
+
+    public IEnumerable<TValue> Values()
+    {
+        return Pairs().Select(pair => pair.Value);
+    }
+
+    public IEnumerable<KvPair<TKey, TValue>> Pairs()
+    {
+        foreach (var n in _table)
         {
-            var head = _table[Hash(key)];
+            var head = n;
             while (head != null)
             {
-                if (head.Val.Key.Equals(key))
-                {
-                    return head.Val;
-                }
-
+                yield return head.Value;
                 head = head.Next;
             }
-
-            return null;
         }
+    }
 
-        private static int Abs(int val)
+    private KvPair<TKey, TValue> GetPair(TKey key)
+    {
+        var head = _table[Hash(key)];
+        while (head != null)
         {
-            if (val >= 0)
+            if (head.Value.Key.Equals(key))
             {
-                return val;
+                return head.Value;
             }
-            else
-            {
-                return -val;
-            }
+
+            head = head.Next;
         }
 
-        private int Hash(TKey key)
-        {
-            return Abs(key.GetHashCode() % _table.Length);
-        }
+        return null;
+    }
+
+    private int Hash(TKey key)
+    {
+        return Math.Abs(key.GetHashCode() % _table.Length);
     }
 }

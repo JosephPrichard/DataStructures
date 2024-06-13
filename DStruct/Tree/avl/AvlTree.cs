@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DStruct.Hash;
 using DStruct.List;
 
-namespace DStruct.Tree.avl
-{
+namespace DStruct.Tree.avl;
+
     public class AvlTree<TKey, TValue> : ISearchTree<TKey, TValue> where TKey : IComparable
     {
         private Node<TKey, TValue> _root;
@@ -45,7 +47,7 @@ namespace DStruct.Tree.avl
         {
             EmptyCheck();
             var node = Get(_root, key);
-            return node != null ? node.Val : default;
+            return node != null ? node.Value : default;
         }
 
         public bool Remove(TKey key)
@@ -88,22 +90,17 @@ namespace DStruct.Tree.avl
 
         public IEnumerable<TKey> Keys()
         {
-            var list = new ArrayList<Node<TKey, TValue>>(Size);
-            InOrder(_root, list);
-            for (var i = 0; i < list.Size; i++)
-            {
-                yield return list[i].Key;
-            }
+            return InOrder(_root).Select(node => node.Key);
         }
 
-        public IEnumerable<TValue> Elements()
+        public IEnumerable<TValue> Values()
         {
-            var list = new ArrayList<Node<TKey, TValue>>(Size);
-            InOrder(_root, list);
-            for (var i = 0; i < list.Size; i++)
-            {
-                yield return list[i].Val;
-            }
+            return InOrder(_root).Select(node => node.Value);
+        }
+
+        public IEnumerable<KvPair<TKey, TValue>> Pairs()
+        {
+            return InOrder(_root).Select(node => new KvPair<TKey, TValue>(node.Key, node.Value));
         }
 
         public IEnumerable<TValue> RangeSearch(TKey lower, TKey upper)
@@ -131,13 +128,13 @@ namespace DStruct.Tree.avl
         public TValue Min()
         {
             EmptyCheck();
-            return Min(_root).Val;
+            return Min(_root).Value;
         }
 
         public TValue Max()
         {
             EmptyCheck();
-            return Max(_root).Val;
+            return Max(_root).Value;
         }
 
         public TKey Select(int rank)
@@ -146,71 +143,81 @@ namespace DStruct.Tree.avl
             return selected != null ? selected.Key : default;
         }
 
-        private bool LessThan(TKey key1, TKey key2)
+        private static bool LessThan(TKey key1, TKey key2)
         {
             return key1.CompareTo(key2) == -1;
         }
 
-        private bool GreaterThan(TKey key1, TKey key2)
+        private static bool GreaterThan(TKey key1, TKey key2)
         {
             return key1.CompareTo(key2) == 1;
         }
 
-        private bool LessOrEqual(TKey key1, TKey key2)
+        private static bool LessOrEqual(TKey key1, TKey key2)
         {
             return !GreaterThan(key1, key2);
         }
 
-        private bool GreaterOrEqual(TKey key1, TKey key2)
+        private static bool GreaterOrEqual(TKey key1, TKey key2)
         {
             return !LessThan(key1, key2);
         }
 
-        private int Max(int val1, int val2)
+        private static int Max(int val1, int val2)
         {
             return val1 > val2 ? val1 : val2;
         }
 
-        private int Height(Node<TKey, TValue> node)
+        private static int Height(Node<TKey, TValue> node)
         {
-            return node == null ? 0 : node.Height;
+            return node?.Height ?? 0;
         }
 
-        private int CalcBalance(Node<TKey, TValue> node)
+        private static int CalcBalance(Node<TKey, TValue> node)
         {
             return Height(node.Right) - Height(node.Left);
         }
 
-        private bool ImBalanced(int balance)
+        private static bool ImBalanced(int balance)
         {
-            return balance >= 2 || balance <= -2;
+            return balance is >= 2 or <= -2;
         }
 
         private void AdjustHeights(Node<TKey, TValue> node)
         {
-            AdjustHeight(node);
-            if (node.Parent != null)
+            while (true)
             {
-                AdjustHeights(node.Parent);
+                AdjustHeight(node);
+                if (node.Parent != null)
+                {
+                    node = node.Parent;
+                    continue;
+                }
+
+                break;
             }
         }
 
-        private void AdjustHeight(Node<TKey, TValue> node)
+        private static void AdjustHeight(Node<TKey, TValue> node)
         {
             node.Height = Max(Height(node.Left), Height(node.Right)) + 1;
         }
 
-        private Node<TKey, TValue> FindImbalanced(Node<TKey, TValue> node, Stack<int> balances)
+        private static Node<TKey, TValue> FindImbalanced(Node<TKey, TValue> node, Stack<int> balances)
         {
-            if (node != null)
+            while (true)
             {
-                var balance = CalcBalance(node);
-                balances.Push(balance);
-                return ImBalanced(balance) ? node : FindImbalanced(node.Parent, balances);
-            }
-            else
-            {
-                return null;
+                if (node != null)
+                {
+                    var balance = CalcBalance(node);
+                    balances.Push(balance);
+                    if (ImBalanced(balance)) return node;
+                    node = node.Parent;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 
@@ -332,86 +339,97 @@ namespace DStruct.Tree.avl
             AdjustHeight(middle);
         }
 
-        private Node<TKey, TValue> Put(Node<TKey, TValue> tree, KeyValuePair<TKey, TValue> pair)
+        private static Node<TKey, TValue> Put(Node<TKey, TValue> tree, KeyValuePair<TKey, TValue> pair)
         {
-            if (LessThan(pair.Key, tree.Key))
+            while (true)
             {
-                if (tree.Left == null)
+                if (LessThan(pair.Key, tree.Key))
                 {
-                    var newNode = new Node<TKey, TValue>(pair);
-                    tree.Left = newNode;
-                    newNode.Parent = tree;
-                    return newNode;
+                    if (tree.Left == null)
+                    {
+                        var newNode = new Node<TKey, TValue>(pair);
+                        tree.Left = newNode;
+                        newNode.Parent = tree;
+                        return newNode;
+                    }
+                    tree = tree.Left;
+                }
+                else if (GreaterThan(pair.Key, tree.Key))
+                {
+                    if (tree.Right == null)
+                    {
+                        var newNode = new Node<TKey, TValue>(pair);
+                        tree.Right = newNode;
+                        newNode.Parent = tree;
+                        return newNode;
+                    }
+                    tree = tree.Right;
                 }
                 else
                 {
-                    return Put(tree.Left, pair);
+                    tree.Data = pair;
+                    return null;
                 }
-            }
-            else if (GreaterThan(pair.Key, tree.Key))
-            {
-                if (tree.Right == null)
-                {
-                    var newNode = new Node<TKey, TValue>(pair);
-                    tree.Right = newNode;
-                    newNode.Parent = tree;
-                    return newNode;
-                }
-                else
-                {
-                    return Put(tree.Right, pair);
-                }
-            }
-            else
-            {
-                tree.Data = pair;
-                return null;
             }
         }
 
-        private Node<TKey, TValue> Get(Node<TKey, TValue> tree, TKey key)
+        private static Node<TKey, TValue> Get(Node<TKey, TValue> tree, TKey key)
         {
-            if (tree == null)
+            while (true)
             {
-                return null;
-            } 
-            else if (LessThan(key, tree.Key))
-            {
-                return tree.Left != null ? Get(tree.Left, key) : null;
-            }
-            else if (GreaterThan(key, tree.Key))
-            {
-                return tree.Right != null ? Get(tree.Right, key) : null;
-            }
-            else
-            {
+                if (tree == null)
+                {
+                    return null;
+                }
+
+                if (LessThan(key, tree.Key))
+                {
+                    if (tree.Left != null)
+                    {
+                        tree = tree.Left;
+                        continue;
+                    }
+
+                    return null;
+                }
+                if (GreaterThan(key, tree.Key))
+                {
+                    if (tree.Right != null)
+                    {
+                        tree = tree.Right;
+                        continue;
+                    }
+
+                    return null;
+                }
+
                 return tree;
             }
         }
 
         private Node<TKey, TValue> Remove(Node<TKey, TValue> node)
         {
-            var hasLeft = node.Left != null;
-            var hasRight = node.Right != null;
-            if (hasRight && hasLeft)
+            while (true)
             {
-                var successor = Min(node.Right);
-                Move(successor, node);
-                return Remove(successor);
-            }
-            else
-            {
+                var hasLeft = node.Left != null;
+                var hasRight = node.Right != null;
+                if (hasRight && hasLeft)
+                {
+                    var successor = Min(node.Right);
+                    Move(successor, node);
+                    node = successor;
+                    continue;
+                }
                 if (hasRight)
                 {
                     Replace(node, node.Right);
                     return node.Right;
                 }
-                else if (hasLeft)
+                if (hasLeft)
                 {
                     Replace(node, node.Left);
                     return node.Left;
                 }
-                else
                 {
                     Replace(node, null);
                     return node.Parent;
@@ -442,7 +460,7 @@ namespace DStruct.Tree.avl
             }
         }
 
-        private Node<TKey, TValue> Min(Node<TKey, TValue> tree)
+        private static Node<TKey, TValue> Min(Node<TKey, TValue> tree)
         {
             while (tree.Left != null)
             {
@@ -452,7 +470,7 @@ namespace DStruct.Tree.avl
             return tree;
         }
 
-        private Node<TKey, TValue> Max(Node<TKey, TValue> tree)
+        private static Node<TKey, TValue> Max(Node<TKey, TValue> tree)
         {
             while (tree.Right != null)
             {
@@ -462,60 +480,76 @@ namespace DStruct.Tree.avl
             return tree;
         }
 
-        private void Move(Node<TKey, TValue> from, Node<TKey, TValue> to)
+        private static void Move(Node<TKey, TValue> from, Node<TKey, TValue> to)
         {
             to.Data = from.Data;
         }
 
-        private void InOrder(Node<TKey, TValue> node, ArrayList<Node<TKey, TValue>> list)
+        private static IEnumerable<Node<TKey, TValue>> InOrder(Node<TKey, TValue> node)
         {
-            if (node == null)
+            while (true)
             {
-                return;
-            }
+                if (node == null)
+                {
+                    break;
+                }
 
-            if (node.Left != null)
-            {
-                InOrder(node.Left, list);
-            }
+                if (node.Left != null)
+                {
+                    foreach (var n in InOrder(node.Left))
+                    {
+                        yield return n;
+                    }
+                }
 
-            list.PushBack(node);
-            if (node.Right != null)
-            {
-                InOrder(node.Right, list);
+                yield return node;
+                
+                if (node.Right != null)
+                {
+                    node = node.Right;
+                    continue;
+                }
+
+                break;
             }
         }
 
-        private void RangeSearch(Node<TKey, TValue> node, TKey lower, TKey upper, ArrayList<KeyValuePair<TKey, TValue>> list)
+        private static void RangeSearch(Node<TKey, TValue> node, TKey lower, TKey upper, List.IList<KeyValuePair<TKey, TValue>> list)
         {
-            if (node == null)
+            while (true)
             {
-                return;
-            }
+                if (node == null)
+                {
+                    return;
+                }
 
-            if (node.Left != null && GreaterOrEqual(node.Key, lower))
-            {
-                RangeSearch(node.Left, lower, upper, list);
-            }
+                if (node.Left != null && GreaterOrEqual(node.Key, lower))
+                {
+                    RangeSearch(node.Left, lower, upper, list);
+                }
 
-            if (LessOrEqual(node.Key, upper) && GreaterOrEqual(node.Key, lower))
-            {
-                list.PushBack(node.Data);
-            }
+                if (LessOrEqual(node.Key, upper) && GreaterOrEqual(node.Key, lower))
+                {
+                    list.PushBack(node.Data);
+                }
 
-            if (node.Right != null && LessOrEqual(node.Key, upper))
-            {
-                RangeSearch(node.Right, lower, upper, list);
+                if (node.Right != null && LessOrEqual(node.Key, upper))
+                {
+                    node = node.Right;
+                    continue;
+                }
+
+                break;
             }
         }
 
-        private int Number(Node<TKey, TValue> node)
+        private static int Number(Node<TKey, TValue> node)
         {
             return (node.Right != null ? Number(node.Right) + 1 : 0) +
                    (node.Left != null ? Number(node.Left) + 1 : 0);
         }
 
-        private int Rank(Node<TKey, TValue> node, TKey key)
+        private static int Rank(Node<TKey, TValue> node, TKey key)
         {
             return (node.Right != null && LessThan(node.Key, key)
                        ? Rank(node.Right, key) + (LessThan(node.Right.Key, key) ? 1 : 0)
@@ -532,7 +566,7 @@ namespace DStruct.Tree.avl
 
             var left = node.Left != null ? Select(node.Left, rank) : null;
             var right = node.Right != null ? Select(node.Right, rank) : null;
-            return left != null ? left : right;
+            return left ?? right;
         }
 
         private void EmptyCheck()
@@ -542,42 +576,4 @@ namespace DStruct.Tree.avl
                 throw new EmptyTreeException();
             }
         }
-
-        public void PrintConsole()
-        {
-            if (_root == null)
-            {
-                Console.WriteLine(" | Empty");
-                return;
-            }
-
-            PrintConsole(_root);
-            Console.WriteLine();
-        }
-
-        private static void PrintConsole(Node<TKey, TValue> node)
-        {
-            Console.Write(" | ");
-            Console.Write("P: " + node.Key);
-            if (node.Left != null)
-            {
-                Console.Write(", L: " + node.Left.Key);
-            }
-
-            if (node.Right != null)
-            {
-                Console.Write(", R: " + node.Right.Key);
-            }
-
-            if (node.Left != null)
-            {
-                PrintConsole(node.Left);
-            }
-
-            if (node.Right != null)
-            {
-                PrintConsole(node.Right);
-            }
-        }
     }
-}

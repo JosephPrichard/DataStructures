@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace DStruct.List
-{
+namespace DStruct.List;
+
     public enum SortType
     {
         Asc,
@@ -173,7 +173,7 @@ namespace DStruct.List
                 return left;
             }
 
-            if (doCompare(left.Val, right.Val))
+            if (doCompare(left.Value, right.Value))
             {
                 left.Next = Merge(left.Next, right);
                 return left;
@@ -185,4 +185,3 @@ namespace DStruct.List
             }
         }
     }
-}

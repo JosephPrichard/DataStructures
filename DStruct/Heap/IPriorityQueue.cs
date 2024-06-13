@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 
-namespace DStruct.Heap
+namespace DStruct.Heap;
+
+public interface IPriorityQueue<T>
 {
-    public interface IPriorityQueue<E>
-    {
-        void Push(E e);
+    void Push(T e);
 
-        E Peek();
+    T Peek();
 
-        E Pop();
+    T Pop();
 
-        void Remove(int index);
+    void Remove(int index);
 
-        void Remove(E e);
+    void Remove(T e);
 
-        E PopPush(E e);
+    T PopPush(T e);
 
-        bool IsEmpty();
+    bool IsEmpty();
 
-        IEnumerable<E> GetEnumerable();
+    IEnumerable<T> GetEnumerable();
 
-        void Clear();
-    }
+    void Clear();
 }

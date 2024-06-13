@@ -46,9 +46,12 @@
         <Compile Include="Graph\DuplicateVertexException.cs" />
         <Compile Include="Graph\Graph.cs" />
         <Compile Include="Graph\MissingVertexException.cs" />
+        <Compile Include="Hash\ConcurrentHashTable.cs" />
         <Compile Include="Hash\HashTable.cs" />
+        <Compile Include="Hash\HTShard.cs" />
+        <Compile Include="Hash\KvPair.cs" />
         <Compile Include="Heap\EmptyHeapException.cs" />
-        <Compile Include="Heap\TestHeap.cs" />
+        <Compile Include="Heap\Heap.cs" />
         <Compile Include="Heap\IPriorityQueue.cs" />
         <Compile Include="ICollection.cs" />
         <Compile Include="IMap.cs" />
@@ -64,8 +67,6 @@
         <Compile Include="Stack\Stack.cs" />
         <Compile Include="Tree\avl\AvlTree.cs" />
         <Compile Include="Tree\avl\Node.cs" />
-        <Compile Include="Tree\binary\BtUtils.cs" />
-        <Compile Include="Tree\binary\Node.cs" />
         <Compile Include="Tree\EmptyTreeException.cs" />
         <Compile Include="Tree\ISearchTree.cs" />
     </ItemGroup>

@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 
-namespace DStruct.Graph
+namespace DStruct.Graph;
+
+public interface IGraph<T>
 {
-    public interface IGraph<T>
-    {
-        void AddVertex(T vertex);
+    void AddVertex(T vertex);
         
-        void AddDirectedEdge(Edge<T> edge);
+    void AddDirectedEdge(Edge<T> edge);
         
-        void AddUndirectedEdge(Edge<T> edge);
+    void AddUndirectedEdge(Edge<T> edge);
 
-        bool ContainsVertex(T vertex);
+    bool ContainsVertex(T vertex);
         
-        bool ContainsEdge(Edge<T> edge);
+    bool ContainsEdge(Edge<T> edge);
 
-        IEnumerable<T> Neighbors(T from);
+    IEnumerable<T> Neighbors(T from);
 
-        IEnumerable<T> Vertices();
+    IEnumerable<T> Vertices();
 
-        IEnumerable<Edge<T>> Edges();
-    }
+    IEnumerable<Edge<T>> Edges();
 }

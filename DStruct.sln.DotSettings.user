@@ -41,5 +41,9 @@
     &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Hash.TestHashTable&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph.Should_Add_Edges&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph.Should_Contain_Edges&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Heap.TestHeap&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Hash.TestConcurrentHashTable.Should_Put_While_Get&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Hash.TestConcurrentHashTable.Should_Put_While_Traverse&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
