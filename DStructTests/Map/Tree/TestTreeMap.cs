@@ -1,14 +1,15 @@
-﻿using DStruct.Tree.avl;
+﻿using System.Linq;
+using DStruct.Map.Tree;
 using NUnit.Framework;
 
-namespace DStructTests.Tree;
+namespace DStructTests.Map.Tree;
 
-public class TestAvlTree
+public class TestTreeMap
 {
     [Test]
     public void Should_Put_Then_Order_Iterate()
     {
-        var tree = new AvlTree<int, char>();
+        var tree = new TreeMap<int, char>();
         tree.Put(20, 'A');
         tree.Put(4, 'B');
         tree.Put(26, 'C');
@@ -19,14 +20,16 @@ public class TestAvlTree
         tree.Put(11, 'H');
         tree.Put(21, 'I');
 
+        var result = tree.Values();
+        
         var expected = new[] { 'F', 'D', 'B', 'G', 'E', 'H', 'A', 'I', 'C' };
-        Assert.That(tree.Values(), Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expected));
     }
 
     [Test]
     public void Should_Put_Then_Remove()
     {
-        var tree = new AvlTree<int, char>();
+        var tree = new TreeMap<int, char>();
         tree.Put(20, 'A');
         tree.Put(4, 'B');
         tree.Put(26, 'C');
@@ -72,7 +75,7 @@ public class TestAvlTree
     [Test]
     public void Should_Put_Then_Range_Iterate()
     {
-        var tree = new AvlTree<int, char>();
+        var tree = new TreeMap<int, char>();
         tree.Put(20, 'A');
         tree.Put(4, 'B');
         tree.Put(26, 'C');
@@ -84,14 +87,16 @@ public class TestAvlTree
         tree.Put(21, 'I');
         tree.Put(28, 'J');
 
+        var result = tree.RangeSearch(8, 22).ToList();
+
         var expected = new[] { 'E', 'H', 'A', 'I' };
-        Assert.That(tree.RangeSearch(8, 22), Is.EqualTo(expected));
+        Assert.That(result, Is.EqualTo(expected));
     }
 
     [Test]
     public void Should_Put_Then_Remove_Then_RangeSearch()
     {
-        var tree = new AvlTree<int, char>();
+        var tree = new TreeMap<int, char>();
         tree.Put(20, 'A');
         tree.Put(4, 'B');
         tree.Put(26, 'C');

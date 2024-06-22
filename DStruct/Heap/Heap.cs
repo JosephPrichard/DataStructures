@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using DStruct.List;
 
 namespace DStruct.Heap;
-
-public enum PriorityType
-{
-    Min,
-    Max
-}
 
 public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
 {
@@ -17,21 +12,19 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     public Heap(PriorityType type)
     {
         SetHeapType(type);
-        
         _elements = new TElem[20];
     }
 
     public Heap(PriorityType type, int capacity)
     {
         SetHeapType(type);
-        
         _elements = new TElem[capacity];
     }
 
     public Heap(PriorityType type, TElem[] array)
     {
         SetHeapType(type);
-        
+
         _elements = new TElem[array.Length];
         Array.Copy(array, 0, _elements, 0, array.Length);
         Size = array.Length;
@@ -85,13 +78,11 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     public void Remove(TElem e)
     {
         for (var i = 0; i < Size; i++)
-        {
             if (_elements[i].Equals(e))
             {
                 Remove(i);
                 return;
             }
-        }
     }
 
     // O(log(n))
@@ -107,10 +98,7 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     // o(n)
     public IEnumerable<TElem> GetEnumerable()
     {
-        for (var i = 0; i < Size; i++)
-        {
-            yield return _elements[i];
-        }
+        for (var i = 0; i < Size; i++) yield return _elements[i];
     }
 
     public void Clear()
@@ -122,13 +110,9 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     private void SetHeapType(PriorityType type)
     {
         if (type == PriorityType.Min)
-        {
             _doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == -1;
-        }
         else
-        {
             _doCompare = (ele1, ele2) => ele1.CompareTo(ele2) == 1;
-        }
     }
 
     public int Depth()
@@ -146,33 +130,23 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     //O(n)
     private void ReOrder()
     {
-        for (var i = Size - 1; i >= 0; i--)
-        {
-            SiftDown(i);
-        }
+        for (var i = Size - 1; i >= 0; i--) SiftDown(i);
     }
 
     private void EmptyCheck()
     {
-        if (Size == 0)
-        {
-            throw new EmptyHeapException();
-        }
+        if (Size == 0) throw new EmptyHeapException();
     }
 
     private void RangeCheck(int index)
     {
-        if (index >= Size || index < 0)
-        {
-            throw new OutOfRangeException();
-        }
+        if (index >= Size || index < 0) throw new OutOfRangeException();
     }
 
     private void SiftUp(int pos)
     {
         var parent = (pos - 1) / 2;
         while (parent >= 0)
-        {
             if (_doCompare(_elements[pos], _elements[parent]))
             {
                 Swap(pos, parent);
@@ -183,7 +157,6 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
             {
                 parent = -1;
             }
-        }
     }
 
     private void SiftDown(int pos)
@@ -192,10 +165,7 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
         {
             var left = 2 * pos + 1;
             var right = 2 * pos + 2;
-            if (left >= Size)
-            {
-                return;
-            }
+            if (left >= Size) return;
 
             var child = right >= Size || _doCompare(_elements[left], _elements[right]) ? left : right;
             if (_doCompare(_elements[child], _elements[pos]))
@@ -212,10 +182,7 @@ public class Heap<TElem> : IPriorityQueue<TElem> where TElem : IComparable
     private void EnsureCapacity(int size)
     {
         var capacity = _elements.Length;
-        if (size < capacity)
-        {
-            return;
-        }
+        if (size < capacity) return;
 
         var resizedElements = new TElem[size - capacity + capacity * 2];
         Array.Copy(_elements, 0, resizedElements, 0, Size);

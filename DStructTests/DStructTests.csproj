@@ -45,23 +45,26 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Graph\TestAdjacencyGraph.cs" />
-        <Compile Include="Hash\TestConcurrentHashTable.cs" />
-        <Compile Include="Hash\TestHashTable.cs" />
         <Compile Include="Heap\TestHeap.cs" />
-        <Compile Include="List\TestArrayList.cs">
+        <Compile Include="List\Array\TestArrayList.cs">
           <DependentUpon>TestLinkedList.cs</DependentUpon>
         </Compile>
-        <Compile Include="List\TestLinkedList.cs" />
+        <Compile Include="List\Linked\TestLinkedList.cs" />
+        <Compile Include="Map\Hash\TestFlatHashMap.cs" />
+        <Compile Include="Map\Hash\TestHashMap.cs" />
+        <Compile Include="Map\Hash\TestConcurrentMap.cs" />
+        <Compile Include="Map\Tree\TestTreeMap.cs" />
         <Compile Include="List\TestSorter.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="Stack\TestStack.cs" />
-        <Compile Include="Tree\TestAvlTree.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\DStruct\DStruct.csproj">
         <Project>{17acd6e3-b2de-41d2-bb82-c8f3d0992b74}</Project>
         <Name>DStruct</Name>
       </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Map\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

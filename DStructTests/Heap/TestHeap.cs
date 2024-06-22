@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DStruct.Heap;
-using DStruct.List;
 using NUnit.Framework;
 
 namespace DStructTests.Heap;

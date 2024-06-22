@@ -1,16 +1,16 @@
 ﻿using System.Threading;
-using DStruct.Hash;
-using DStruct.List;
+using DStruct.List.Array;
+using DStruct.Map.Hash;
 using NUnit.Framework;
 
-namespace DStructTests.Hash;
+namespace DStructTests.Map.Hash;
 
-public class TestConcurrentHashTable
+public class TestConcurrentMap
 {
     [Test]
     public void Should_Put_While_Get()
     {
-        var hashTable = new ConcurrentHashTable<int, int>(1000, 8);
+        var hashTable = new ConcurrentMap<int, int>(1000, 8);
 
         const int threadCount = 8;
         const int elemCount = 1000;
@@ -40,11 +40,11 @@ public class TestConcurrentHashTable
             }));
         }
 
-        foreach (var thread in threads.GetEnumerable())
+        foreach (var thread in threads.Elements())
         {
             thread.Start();
         }
-        foreach (var thread in threads.GetEnumerable())
+        foreach (var thread in threads.Elements())
         {
             thread.Join();
         }
@@ -64,7 +64,7 @@ public class TestConcurrentHashTable
     [Test]
     public void Should_Put_While_Traverse()
     {
-        var hashTable = new ConcurrentHashTable<int, int>(1000, 8);
+        var hashTable = new ConcurrentMap<int, int>(8, () => new HashMap<int, int>(1000));
         
         const int threadCount = 8;
         const int elemCount = 1000;
@@ -92,11 +92,11 @@ public class TestConcurrentHashTable
             }));
         }
 
-        foreach (var thread in threads.GetEnumerable())
+        foreach (var thread in threads.Elements())
         {
             thread.Start();
         }
-        foreach (var thread in threads.GetEnumerable())
+        foreach (var thread in threads.Elements())
         {
             thread.Join();
         }

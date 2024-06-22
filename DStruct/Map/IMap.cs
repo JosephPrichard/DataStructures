@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using DStruct.Hash;
 
-namespace DStruct;
+namespace DStruct.Map;
 
-public interface IMap<TKey, TValue>
+public interface IMap<TKey, TValue> : IEnumerable<KvPair<TKey, TValue>>
 {
     int Size { get; }
 

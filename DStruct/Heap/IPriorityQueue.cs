@@ -2,6 +2,12 @@
 
 namespace DStruct.Heap;
 
+public enum PriorityType
+{
+    Min,
+    Max
+}
+
 public interface IPriorityQueue<T>
 {
     void Push(T e);

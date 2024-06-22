@@ -8,42 +8,28 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph.Should_Contain_Edges&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph.Should_Add_Edges&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc4d8854_002D97a2_002D416b_002D9ca8_002D4ee69f795d80/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Remove" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestLinkedList.Should_Remove&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestLinkedList.Should_AddAll&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList.Should_Insert&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList.Should_Remove&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList.Should_AddAll&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter.Should_QuickSort_ArrayList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter.Should_MergeSort_ArrayList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter.Should_MergeSort_LinkedList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_Push&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack.Should_Pop&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.heap.HeapTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestArrayList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestLinkedList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestSorter&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.list.TestStack&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.tree.TestAvlTree&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cc37a467_002D5f98_002D4e62_002D919a_002D728d1d1d7e7c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Should_Pop #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Tree.TestAvlTree&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Stack.TestStack&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.List.Linked.TestLinkedList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.List.Array.TestArrayList&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.List.TestSorter&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.List.TestLinkedList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.List.TestArrayList&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Heap.HeapTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Hash.TestHashTable&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph.Should_Add_Edges&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph.Should_Contain_Edges&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Graph.TestAdjacencyGraph&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Heap.TestHeap&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Hash.TestConcurrentHashTable.Should_Put_While_Get&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Hash.TestConcurrentHashTable.Should_Put_While_Traverse&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestConcurrentMap&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestHashMap&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Tree.TestTreeMap&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestFlatHashMap&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc4d8854_002D97a2_002D416b_002D9ca8_002D4ee69f795d80/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Should_Remove" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.List.Array.TestArrayList&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestFlatHashMap.Should_Clear_Then_Contains_False&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestFlatHashMap.Should_Remove_Then_Contains_False&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestFlatHashMap.Should_Put_Then_Get&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestConcurrentMap&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c0a0a06c_002Decac_002D40f7_002Dac0c_002De094076e8c8e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Clear_Then_Contains_False" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestFlatHashMap.Should_Clear_Then_Contains_False&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::4DC485C3-1F8A-475E-B3ED-050C5012599A::.NETFramework,Version=v4.6.1::DStructTests.Map.Hash.TestFlatHashMap.Should_Remove_Then_Contains_False&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

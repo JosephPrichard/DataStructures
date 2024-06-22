@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DStruct;
+namespace DStruct.List;
 
 public class OutOfRangeException : Exception
 {

@@ -1,0 +1,188 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace DStruct.List.Linked;
+
+public class LinkedList<T> : IList<T>
+{
+    internal Node<T> Head;
+    public int Size { get; private set; }
+
+    public T this[int index]
+    {
+        set
+        {
+            RangeCheck(index);
+            var curr = Head;
+            for (var i = 0; i < index; i++) curr = curr.Next;
+
+            curr.Data = value;
+        }
+        get
+        {
+            RangeCheck(index);
+            var curr = Head;
+            for (var i = 0; i < index; i++) curr = curr.Next;
+
+            return curr.Data;
+        }
+    }
+
+    // o(1)
+    public void PushFront(T e)
+    {
+        var newNode = new Node<T>(e)
+        {
+            Next = Head
+        };
+        Head = newNode;
+        Size++;
+    }
+
+    // o(1)
+    public T PeekFront()
+    {
+        return this[0];
+    }
+
+    // o(1)
+    public T PopFront()
+    {
+        var value = this[0];
+        Remove(0);
+        return value;
+    }
+
+    // o(n)
+    public void PushBack(T e)
+    {
+        var newNode = new Node<T>(e);
+        var curr = Head;
+        Size++;
+        if (curr == null)
+        {
+            Head = newNode;
+            return;
+        }
+
+        while (curr.Next != null) curr = curr.Next;
+
+        curr.Next = newNode;
+    }
+
+    // o(n)
+    public T PeekBack()
+    {
+        return this[Size - 1];
+    }
+
+    // o(n)
+    public T PopBack()
+    {
+        var i = Size - 1;
+        var value = this[i];
+        Remove(i);
+        return value;
+    }
+
+    // o(n)
+    public void Remove(int index)
+    {
+        RangeCheck(index);
+
+        if (index == 0)
+        {
+            Head = Head.Next;
+            Size--;
+            return;
+        }
+
+        var prev = Head;
+        for (var i = 0; i < index - 1; i++) prev = prev.Next;
+
+        prev.Next = prev.Next.Next;
+        Size--;
+    }
+
+    // o(n)
+    public void Insert(int index, T e)
+    {
+        RangeCheck(index);
+        var curr = Head;
+        for (var i = 0; i < index - 1; i++) curr = curr.Next;
+
+        var newNode = new Node<T>(e)
+        {
+            Next = curr.Next
+        };
+        curr.Next = newNode;
+        Size++;
+    }
+
+    // o(n)
+    public IEnumerable<T> Elements()
+    {
+        var curr = Head;
+        for (var i = 0; i < Size && curr != null; i++)
+        {
+            var v = curr.Data;
+            curr = curr.Next;
+            yield return v;
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+    
+    public IEnumerator<T> GetEnumerator()
+    {
+        return (IEnumerator<T>) Elements();
+    }
+
+    // o(n)
+    public void AddAll(IList<T> list)
+    {
+        var tail = Head;
+        while (tail.Next != null) tail = tail.Next;
+
+        foreach (var e in list.Elements())
+        {
+            var newNode = new Node<T>(e);
+            tail.Next = newNode;
+            tail = tail.Next;
+        }
+
+        Size += list.Size;
+    }
+
+    public bool IsEmpty()
+    {
+        return Size == 0;
+    }
+
+    public void RemoveAll()
+    {
+        Size = 0;
+        Head = null;
+    }
+
+    public bool Contains(T e)
+    {
+        var curr = Head;
+        while (curr != null)
+        {
+            if (e.Equals(curr.Data)) return true;
+
+            curr = curr.Next;
+        }
+
+        return false;
+    }
+
+    private void RangeCheck(int index)
+    {
+        if (index >= Size || index < 0) throw new OutOfRangeException();
+    }
+}

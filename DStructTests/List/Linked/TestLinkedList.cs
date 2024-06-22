@@ -1,7 +1,7 @@
-﻿using DStruct.List;
+﻿using DStruct.List.Linked;
 using NUnit.Framework;
 
-namespace DStructTests.List;
+namespace DStructTests.List.Linked;
 
 public class TestLinkedList
 {
@@ -19,7 +19,7 @@ public class TestLinkedList
         list.PushBack(6);
 
         var expected = new[] { 7, 6, 5, 1, 2, 21, 11, 6 };
-        Assert.That(list.GetEnumerable(), Is.EqualTo(expected));
+        Assert.That(list.Elements(), Is.EqualTo(expected));
     }
 
     [Test]
@@ -37,7 +37,7 @@ public class TestLinkedList
         list.Insert(4, 11);
 
         var expected = new[] { 1, 2, 10, 3, 11, 4, 5, 6 };
-        Assert.That(list.GetEnumerable(), Is.EqualTo(expected));
+        Assert.That(list.Elements(), Is.EqualTo(expected));
     }
 
     [Test]
@@ -57,7 +57,7 @@ public class TestLinkedList
         list.Remove(2);
 
         var expected = new[] { 3, 5 };
-        Assert.That(list.GetEnumerable(), Is.EqualTo(expected));
+        Assert.That(list.Elements(), Is.EqualTo(expected));
     }
 
     [Test]
@@ -78,6 +78,6 @@ public class TestLinkedList
         list.AddAll(list1);
 
         var expected = new[] { 1, 2, 3, 4, 5, 6, 4, 5, 6 };
-        Assert.That(list.GetEnumerable(), Is.EqualTo(expected));
+        Assert.That(list.Elements(), Is.EqualTo(expected));
     }
 }

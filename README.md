@@ -72,10 +72,11 @@ heap.Pop(); // 7
 heap.Pop(); // 10
 ```
 
-### Trees
-BinaryTree and AVLTree
+### Maps
+
+### Ordered
 ```c#
-var tree = new AvlTree<int, char>();
+var tree = new TreeMap<int, char>();
 tree.Put(20, 'A');
 tree.Put(4, 'B');
 tree.Put(26, 'C');
@@ -93,9 +94,9 @@ var elements = tree.Elements(); // ['F', 'D', 'B', 'G', 'E', 'H', 'A', 'I', 'C']
 var rangeElems = tree.RangeSearch(2, 7); // ['F', 'D', 'G']
 ```
 
-### HashTable
+### Unordered
 ```c# 
-var table = new HashTable<int, char>(25);
+var table = new HashMap<int, char>(25);
 table.Put(1, 'A');
 table[10] = 'B';
 

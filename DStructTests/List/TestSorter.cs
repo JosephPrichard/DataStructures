@@ -1,4 +1,6 @@
 ﻿using DStruct.List;
+using DStruct.List.Array;
+using DStruct.List.Linked;
 using NUnit.Framework;
 
 namespace DStructTests.List;
@@ -12,7 +14,7 @@ public class TestSorter
         new Sorter<int>(SortType.Asc).QuickSort(list);
 
         var expected = new[] { -4, 1, 2, 2, 4, 4, 4, 5, 5, 6, 11, 21, 51 };
-        Assert.That(list.GetEnumerable(), Is.EqualTo(expected));
+        Assert.That(list.Elements(), Is.EqualTo(expected));
     }
 
     [Test]
@@ -46,6 +48,6 @@ public class TestSorter
         new Sorter<int>(SortType.Asc).MergeSort(list);
 
         var expected = new[] { -4, 1, 2, 2, 4, 4, 4, 5, 5, 6, 11, 21, 51 };
-        Assert.That(list.GetEnumerable(), Is.EqualTo(expected));
+        Assert.That(list.Elements(), Is.EqualTo(expected));
     }
 }

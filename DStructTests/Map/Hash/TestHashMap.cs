@@ -1,14 +1,14 @@
-﻿using DStruct.Hash;
+﻿using DStruct.Map.Hash;
 using NUnit.Framework;
 
-namespace DStructTests.Hash;
+namespace DStructTests.Map.Hash;
 
-public class TestHashTable
+public class TestHashMap
 {
     [Test]
     public void Should_Put_Then_Get()
     {
-        var table = new HashTable<int, char>(25);
+        var table = new HashMap<int, char>(1);
         table.Put(1, 'A');
         table.Put(2, 'B');
         table.Put(3, 'C');
@@ -33,7 +33,7 @@ public class TestHashTable
     [Test]
     public void Should_Remove_Then_Contains_False()
     {
-        var table = new HashTable<int, char>(25);
+        var table = new HashMap<int, char>(25);
         table.Put(1, 'A');
         table.Put(2, 'B');
         table.Put(3, 'C');
@@ -63,7 +63,7 @@ public class TestHashTable
     [Test]
     public void Should_Clear_Then_Contains_False()
     {
-        var table = new HashTable<int, char>(25);
+        var table = new HashMap<int, char>(25);
         table.Put(1, 'A');
         table.Put(2, 'B');
         table.Put(3, 'C');

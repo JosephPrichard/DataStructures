@@ -16,7 +16,7 @@ public class Edge<T>(T from, T to)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == this.GetType() && Equals((Edge<T>) obj);
+        return obj.GetType() == GetType() && Equals((Edge<T>)obj);
     }
 
     public override int GetHashCode()

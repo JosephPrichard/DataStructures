@@ -1,15 +1,37 @@
-﻿namespace DStruct.List;
-    public interface IList<T> : ICollection<T>
-    {
-        T this[int index] { set; get; }
+﻿using System.Collections;
+using System.Collections.Generic;
 
-        void PushBack(T e);
+namespace DStruct.List;
 
-        T PopBack();
+public interface IList<T> : IEnumerable<T>
+{
+    int Size { get; }
 
-        T PeekBack();
+    bool IsEmpty();
 
-        void Remove(int index);
+    void RemoveAll();
 
-        void Insert(int index, T e);
-    }
+    bool Contains(T e);
+    
+    T this[int index] { set; get; }
+
+    void PushBack(T e);
+
+    T PopBack();
+
+    T PeekBack();
+    
+    void PushFront(T e);
+
+    T PeekFront();
+
+    T PopFront();
+
+    void Remove(int index);
+
+    void Insert(int index, T e);
+    
+    void AddAll(IList<T> list);
+
+    IEnumerable<T> Elements();
+}
